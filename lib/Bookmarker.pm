@@ -66,7 +66,12 @@ get '/' => sub {
     catch {
         my $code = 500;
         error "ERROR: $code - $_";
-        return { error => $_, code => $code };
+        if ( $format ) {
+            send_as html => $_;
+        }
+        else {
+            return { error => $_, code => $code };
+        }
     };
 
     if ( $format ) {
