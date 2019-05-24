@@ -65,7 +65,7 @@ get '/' => sub {
     };
 
     if ( $format ) {
-        my $text =<<'HTML';
+        my $html =<<'HTML';
 <html>
 <head>
 <style>
@@ -82,12 +82,12 @@ a.button {
 HTML
 
         for my $i ( sort { $a->{id} <=> $b->{id} } @$data ) {
-            $text .= qq|<p><a href="/del?a=$account&i=$i->{id}&f=$format" class="button">x</a> $i->{title} : <a href="$i->{url}">$i->{url}</a></p>\n|;
+            $html .= qq|<p><a href="/del?a=$account&i=$i->{id}&f=$format" class="button">x</a> $i->{title} : <a href="$i->{url}">$i->{url}</a></p>\n|;
         }
 
-        $text .= "</body>\n</html>\n";
+        $html .= "</body>\n</html>\n";
 
-        send_as html => $text;
+        send_as html => $html;
     }
     else {
         return $data;
