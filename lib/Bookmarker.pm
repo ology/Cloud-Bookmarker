@@ -109,7 +109,7 @@ post '/add' => sub {
         $code = 401;
     }
     elsif ( !$data->{url} ) {
-        $msg = 'No url provided';
+        $msg  = 'No url provided';
         $code = 400;
     }
     if ( $msg && $code ) {
