@@ -40,7 +40,7 @@ get '/' => sub {
             push @$data, { id => $id, title => $title, url => $url };
         }
         close $fh or die "Can't close $file: $!";
-        info "Read $file";
+        info request->remote_address, " read $file";
     }
     catch {
         error "ERROR: $_";
@@ -83,7 +83,7 @@ post '/update' => sub {
             print $fh "$id : $title : $url\n";
         }
         close $fh or die "Can't close $file: $!";
-        info "Retitled $item";
+        info request->remote_address, " retitled $item";
     }
     catch {
         error "ERROR: $_";
@@ -125,7 +125,7 @@ post '/add' => sub {
         open my $fh, '>> :encoding(UTF-8)', $file or die "Can't write to $file: $!";
         print $fh time, " : $data->{title} : $data->{url}\n";
         close $fh or die "Can't close $file: $!";
-        info "Wrote to $file";
+        info request->remote_address, " wrote to $file";
     }
     catch {
         $msg  = $_;
@@ -169,7 +169,7 @@ get '/del' => sub {
             print $fh "$id : $title : $url\n";
         }
         close $fh or die "Can't close $file: $!";
-        info "Deleted $item";
+        info request->remote_address, " deleted $item";
     }
     catch {
         error "ERROR: $_";
