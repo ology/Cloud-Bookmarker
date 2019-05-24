@@ -95,7 +95,7 @@ HTML
 
         for my $i ( sort { $a->{$sort} cmp $b->{$sort} } @$data ) {
             $html .= qq|<a href="/del?a=$account&i=$i->{id}&f=$format" class="button">x</a> |;
-            $html .= qq|<form action="" method="post"><input type="text" name="title" value="$i->{title}"/></form>|;
+            $html .= qq|<form action="" method="post" class="fixform"><input type="text" name="title" value="$i->{title}"/></form>|;
             $html .= qq|<a href="$i->{url}" target="_blank">$i->{url}</a><p>\n|;
         }
 
