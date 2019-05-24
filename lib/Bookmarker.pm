@@ -45,7 +45,7 @@ get '/' => sub {
             send_as html => $msg;
         }
         else {
-            return { error => $msg, code => 401 };
+            return { error => $msg, code => $code };
         }
     }
 
