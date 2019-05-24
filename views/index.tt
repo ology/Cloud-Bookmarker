@@ -1,14 +1,12 @@
-<div id="page">
-<% FOREACH d IN data %>
-    <div style="display: inline;">
-        <a href="/del?a=<% account %>&i=<% d.id %>&f=<% format %>" class="button">x</a>
-        <form action="/title" method="post" style="display: inline; margin: 0;">
-            <input type="text" name="title" value="<% d.title %>" size="50"/>
-            <input type="hidden" name="id" value="<% d.id %>"/>
-        </form>
-        <br>
-        <a href="<% d.url %>" target="_blank"><% d.url %></a>
-    </div>
-    <p>
-<% END %>
+[% FOREACH d IN data %]
+<div style="display: inline;">
+    <a href="/del?a=[% account %]&i=[% d.id %]&f=[% format %]" class="button">x</a>
+    <form action="/title" method="post" style="display: inline; margin: 0;">
+        <input type="text" name="title" value="[% d.title %]" size="50"/>
+        <input type="hidden" name="id" value="[% d.id %]"/>
+    </form>
+    <br>
+    <a href="[% d.url %]" target="_blank">[% d.url %]</a>
 </div>
+<p>
+[% END %]
