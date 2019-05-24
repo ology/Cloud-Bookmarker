@@ -150,7 +150,7 @@ get '/del' => sub {
         my $code = 401;
         my $msg  = 'Not authorized';
         error "ERROR: $code - $msg";
-        return { error => $msg, code => 401 };
+        return { error => $msg, code => $code };
     }
 
     my $file = 'public/accounts/' . $account . '.txt';
