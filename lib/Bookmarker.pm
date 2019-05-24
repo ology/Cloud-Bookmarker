@@ -146,6 +146,13 @@ get '/del' => sub {
     my $format  = query_parameters->get('f');
     my $item    = query_parameters->get('i');
 
+    unless ( $account ) {
+        my $code = 401;
+        my $msg  = 'Not authorized';
+        error "ERROR: $code - $msg";
+        return { error => $msg, code => 401 };
+    }
+
     my $file = 'public/accounts/' . $account . '.txt';
 
     try {
