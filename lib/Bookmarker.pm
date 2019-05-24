@@ -53,6 +53,7 @@ get '/' => sub {
 
     my $data = [];
 
+    my ( $msg, $code );
     my $error = 0;
     try {
         open my $fh, '<', $file or die "Can't read $file: $!";
@@ -65,8 +66,8 @@ get '/' => sub {
         info "Read $file";
     }
     catch {
-        my $code = 400;
-        my $msg  = 'Unknown account';
+        $code = 400;
+        $msg  = 'Unknown account';
         error "ERROR: $code - $_";
         $error++;
     };
