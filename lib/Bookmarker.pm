@@ -25,6 +25,7 @@ List items.
 
 get '/' => sub {
     my $account = query_parameters->get('a');
+
     die 'Not authorized' unless $account;
 
     my $file = 'public/accounts/' . $account . '.html';
@@ -146,20 +147,12 @@ Delete an item.
 
 get '/del' => sub {
     my $account = query_parameters->get('a');
-    my $format  = query_parameters->get('f');
     my $item    = query_parameters->get('i');
 
-    unless ( $account ) {
-        my $code = 401;
-        my $msg  = 'Not authorized';
-        error "ERROR: $code - $msg";
-        return { error => $msg, code => $code };
-    }
+    die 'Not authorized' unless $account;
 
     my $file = 'public/accounts/' . $account . '.html';
 
-    my ( $msg, $code );
-    my $error = 0;
     try {
         open my $fh, '< :encoding(UTF-8)', $file or die "Can't read $file: $!";
         my @lines;
@@ -178,16 +171,10 @@ get '/del' => sub {
         info "$item deleted";
     }
     catch {
-        $msg  = $_;
-        $code = 500;
-        error "ERROR: $code - $msg";
-        $error++;
+        error "ERROR: $_";
     };
-    if ( $error ) {
-        return { error => $msg, code => $code };
-    }
 
-    redirect "/?a=$account&f=$format";
+    redirect "/?a=$account";
 };
 
 true;
