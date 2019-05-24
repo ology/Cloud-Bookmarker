@@ -29,7 +29,7 @@ A C<Bookmarker> instance manages bookmarks.
 
 =head2 GET /
 
-Main page.
+List items.
 
 =cut
 
