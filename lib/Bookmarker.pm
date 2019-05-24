@@ -26,7 +26,7 @@ List items.
 get '/' => sub {
     my $account = query_parameters->get('a');
 
-    die 'Not authorized' unless $account;
+    send_error('Not authorized', 401) unless $account;
 
     my $file = 'public/accounts/' . $account . '.html';
 
@@ -44,7 +44,7 @@ get '/' => sub {
     }
     catch {
         error "ERROR: $_";
-        die 'Unknown account';
+        send_error('Unknown account', 400);
     };
 
     template index => {
@@ -64,7 +64,7 @@ post '/title' => sub {
     my $new_title = body_parameters->get('t');
     my $item      = body_parameters->get('i');
 
-    die 'Not authorized' unless $account;
+    send_error('Not authorized', 401) unless $account;
 
     my $file = 'public/accounts/' . $account . '.html';
 
@@ -87,6 +87,7 @@ post '/title' => sub {
     }
     catch {
         error "ERROR: $_";
+        send_error("Can't update title", 500);
     };
 
     redirect "/?a=$account";
@@ -149,7 +150,7 @@ get '/del' => sub {
     my $account = query_parameters->get('a');
     my $item    = query_parameters->get('i');
 
-    die 'Not authorized' unless $account;
+    send_error('Not authorized', 401) unless $account;
 
     my $file = 'public/accounts/' . $account . '.html';
 
@@ -172,6 +173,7 @@ get '/del' => sub {
     }
     catch {
         error "ERROR: $_";
+        send_error("Can't delete $item", 500);
     };
 
     redirect "/?a=$account";
