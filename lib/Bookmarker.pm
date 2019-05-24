@@ -71,7 +71,6 @@ get '/' => sub {
         error "ERROR: $code - $_";
         $error++;
     };
-
     if ( $error ) {
         if ( $format ) {
             send_as html => $msg;
