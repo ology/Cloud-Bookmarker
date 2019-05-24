@@ -131,6 +131,7 @@ post '/add' => sub {
 
     my $file = 'public/accounts/' . $data->{account} . '.html';
 
+    my $error = 0;
     try {
         open my $fh, '>>', $file or die "Can't write to $file: $!";
         print $fh time, " : $data->{title} : $data->{url}\n";
@@ -141,8 +142,11 @@ post '/add' => sub {
         $msg  = $_;
         $code = 500;
         error "ERROR: $code - $msg";
-        return { error => $msg, code => $code };
+        $error++;
     };
+    if ( $error ) {
+        return { error => $msg, code => $code };
+    }
 
     return { success => 1, code => $code };
 };
@@ -167,6 +171,7 @@ get '/del' => sub {
 
     my $file = 'public/accounts/' . $account . '.html';
 
+    my $error = 0;
     try {
         open my $fh, '<', $file or die "Can't read $file: $!";
         my @lines;
@@ -188,8 +193,11 @@ get '/del' => sub {
         my $msg  = $_;
         my $code = 500;
         error "ERROR: $code - $msg";
-        return { error => $msg, code => $code };
+        $error++;
     };
+    if ( $error ) {
+        return { error => $msg, code => $code };
+    }
 
     redirect "/?a=$account&f=$format";
 };
