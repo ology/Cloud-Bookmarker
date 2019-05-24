@@ -41,7 +41,12 @@ get '/' => sub {
         my $code = 401;
         my $msg  = 'Not authorized';
         error "ERROR: $code - $msg";
-        return { error => $msg, code => 401 };
+        if ( $format ) {
+            send_as html => 'Not authorized';
+        }
+        else {
+            return { error => $msg, code => 401 };
+        }
     }
 
     my $file = 'public/accounts/' . $account . '.html';
