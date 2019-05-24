@@ -42,7 +42,7 @@ get '/' => sub {
         my $msg  = 'Not authorized';
         error "ERROR: $code - $msg";
         if ( $format ) {
-            send_as html => 'Not authorized';
+            send_as html => $msg;
         }
         else {
             return { error => $msg, code => 401 };
