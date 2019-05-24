@@ -53,6 +53,7 @@ get '/' => sub {
 
     my $data = [];
 
+    my $error = 0;
     try {
         open my $fh, '<', $file or die "Can't read $file: $!";
         while ( my $line = readline($fh) ) {
@@ -67,13 +68,17 @@ get '/' => sub {
         my $code = 400;
         my $msg  = 'Unknown account';
         error "ERROR: $code - $_";
+        $error++;
+    };
+
+    if ( $error ) {
         if ( $format ) {
             send_as html => $msg;
         }
         else {
             return { error => $msg, code => $code };
         }
-    };
+    }
 
     if ( $format ) {
         my $html =<<'HTML';
