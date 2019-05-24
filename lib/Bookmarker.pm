@@ -83,7 +83,7 @@ post '/update' => sub {
             print $fh "$id : $title : $url\n";
         }
         close $fh or die "Can't close $file: $!";
-        info "$item retitled";
+        info "Retitled $item";
     }
     catch {
         error "ERROR: $_";
@@ -169,7 +169,7 @@ get '/del' => sub {
             print $fh "$id : $title : $url\n";
         }
         close $fh or die "Can't close $file: $!";
-        info "$item deleted";
+        info "Deleted $item";
     }
     catch {
         error "ERROR: $_";
