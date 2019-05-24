@@ -81,7 +81,7 @@ a.button {
 <body>
 HTML
 
-        for my $i ( sort @$data ) {
+        for my $i ( sort { $a->{title} cmp $b->{title} || $a->{url} cmp $b->{url} } @$data ) {
             $text .= qq|<p><a href="/del?a=$account&i=$i->{id}&f=$format" class="button">x</a> $i->{title} : <a href="$i->{url}">$i->{url}</a></p>\n|;
         }
 
