@@ -135,6 +135,12 @@ post '/add' => sub {
     return { success => 1, code => $code };
 };
 
+=head2 /del
+
+Delete an item.
+
+=cut
+
 get '/del' => sub {
     my $account = query_parameters->get('a');
     my $format  = query_parameters->get('f');
