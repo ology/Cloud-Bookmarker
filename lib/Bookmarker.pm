@@ -89,7 +89,6 @@ get '/' => sub {
 <head>
   <title>Cloud::Bookmarker</title>
   <link rel="stylesheet" href="/css/style.css">
-  <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
 </head>
 <body>
 HTML
@@ -97,32 +96,13 @@ HTML
         for my $i ( sort { $a->{$sort} cmp $b->{$sort} } @$data ) {
             $html .= qq|<div style="display: inline;">\n|;
             $html .= qq|<a href="/del?a=$account&i=$i->{id}&f=$format" class="button">x</a> \n|;
-            $html .= qq|<form id="form" action="/title" method="post" style="display: inline; margin: 0;">\n|;
-            $html .= qq|<input type="text" id="title" name="title" value="$i->{title}" size="50"/>\n|;
+            $html .= qq|<form action="/title" method="post" style="display: inline; margin: 0;">\n|;
+            $html .= qq|<input type="text" name="title" value="$i->{title}" size="50"/>\n|;
             $html .= qq|<input type="hidden" name="id" value="$i->{id}"/>\n|;
             $html .= qq|</form><br>\n|;
             $html .= qq|<a href="$i->{url}" target="_blank">$i->{url}</a>\n|;
             $html .= qq|</div><p>\n|;
         }
-
-        $html .= <<'HTML';
-<script>
-$('#title').keypress(function(event){
-    var keycode = (event.keyCode ? event.keyCode : event.which);
-    if(keycode == '13'){
-        var formData = JSON.stringify($("#form").serializeArray());
-        $.ajax({
-          type: "POST",
-          url: "/title",
-          data: formData,
-          success: function(){},
-          dataType: "json",
-          contentType : "application/json"
-        });
-    }
-});
-</script>
-HTML
 
         $html .= "</body>\n</html>\n";
 
