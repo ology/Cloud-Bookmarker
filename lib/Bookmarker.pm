@@ -44,7 +44,7 @@ get '/' => sub {
         return { error => $msg, code => 401 };
     }
 
-    my $file = 'public/accounts/' . $account . '.txt';
+    my $file = 'public/accounts/' . $account . '.html';
 
     my $data = [];
 
@@ -119,7 +119,7 @@ post '/add' => sub {
 
     $data->{title} ||= 'No title';
 
-    my $file = 'public/accounts/' . $data->{account} . '.txt';
+    my $file = 'public/accounts/' . $data->{account} . '.html';
 
     try {
         open my $fh, '>>', $file or die "Can't write to $file: $!";
@@ -155,7 +155,7 @@ get '/del' => sub {
         return { error => $msg, code => $code };
     }
 
-    my $file = 'public/accounts/' . $account . '.txt';
+    my $file = 'public/accounts/' . $account . '.html';
 
     try {
         open my $fh, '<', $file or die "Can't read $file: $!";
