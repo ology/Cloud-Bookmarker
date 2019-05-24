@@ -25,9 +25,9 @@ Bookmarker - Manage bookmarks
 
 A C<Bookmarker> instance manages bookmarks.
 
-=head1 ROUTES
+=head1 ENDPOINTS
 
-=head2 /
+=head2 GET /
 
 Main page.
 
@@ -103,7 +103,7 @@ HTML
     }
 };
 
-=head2 /add
+=head2 POST /add
 
 Add an item.
 
@@ -150,7 +150,7 @@ post '/add' => sub {
     return { success => 1, code => $code };
 };
 
-=head2 /del
+=head2 GET /del
 
 Delete an item.
 
