@@ -94,12 +94,14 @@ get '/' => sub {
 HTML
 
         for my $i ( sort { $a->{$sort} cmp $b->{$sort} } @$data ) {
-            $html .= qq|<div style="display: inline;">|;
-            $html .= qq|<a href="/del?a=$account&i=$i->{id}&f=$format" class="button">x</a> |;
-            $html .= qq|<form action="/title" method="post" style="display: inline; margin: 0;">|;
-            $html .= qq|<input type="text" name="title" value="$i->{title}" size="50"/></form><br>|;
+            $html .= qq|<div style="display: inline;">\n|;
+            $html .= qq|<a href="/del?a=$account&i=$i->{id}&f=$format" class="button">x</a> \n|;
+            $html .= qq|<form action="/title" method="post" style="display: inline; margin: 0;">\n|;
+            $html .= qq|<input type="text" name="title" value="$i->{title}" size="50"/>\n|;
+            $html .= qq|<input type="hidden" name="id" value="$i->{id}"/>\n|;
+            $html .= qq|</form><br>\n|;
             $html .= qq|<a href="$i->{url}" target="_blank">$i->{url}</a>\n|;
-            $html .= qq|</div><p>|;
+            $html .= qq|</div><p>\n|;
         }
 
         $html .= "</body>\n</html>\n";
@@ -109,6 +111,18 @@ HTML
     else {
         return $data;
     }
+};
+
+=head2 POST /title
+
+Update a title.
+
+=cut
+
+post '/title' => sub {
+    my $title = body_parameters->get('title');
+    my $id    = body_parameters->get('id');
+info "T: $title, I: $id";
 };
 
 =head2 POST /add
