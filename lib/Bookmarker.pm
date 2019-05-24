@@ -59,7 +59,7 @@ get '/' => sub {
     my ( $msg, $code );
     my $error = 0;
     try {
-        open my $fh, '<', $file or die "Can't read $file: $!";
+        open my $fh, '< :encoding(UTF-8)', $file or die "Can't read $file: $!";
         while ( my $line = readline($fh) ) {
             chomp $line;
             my ( $id, $title, $url ) = split /\s+:\s+/, $line;
@@ -135,7 +135,7 @@ post '/add' => sub {
 
     my $error = 0;
     try {
-        open my $fh, '>>', $file or die "Can't write to $file: $!";
+        open my $fh, '>> :encoding(UTF-8)', $file or die "Can't write to $file: $!";
         print $fh time, " : $data->{title} : $data->{url}\n";
         close $fh or die "Can't close $file: $!";
         info "Wrote to $file";
@@ -176,14 +176,14 @@ get '/del' => sub {
     my ( $msg, $code );
     my $error = 0;
     try {
-        open my $fh, '<', $file or die "Can't read $file: $!";
+        open my $fh, '< :encoding(UTF-8)', $file or die "Can't read $file: $!";
         my @lines;
         while ( my $line = readline($fh) ) {
             chomp $line;
             push @lines, $line;
         }
         close $fh or die "Can't close $file: $!";
-        open $fh, '>', $file or die "Can't write to $file: $!";
+        open $fh, '> :encoding(UTF-8)', $file or die "Can't write to $file: $!";
         for my $line ( @lines ) {
             my ( $id, $title, $url ) = split /\s+:\s+/, $line;
             next if $id eq $item;
