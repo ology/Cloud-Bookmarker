@@ -117,6 +117,8 @@ post '/add' => sub {
 
     my $file = 'public/accounts/' . $data->{account} . '.html';
 
+    send_as JSON => { error => 'No such account', code => 401 } unless -e $file;
+
     my ( $msg, $code );
     my $error = 0;
     try {
