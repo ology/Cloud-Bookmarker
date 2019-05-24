@@ -68,15 +68,8 @@ get '/' => sub {
         my $html =<<'HTML';
 <html>
 <head>
-<style>
-a.button {
-    -webkit-appearance: button;
-    -moz-appearance: button;
-    appearance: button;
-    text-decoration: none;
-    color: initial;
-};
-</style>
+  <title>Cloud::Bookmarker</title>
+  <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 HTML
