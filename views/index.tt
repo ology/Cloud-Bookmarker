@@ -2,8 +2,9 @@
 <div style="display: inline;">
     <a href="/del?a=[% account %]&i=[% d.id %]&f=[% format %]" class="button">x</a>
     <form action="/title" method="post" style="display: inline; margin: 0;">
-        <input type="text" name="title" value="[% d.title %]" size="50"/>
-        <input type="hidden" name="id" value="[% d.id %]"/>
+        <input type="text" name="t" value="[% d.title %]" size="50"/>
+        <input type="hidden" name="i" value="[% d.id %]"/>
+        <input type="hidden" name="a" value="[% account %]"/>
     </form>
     <br>
     <a href="[% d.url %]" target="_blank">[% d.url %]</a>
