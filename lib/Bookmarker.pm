@@ -100,26 +100,24 @@ Add an item.
 =cut
 
 post '/add' => sub {
-    my $data = params;
+    my $data = request->body;
 
-    my ( $msg, $code ) = ( '', 201 );
-    if ( !$data->{account} ) {
-        $msg  = 'Not authorized';
-        $code = 401;
+    try {
+        $data = decode_json $data;
     }
-    elsif ( !$data->{url} ) {
-        $msg  = 'No url provided';
-        $code = 400;
-    }
-    if ( $msg && $code ) {
-        error "ERROR: $code - $msg";
-        return { error => $msg, code => $code };
-    }
+    catch {
+        send_as JSON => { error => "Can't decode JSON", code => 400 };
+    };
+
+    send_as JSON => { error => 'Not authorized', code => 401 } unless $data->{account};
+
+    send_as JSON => { error => 'No url provided', code => 400 } unless $data->{url};
 
     $data->{title} ||= 'No title';
 
     my $file = 'public/accounts/' . $data->{account} . '.html';
 
+    my ( $msg, $code );
     my $error = 0;
     try {
         open my $fh, '>> :encoding(UTF-8)', $file or die "Can't write to $file: $!";
@@ -134,10 +132,10 @@ post '/add' => sub {
         $error++;
     };
     if ( $error ) {
-        return { error => $msg, code => $code };
+        send_as JSON => { error => $msg, code => $code };
     }
 
-    return { success => 1, code => $code };
+    send_as JSON => { success => 1, code => 201 };
 };
 
 =head2 GET /del
