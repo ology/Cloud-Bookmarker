@@ -64,13 +64,14 @@ get '/' => sub {
         info "Read $file";
     }
     catch {
-        my $code = 500;
+        my $code = 400;
+        my $msg  = 'Unknown account';
         error "ERROR: $code - $_";
         if ( $format ) {
-            send_as html => $_;
+            send_as html => $msg;
         }
         else {
-            return { error => $_, code => $code };
+            return { error => $msg, code => $code };
         }
     };
 
