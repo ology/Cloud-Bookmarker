@@ -117,6 +117,8 @@ post '/add' => sub {
         return { error => $msg, code => $code };
     }
 
+    $data->{title} ||= 'No title';
+
     my $file = 'public/accounts/' . $data->{account} . '.txt';
 
     try {
