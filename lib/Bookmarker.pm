@@ -65,7 +65,7 @@ get '/' => sub {
     };
 
     if ( $format ) {
-        my $text =<<HTML;
+        my $text =<<'HTML';
 <html>
 <head>
 <style>
