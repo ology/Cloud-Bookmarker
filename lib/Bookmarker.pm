@@ -96,9 +96,10 @@ HTML
         for my $i ( sort { $a->{$sort} cmp $b->{$sort} } @$data ) {
             $html .= qq|<div style="display: inline;">|;
             $html .= qq|<a href="/del?a=$account&i=$i->{id}&f=$format" class="button">x</a> |;
-            $html .= qq|<form style="display: inline; margin: 0;"><input type="text" name="title" value="$i->{title}" size="50"/></form><br>|;
-            $html .= qq|<a href="$i->{url}" target="_blank">$i->{url}</a><p>\n|;
-            $html .= qq|</div>|;
+            $html .= qq|<form action="/title" method="post" style="display: inline; margin: 0;">|;
+            $html .= qq|<input type="text" name="title" value="$i->{title}" size="50"/></form><br>|;
+            $html .= qq|<a href="$i->{url}" target="_blank">$i->{url}</a>\n|;
+            $html .= qq|</div><p>|;
         }
 
         $html .= "</body>\n</html>\n";
