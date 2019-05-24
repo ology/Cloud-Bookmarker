@@ -171,6 +171,7 @@ get '/del' => sub {
 
     my $file = 'public/accounts/' . $account . '.html';
 
+    my ( $msg, $code );
     my $error = 0;
     try {
         open my $fh, '<', $file or die "Can't read $file: $!";
@@ -190,8 +191,8 @@ get '/del' => sub {
         info "$item deleted";
     }
     catch {
-        my $msg  = $_;
-        my $code = 500;
+        $msg  = $_;
+        $code = 500;
         error "ERROR: $code - $msg";
         $error++;
     };
