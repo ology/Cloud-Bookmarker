@@ -196,7 +196,7 @@ a.button {
     color: initial;
 };
 
-.fixform {
+form {
     display: inline;
     margin: 0;
 }
