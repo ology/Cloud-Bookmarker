@@ -61,7 +61,7 @@ get '/' => sub {
     catch {
         my $code = 500;
         error "ERROR: $code - $_";
-        return { error => $_, code => 500 };
+        return { error => $_, code => $code };
     };
 
     if ( $format ) {
