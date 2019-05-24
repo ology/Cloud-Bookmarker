@@ -53,13 +53,13 @@ get '/' => sub {
     };
 };
 
-=head2 POST /title
+=head2 POST /update
 
-Update a title.
+Update an item.
 
 =cut
 
-post '/title' => sub {
+post '/update' => sub {
     my $account   = body_parameters->get('a');
     my $new_title = body_parameters->get('t');
     my $item      = body_parameters->get('i');
