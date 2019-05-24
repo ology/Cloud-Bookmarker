@@ -25,10 +25,6 @@ List items.
 
 get '/' => sub {
     my $account = query_parameters->get('a');
-    my $sort    = query_parameters->get('s');
-
-    $sort ||= 'id';
-
     die 'Not authorized' unless $account;
 
     my $file = 'public/accounts/' . $account . '.html';
@@ -52,7 +48,6 @@ get '/' => sub {
 
     template index => {
         account => $account,
-        sort    => $sort,
         data    => $data,
     };
 };
