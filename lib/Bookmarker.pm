@@ -7,16 +7,6 @@ use Try::Tiny;
 
 our $VERSION = '0.01';
 
-set engines => {
-    serializer => {
-        JSON => {
-           allow_nonref => 1
-        },
-    }
-};
-set serializer   => 'JSON';
-set content_type => 'application/json';
-
 =head1 NAME
 
 Bookmarker - Manage bookmarks
@@ -35,29 +25,16 @@ List items.
 
 get '/' => sub {
     my $account = query_parameters->get('a');
-    my $format  = query_parameters->get('f');
     my $sort    = query_parameters->get('s');
 
     $sort ||= 'id';
 
-    unless ( $account ) {
-        my $code = 401;
-        my $msg  = 'Not authorized';
-        error "ERROR: $code - $msg";
-        if ( $format ) {
-            send_as html => $msg;
-        }
-        else {
-            return { error => $msg, code => $code };
-        }
-    }
+    die 'Not authorized' unless $account;
 
     my $file = 'public/accounts/' . $account . '.html';
 
     my $data = [];
 
-    my ( $msg, $code );
-    my $error = 0;
     try {
         open my $fh, '< :encoding(UTF-8)', $file or die "Can't read $file: $!";
         while ( my $line = readline($fh) ) {
@@ -69,48 +46,15 @@ get '/' => sub {
         info "Read $file";
     }
     catch {
-        $code = 400;
-        $msg  = 'Unknown account';
-        error "ERROR: $code - $_";
-        $error++;
+        error "ERROR: $_";
+        die 'Unknown account';
     };
-    if ( $error ) {
-        if ( $format ) {
-            send_as html => $msg;
-        }
-        else {
-            return { error => $msg, code => $code };
-        }
-    }
 
-    if ( $format ) {
-        my $html = <<'HTML';
-<html>
-<head>
-  <title>Cloud::Bookmarker</title>
-  <link rel="stylesheet" href="/css/style.css">
-</head>
-<body>
-HTML
-
-        for my $i ( sort { $a->{$sort} cmp $b->{$sort} } @$data ) {
-            $html .= qq|<div style="display: inline;">\n|;
-            $html .= qq|<a href="/del?a=$account&i=$i->{id}&f=$format" class="button">x</a> \n|;
-            $html .= qq|<form action="/title" method="post" style="display: inline; margin: 0;">\n|;
-            $html .= qq|<input type="text" name="title" value="$i->{title}" size="50"/>\n|;
-            $html .= qq|<input type="hidden" name="id" value="$i->{id}"/>\n|;
-            $html .= qq|</form><br>\n|;
-            $html .= qq|<a href="$i->{url}" target="_blank">$i->{url}</a>\n|;
-            $html .= qq|</div><p>\n|;
-        }
-
-        $html .= "</body>\n</html>\n";
-
-        send_as html => $html;
-    }
-    else {
-        return $data;
-    }
+    template index => {
+        account => $account,
+        sort    => $sort,
+        data    => $data,
+    };
 };
 
 =head2 POST /title
@@ -120,7 +64,36 @@ Update a title.
 =cut
 
 post '/title' => sub {
-    my $data = params;
+    my $account   = body_parameters->get('a');
+    my $new_title = body_parameters->get('t');
+    my $item      = body_parameters->get('i');
+
+    die 'Not authorized' unless $account;
+
+    my $file = 'public/accounts/' . $account . '.html';
+
+    try {
+        open my $fh, '< :encoding(UTF-8)', $file or die "Can't read $file: $!";
+        my @lines;
+        while ( my $line = readline($fh) ) {
+            chomp $line;
+            push @lines, $line;
+        }
+        close $fh or die "Can't close $file: $!";
+        open $fh, '> :encoding(UTF-8)', $file or die "Can't write to $file: $!";
+        for my $line ( @lines ) {
+            my ( $id, $title, $url ) = split /\s+:\s+/, $line;
+            $title = $new_title if $id eq $item;
+            print $fh "$id : $title : $url\n";
+        }
+        close $fh or die "Can't close $file: $!";
+        info "$item retitled";
+    }
+    catch {
+        error "ERROR: $_";
+    };
+
+    redirect "/?a=$account";
 };
 
 =head2 POST /add
