@@ -94,7 +94,7 @@ get '/' => sub {
 HTML
 
         for my $i ( sort { $a->{$sort} cmp $b->{$sort} } @$data ) {
-            $html .= qq|<a href="/del?a=$account&i=$i->{id}&f=$format" class="button">x</a> $i->{title}<br><a href="$i->{url}">$i->{url}</a><p>\n|;
+            $html .= qq|<a href="/del?a=$account&i=$i->{id}&f=$format" class="button">x</a> $i->{title}<br><a href="$i->{url}" target="_blank">$i->{url}</a><p>\n|;
         }
 
         $html .= "</body>\n</html>\n";
