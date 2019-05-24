@@ -36,6 +36,9 @@ Main page.
 get '/' => sub {
     my $account = query_parameters->get('a');
     my $format  = query_parameters->get('f');
+    my $sort    = query_parameters->get('s');
+
+    $sort ||= 'id';
 
     unless ( $account ) {
         my $code = 401;
@@ -90,7 +93,7 @@ get '/' => sub {
 <body>
 HTML
 
-        for my $i ( sort { $a->{id} <=> $b->{id} } @$data ) {
+        for my $i ( sort { $a->{$sort} cmp $b->{$sort} } @$data ) {
             $html .= qq|<p><a href="/del?a=$account&i=$i->{id}&f=$format" class="button">x</a> $i->{title} : <a href="$i->{url}">$i->{url}</a></p>\n|;
         }
 
