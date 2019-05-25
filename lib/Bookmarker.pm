@@ -28,7 +28,7 @@ get '/' => sub {
 
     send_error( 'Not authorized', 401 ) unless $account;
 
-    my $file = 'public/accounts/' . $account . '.html';
+    my $file = 'public/accounts/' . $account . '.txt';
 
     send_error( 'Unknown account', 400 ) unless -e $file;
 
@@ -68,7 +68,7 @@ post '/update' => sub {
 
     send_error( 'Not authorized', 401 ) unless $account;
 
-    my $file = 'public/accounts/' . $account . '.html';
+    my $file = 'public/accounts/' . $account . '.txt';
 
     send_error( 'Unknown account', 400 ) unless -e $file;
 
@@ -117,7 +117,7 @@ post '/add' => sub {
 
     send_as JSON => { error => 'No url provided', code => 400 } unless $data->{url};
 
-    my $file = 'public/accounts/' . $data->{account} . '.html';
+    my $file = 'public/accounts/' . $data->{account} . '.txt';
 
     send_as JSON => { error => 'No such account', code => 401 } unless -e $file;
 
@@ -156,7 +156,7 @@ get '/del' => sub {
 
     send_error( 'Not authorized', 401 ) unless $account;
 
-    my $file = 'public/accounts/' . $account . '.html';
+    my $file = 'public/accounts/' . $account . '.txt';
 
     send_error( 'Unknown account', 400 ) unless -e $file;
 
