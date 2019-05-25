@@ -8,6 +8,8 @@ use Try::Tiny;
 use constant PATH     => 'public/accounts/';
 use constant EXT      => '.txt';
 use constant ENCODING => ':encoding(UTF-8)';
+use constant NOAUTH   => 'Not authorized';
+use constant UNKNOWN  => 'Unknown account';
 
 our $VERSION = '0.01';
 
@@ -30,11 +32,11 @@ List items.
 get '/' => sub {
     my $account = query_parameters->get('a');
 
-    send_error( 'Not authorized', 401 ) unless $account;
+    send_error( NOAUTH, 401 ) unless $account;
 
     my $file = PATH . $account . EXT;
 
-    send_error( 'Unknown account', 400 ) unless -e $file;
+    send_error( UNKNOWN, 400 ) unless -e $file;
 
     my $data = [];
 
@@ -50,7 +52,7 @@ get '/' => sub {
     }
     catch {
         error "ERROR: $_";
-        send_error( 'Unknown account', 400 );
+        send_error( UNKNOWN, 400 );
     };
 
     template index => {
@@ -70,11 +72,11 @@ post '/update' => sub {
     my $new_title = body_parameters->get('t');
     my $item      = body_parameters->get('i');
 
-    send_error( 'Not authorized', 401 ) unless $account;
+    send_error( NOAUTH, 401 ) unless $account;
 
     my $file = PATH . $account . EXT;
 
-    send_error( 'Unknown account', 400 ) unless -e $file;
+    send_error( UNKNOWN, 400 ) unless -e $file;
 
     try {
         open my $fh, '< ' . ENCODING, $file or die "Can't read $file: $!";
@@ -117,13 +119,13 @@ post '/add' => sub {
         send_as JSON => { error => "Can't decode JSON", code => 400 };
     };
 
-    send_as JSON => { error => 'Not authorized', code => 401 } unless $data->{account};
+    send_as JSON => { error => NOAUTH, code => 401 } unless $data->{account};
 
     send_as JSON => { error => 'No url provided', code => 400 } unless $data->{url};
 
     my $file = PATH . $data->{account} . EXT;
 
-    send_as JSON => { error => 'Unknown account', code => 400 } unless -e $file;
+    send_as JSON => { error => UNKNOWN, code => 400 } unless -e $file;
 
     $data->{title} ||= 'No title';
 
@@ -153,11 +155,11 @@ get '/del' => sub {
     my $account = query_parameters->get('a');
     my $item    = query_parameters->get('i');
 
-    send_error( 'Not authorized', 401 ) unless $account;
+    send_error( NOAUTH, 401 ) unless $account;
 
     my $file = PATH . $account . EXT;
 
-    send_error( 'Unknown account', 400 ) unless -e $file;
+    send_error( UNKNOWN, 400 ) unless -e $file;
 
     try {
         open my $fh, '< ' . ENCODING, $file or die "Can't read $file: $!";
