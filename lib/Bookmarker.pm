@@ -79,14 +79,9 @@ post '/update' => sub {
     send_error( UNKNOWN, 400 ) unless -e $file;
 
     try {
-        open my $fh, '< ' . ENCODING, $file or die "Can't read $file: $!";
-        my @lines;
-        while ( my $line = readline($fh) ) {
-            chomp $line;
-            push @lines, $line;
-        }
-        close $fh or die "Can't close $file: $!";
-        open $fh, '> ' . ENCODING, $file or die "Can't write to $file: $!";
+        my @lines = _read_file($file);
+
+        open my $fh, '> ' . ENCODING, $file or die "Can't write to $file: $!";
         for my $line ( @lines ) {
             my ( $id, $title, $url ) = split /\s+:\s+/, $line;
             $title = $new_title if $id eq $item;
@@ -161,14 +156,9 @@ get '/delete' => sub {
     send_error( UNKNOWN, 400 ) unless -e $file;
 
     try {
-        open my $fh, '< ' . ENCODING, $file or die "Can't read $file: $!";
-        my @lines;
-        while ( my $line = readline($fh) ) {
-            chomp $line;
-            push @lines, $line;
-        }
-        close $fh or die "Can't close $file: $!";
-        open $fh, '> ' . ENCODING, $file or die "Can't write to $file: $!";
+        my @lines = _read_file($file);
+
+        open my $fh, '> ' . ENCODING, $file or die "Can't write to $file: $!";
         for my $line ( @lines ) {
             my ( $id, $title, $url ) = split /\s+:\s+/, $line;
             next if $id eq $item;
@@ -184,6 +174,22 @@ get '/delete' => sub {
 
     redirect "/?a=$account";
 };
+
+sub _read_file {
+    my ($file) = @_;
+
+    open my $fh, '< ' . ENCODING, $file or die "Can't read $file: $!";
+
+    my @lines;
+    while ( my $line = readline($fh) ) {
+        chomp $line;
+        push @lines, $line;
+    }
+
+    close $fh or die "Can't close $file: $!";
+
+    return @lines;
+}
 
 true;
 
