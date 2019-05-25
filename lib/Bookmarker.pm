@@ -137,9 +137,7 @@ post '/add' => sub {
         error "ERROR: $code - $msg";
         $error++;
     };
-    if ( $error ) {
-        send_as JSON => { error => $msg, code => $code };
-    }
+    send_as JSON => { error => $msg, code => $code } if $error;
 
     send_as JSON => { success => 1, code => 201 };
 };
