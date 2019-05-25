@@ -94,7 +94,7 @@ post '/update' => sub {
         }
         close $fh or die "Can't close $file: $!";
 
-        info request->remote_address, " retitled $item";
+        info request->remote_address, " updated $item";
     }
     catch {
         error "ERROR: $_";
