@@ -97,7 +97,7 @@ post '/update' => sub {
     }
     catch {
         error "ERROR: $_";
-        send_error( "Can't update title", 500 );
+        send_error( "Can't update item", 500 );
     };
 
     redirect "/?a=$account";
