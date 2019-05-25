@@ -144,13 +144,13 @@ post '/add' => sub {
     send_as JSON => { success => 1, code => 201 };
 };
 
-=head2 GET /del
+=head2 GET /delete
 
 Delete an item.
 
 =cut
 
-get '/del' => sub {
+get '/delete' => sub {
     my $account = query_parameters->get('a');
     my $item    = query_parameters->get('i');
 
