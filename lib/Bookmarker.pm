@@ -123,8 +123,6 @@ post '/add' => sub {
 
     $data->{title} ||= 'No title';
 
-    my ( $msg, $code );
-    my $error = 0;
     try {
         open my $fh, '>> :encoding(UTF-8)', $file or die "Can't write to $file: $!";
         print $fh time, " : $data->{title} : $data->{url}\n";
@@ -132,12 +130,11 @@ post '/add' => sub {
         info request->remote_address, " wrote to $file";
     }
     catch {
-        $msg  = $_;
-        $code = 500;
+        my $msg  = $_;
+        my $code = 500;
         error "ERROR: $code - $msg";
-        $error++;
+        send_as JSON => { error => $msg, code => $code };
     };
-    send_as JSON => { error => $msg, code => $code } if $error;
 
     send_as JSON => { success => 1, code => 201 };
 };
