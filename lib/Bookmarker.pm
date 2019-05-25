@@ -122,11 +122,11 @@ post '/add' => sub {
 
     send_as JSON => { error => NOAUTH, code => 401 } unless $data->{account};
 
-    send_as JSON => { error => 'No url provided', code => 400 } unless $data->{url};
-
     my $file = PATH . $data->{account} . EXT;
 
     send_as JSON => { error => UNKNOWN, code => 400 } unless -e $file;
+
+    send_as JSON => { error => 'No url provided', code => 400 } unless $data->{url};
 
     $data->{title} ||= 'Untitled';
 
