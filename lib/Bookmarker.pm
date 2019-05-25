@@ -119,7 +119,7 @@ post '/add' => sub {
 
     my $file = 'public/accounts/' . $data->{account} . '.txt';
 
-    send_as JSON => { error => 'No such account', code => 401 } unless -e $file;
+    send_as JSON => { error => 'Unknown account', code => 400 } unless -e $file;
 
     $data->{title} ||= 'No title';
 
