@@ -7,7 +7,7 @@ Example command line usage:
 
 > plackup bin/app.psgi
 
-> curl http://0:5000/add -X POST -d '{"account":"abc","title":"Xyz","url":"https://example.com"}'
+> curl http://0:5000/add -X POST -d '{"account":"abc","title":"Example","url":"https://example.com"}'
 
 To delete, browse to http://0:5000/?a=abc and click the "x" button for an entry.
 
