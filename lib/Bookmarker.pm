@@ -79,6 +79,8 @@ post '/update' => sub {
 
     send_error( UNKNOWN, 400 ) unless -e $file;
 
+    send_error( 'No item id provided', 400 ) unless $item;
+
     try {
         my @lines = _read_file($file);
 
