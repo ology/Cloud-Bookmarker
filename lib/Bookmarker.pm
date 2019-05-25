@@ -30,6 +30,8 @@ get '/' => sub {
 
     my $file = 'public/accounts/' . $account . '.html';
 
+    send_error( 'Unknown account', 400 ) unless -e $file;
+
     my $data = [];
 
     try {
@@ -67,6 +69,8 @@ post '/update' => sub {
     send_error( 'Not authorized', 401 ) unless $account;
 
     my $file = 'public/accounts/' . $account . '.html';
+
+    send_error( 'Unknown account', 400 ) unless -e $file;
 
     try {
         open my $fh, '< :encoding(UTF-8)', $file or die "Can't read $file: $!";
@@ -153,6 +157,8 @@ get '/del' => sub {
     send_error( 'Not authorized', 401 ) unless $account;
 
     my $file = 'public/accounts/' . $account . '.html';
+
+    send_error( 'Unknown account', 400 ) unless -e $file;
 
     try {
         open my $fh, '< :encoding(UTF-8)', $file or die "Can't read $file: $!";
