@@ -173,7 +173,7 @@ get '/delete' => sub {
     }
     catch {
         error "ERROR: $_";
-        send_error( "Can't delete $item", 500 );
+        send_error( "Can't delete item", 500 );
     };
 
     redirect "/?a=$account";
