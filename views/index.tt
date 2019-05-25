@@ -6,7 +6,7 @@
     </td>
     <td valign="top">
     <form action="/update" method="post" style="display: inline; margin: 0;">
-        <input type="text" name="t" value="[% d.title %]" size="50"/>
+        <input type="text" name="t" value="[% d.title %]" size="60"/>
         <input type="hidden" name="i" value="[% d.id %]"/>
         <input type="hidden" name="a" value="[% account %]"/>
     </form>
