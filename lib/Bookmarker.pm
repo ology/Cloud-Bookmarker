@@ -81,6 +81,8 @@ post '/update' => sub {
 
     send_error( 'No item id provided', 400 ) unless $item;
 
+    $new_title ||= 'Untitled';
+
     try {
         my @lines = _read_file($file);
 
