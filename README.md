@@ -1,7 +1,7 @@
 # Cloud-Bookmarker
 Manage bookmarks in the cloud
 
-Example commandline usage:
+Example command line usage:
 
 > touch public/accounts/abc.txt
 
