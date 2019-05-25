@@ -127,7 +127,7 @@ post '/add' => sub {
 
     send_as JSON => { error => UNKNOWN, code => 400 } unless -e $file;
 
-    $data->{title} ||= 'No title';
+    $data->{title} ||= 'Untitled';
 
     try {
         open my $fh, '>> ' . ENCODING, $file or die "Can't write to $file: $!";
