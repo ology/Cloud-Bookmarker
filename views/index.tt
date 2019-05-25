@@ -1,6 +1,6 @@
 [% FOREACH d IN data %]
 <div style="display: inline;">
-    <a href="/del?a=[% account %]&i=[% d.id %]" class="button">x</a>
+    <a href="/del?a=[% account %]&i=[% d.id %]" class="button" onclick="if(!confirm('Are you sure?')) return false;">x</a>
     <form action="/update" method="post" style="display: inline; margin: 0;">
         <input type="text" name="t" value="[% d.title %]" size="50"/>
         <input type="hidden" name="i" value="[% d.id %]"/>
