@@ -1,6 +1,10 @@
+<table border="0" cellpadding="5">
 [% FOREACH d IN data %]
-<div style="display: inline;">
+<tr>
+    <td align="middle" valign="top" width="15">
     <a href="/delete?a=[% account %]&i=[% d.id %]" class="button" onclick="if(!confirm('Are you sure?')) return false;">x</a>
+    </td>
+    <td valign="top">
     <form action="/update" method="post" style="display: inline; margin: 0;">
         <input type="text" name="t" value="[% d.title %]" size="50"/>
         <input type="hidden" name="i" value="[% d.id %]"/>
@@ -8,6 +12,7 @@
     </form>
     <br>
     <a href="[% d.url %]" target="_blank">[% d.url %]</a>
-</div>
-<p>
+    </td>
+</tr>
 [% END %]
+</table>
