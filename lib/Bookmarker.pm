@@ -138,7 +138,7 @@ post '/add' => sub {
     catch {
         my $code = 500;
         error "ERROR: $code - $_";
-        send_as JSON => { error => $_, code => $code };
+        send_as JSON => { error => "Can't add item", code => $code };
     };
 
     send_as JSON => { success => 1, code => 201 };
