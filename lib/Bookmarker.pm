@@ -136,10 +136,9 @@ post '/add' => sub {
         info request->remote_address, " wrote to $file";
     }
     catch {
-        my $msg  = $_;
         my $code = 500;
-        error "ERROR: $code - $msg";
-        send_as JSON => { error => $msg, code => $code };
+        error "ERROR: $code - $_";
+        send_as JSON => { error => $_, code => $code };
     };
 
     send_as JSON => { success => 1, code => 201 };
