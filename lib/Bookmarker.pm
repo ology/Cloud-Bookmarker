@@ -41,7 +41,7 @@ get '/' => sub {
     my $data = [];
 
     try {
-        open my $fh, '< ' . ENCODING, $file or die "Can't read $file: $!";
+        open my $fh, '<' . ENCODING, $file or die "Can't read $file: $!";
         while ( my $line = readline($fh) ) {
             chomp $line;
             my ( $id, $title, $url ) = split /\s+:\s+/, $line;
@@ -86,7 +86,7 @@ post '/update' => sub {
     try {
         my @lines = _read_file($file);
 
-        open my $fh, '> ' . ENCODING, $file or die "Can't write to $file: $!";
+        open my $fh, '>' . ENCODING, $file or die "Can't write to $file: $!";
         for my $line ( @lines ) {
             my ( $id, $title, $url ) = split /\s+:\s+/, $line;
             $title = $new_title if $id eq $item;
@@ -131,7 +131,7 @@ post '/add' => sub {
     $data->{title} ||= 'Untitled';
 
     try {
-        open my $fh, '>> ' . ENCODING, $file or die "Can't write to $file: $!";
+        open my $fh, '>>' . ENCODING, $file or die "Can't write to $file: $!";
         print $fh time, " : $data->{title} : $data->{url}\n";
         close $fh or die "Can't close $file: $!";
 
@@ -167,7 +167,7 @@ get '/delete' => sub {
     try {
         my @lines = _read_file($file);
 
-        open my $fh, '> ' . ENCODING, $file or die "Can't write to $file: $!";
+        open my $fh, '>' . ENCODING, $file or die "Can't write to $file: $!";
         for my $line ( @lines ) {
             my ( $id, $title, $url ) = split /\s+:\s+/, $line;
             next if $id eq $item;
@@ -188,7 +188,7 @@ get '/delete' => sub {
 sub _read_file {
     my ($file) = @_;
 
-    open my $fh, '< ' . ENCODING, $file or die "Can't read $file: $!";
+    open my $fh, '<' . ENCODING, $file or die "Can't read $file: $!";
 
     my @lines;
     while ( my $line = readline($fh) ) {
