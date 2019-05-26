@@ -1,3 +1,5 @@
+<a href="/accounts/[% account %].txt" class="button">Bookmarks</a>
+<p>
 <table border="0" cellpadding="5">
 [% FOREACH d IN data %]
 <tr>
