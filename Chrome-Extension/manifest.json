@@ -1,0 +1,18 @@
+{
+    "manifest_version": 2,
+    "name": "CloudBookmarker",
+    "version": "1.0",
+    "description": "Add a bookmark to the cloud",
+    "icons": {
+        "48": "beasts-32.png",
+        "96": "beasts-32.png"
+    },    
+    "permissions": [
+        "tabs"
+    ],
+    "browser_action": {
+        "default_icon": "beasts-32.png",
+        "default_title": "CloudBookmarker",
+        "default_popup": "popup/popup.html"
+    }
+}
