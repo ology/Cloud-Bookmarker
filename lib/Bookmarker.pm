@@ -184,7 +184,7 @@ post '/add' => sub {
 
     try {
         open my $fh, '>>' . ENCODING, $file or die "Can't write to $file: $!";
-        print $fh time, " : $data->{title} : $data->{url}\n";
+        print $fh time, " : $data->{title} : $data->{url} : $data->{tags}\n";
         close $fh or die "Can't close $file: $!";
 
         info request->remote_address, " wrote to $file";
