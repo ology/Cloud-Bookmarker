@@ -109,7 +109,7 @@ post '/search' => sub {
     };
 };
 
-=head2 POST /update_title
+=head2 POST /update
 
 Update an item.
 
@@ -139,6 +139,9 @@ post '/update' => sub {
             my ( $id, $title, $url, $tags ) = split /\s+:\s+/, $line, 4;
             if ( $update eq 'title' ) {
                 $title = $new if $id eq $item;
+            }
+            elsif ( $update eq 'url' ) {
+                $url = $new if $id eq $item;
             }
             elsif ( $update eq 'tags' ) {
                 $tags = $new if $id eq $item;
