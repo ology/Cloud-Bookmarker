@@ -14,7 +14,7 @@
     </td>
     <td valign="top">
     <form action="/update" method="post" style="display: inline; margin: 0;">
-        <input type="text" name="n" value="[% d.title %]" size="60"/>
+        <input type="text" name="n" value="[% d.title %]" size="60" placeholder="Title"/>
         <input type="hidden" name="i" value="[% d.id %]"/>
         <input type="hidden" name="a" value="[% account %]"/>
         <input type="hidden" name="u" value="title"/>
@@ -24,7 +24,7 @@
     <br>
     [% FOREACH t IN d.tags %]
     <form action="/update" method="post" style="display: inline; margin: 0;">
-        <input type="text" name="n" value="[% d.tags %]" size="60"/>
+        <input type="text" name="n" value="[% d.tags %]" size="60" placeholder="Space separated tags"/>
         <input type="hidden" name="i" value="[% d.id %]"/>
         <input type="hidden" name="a" value="[% account %]"/>
         <input type="hidden" name="u" value="tags"/>
