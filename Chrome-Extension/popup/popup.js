@@ -22,7 +22,7 @@ submit.addEventListener("click", function (e) {
         .then(function(data) {
             if(data) {
                 alert("success!");
-//                console.log("success!");
+                window.close();
             }            
         })
         .catch(error => console.error(error));
