@@ -140,9 +140,9 @@ post '/update' => sub {
 
         open my $fh, '>' . ENCODING, $file or die "Can't write to $file: $!";
         for my $line ( @lines ) {
-            my ( $id, $title, $url ) = split /\s+:\s+/, $line;
+            my ( $id, $title, $url, $tags ) = split /\s+:\s+/, $line;
             $title = $new_title if $id eq $item;
-            print $fh "$id : $title : $url\n";
+            print $fh "$id : $title : $url : $tags\n";
         }
         close $fh or die "Can't close $file: $!";
 
@@ -221,9 +221,9 @@ get '/delete' => sub {
 
         open my $fh, '>' . ENCODING, $file or die "Can't write to $file: $!";
         for my $line ( @lines ) {
-            my ( $id, $title, $url ) = split /\s+:\s+/, $line;
+            my ( $id, $title, $url, $tags ) = split /\s+:\s+/, $line;
             next if $id eq $item;
-            print $fh "$id : $title : $url\n";
+            print $fh "$id : $title : $url : $tags\n";
         }
         close $fh or die "Can't close $file: $!";
 
