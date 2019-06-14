@@ -1,3 +1,8 @@
+<a href="/?a=[% account %]" class="button">Home</a>
+<form action="/search" method="post" style="display: inline; margin: 0;">
+    <input type="text" name="q" value="" size="50" placeholder="Search terms"/>
+    <input type="hidden" name="a" value="[% account %]"/>
+</form>
 <a href="/accounts/[% account %].txt" class="button">Raw</a>
 <br>
 <table border="0" cellpadding="5">
@@ -14,6 +19,10 @@
     </form>
     <br>
     <a href="[% d.url %]" target="_blank">[% d.url %]</a>
+    <br>
+    [% FOREACH t IN d.tags %]
+    [% t %]
+    [% END %]
     </td>
 </tr>
 [% END %]

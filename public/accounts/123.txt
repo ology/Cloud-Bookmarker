@@ -1,2 +1,2 @@
-1558660891 : Foo! : https://google.com
-1558660909 : Bar? : https://example.com
+1558660891 : Foo! : https://google.com : foo google
+1558660909 : Bar? : https://example.com : bar example

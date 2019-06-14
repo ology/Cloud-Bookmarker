@@ -2,7 +2,8 @@ package Bookmarker;
 
 # ABSTRACT: Manage bookmarks
 
-use Dancer2;
+use Dancer2 qw/ !any /;
+use List::Util qw/ any /;
 use Try::Tiny;
 
 use constant PATH     => 'public/accounts/';
@@ -44,12 +45,63 @@ get '/' => sub {
         open my $fh, '<' . ENCODING, $file or die "Can't read $file: $!";
         while ( my $line = readline($fh) ) {
             chomp $line;
-            my ( $id, $title, $url ) = split /\s+:\s+/, $line;
-            push @$data, { id => $id, title => $title, url => $url };
+            my ( $id, $title, $url, $tags ) = split /\s+:\s+/, $line;
+            my @tags = split /\s+/, $tags;
+            push @$data, { id => $id, title => $title, url => $url, tags => \@tags };
         }
         close $fh or die "Can't close $file: $!";
 
         info request->remote_address, " read $file";
+    }
+    catch {
+        error "ERROR: $_";
+        send_error( UNKNOWN, 400 );
+    };
+
+    template index => {
+        account => $account,
+        data    => $data,
+    };
+};
+
+=head2 POST /search
+
+Search items.
+
+=cut
+
+post '/search' => sub {
+    my $account = body_parameters->get('a');
+    my $query   = body_parameters->get('q');
+
+    send_error( NOAUTH, 401 ) unless $account;
+
+    my $file = PATH . $account . EXT;
+
+    send_error( UNKNOWN, 400 ) unless -e $file;
+
+    my $data = [];
+
+    my @query = split /\s+/, $query;
+
+    try {
+        open my $fh, '<' . ENCODING, $file or die "Can't read $file: $!";
+        while ( my $line = readline($fh) ) {
+            chomp $line;
+
+            my ( $id, $title, $url, $tags ) = split /\s+:\s+/, $line;
+            my @tags = split /\s+/, $tags;
+            
+            for my $t ( @tags ) {
+                if ( any { $t =~ /$_/ } @query ) {
+                    push @$data, { id => $id, title => $title, url => $url, tags => \@tags };
+                    last;
+                }
+            }
+        }
+        close $fh or die "Can't close $file: $!";
+
+        info request->remote_address, " searched $file for '$query'";
     }
     catch {
         error "ERROR: $_";
