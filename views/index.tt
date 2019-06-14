@@ -23,16 +23,19 @@
         <input type="hidden" name="u" value="title"/>
     </form>
     <br>
-    <a href="[% d.url %]" target="_blank">[% d.url %]</a>
+    <form action="/update" method="post" style="display: inline; margin: 0;">
+        <input type="text" name="n" value="[% d.url %]" size="60" placeholder="Title"/>
+        <input type="hidden" name="i" value="[% d.id %]"/>
+        <input type="hidden" name="a" value="[% account %]"/>
+        <input type="hidden" name="u" value="url"/>
+    </form>
     <br>
-    [% FOREACH t IN d.tags %]
     <form action="/update" method="post" style="display: inline; margin: 0;">
         <input type="text" name="n" value="[% d.tags %]" size="60" placeholder="Space separated tags"/>
         <input type="hidden" name="i" value="[% d.id %]"/>
         <input type="hidden" name="a" value="[% account %]"/>
         <input type="hidden" name="u" value="tags"/>
     </form>
-    [% END %]
     </div>
 </div>
 <p>
