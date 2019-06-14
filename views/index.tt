@@ -1,4 +1,4 @@
-<a href="/?a=[% account %]" class="button">Home</a>
+<a href="/?a=[% account %]" class="button">&nbsp;Home&nbsp;</a>
 &nbsp;
 <form action="/search" method="post" style="display: inline; margin: 0;">
     <input type="text" name="q" value="" size="50" placeholder="Search terms"/>
@@ -6,7 +6,7 @@
     <input type="submit" name="submit" value=">"/>
 </form>
 &nbsp;
-<a href="/accounts/[% account %].txt" class="button">Raw</a>
+<a href="/accounts/[% account %].txt" class="button">&nbsp;Raw&nbsp;</a>
 <p>
 <div class="tablewrapper">
   <div class="table">
