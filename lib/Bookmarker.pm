@@ -46,8 +46,7 @@ get '/' => sub {
         while ( my $line = readline($fh) ) {
             chomp $line;
             my ( $id, $title, $url, $tags ) = split /\s+:\s+/, $line;
-            my @tags = split /\s+/, $tags;
-            push @$data, { id => $id, title => $title, url => $url, tags => \@tags };
+            push @$data, { id => $id, title => $title, url => $url, tags => $tags };
         }
         close $fh or die "Can't close $file: $!";
 
@@ -94,7 +93,7 @@ post '/search' => sub {
             
             for my $t ( @tags ) {
                 if ( any { $t =~ /$_/ } @query ) {
-                    push @$data, { id => $id, title => $title, url => $url, tags => \@tags };
+                    push @$data, { id => $id, title => $title, url => $url, tags => $tags };
                     last;
                 }
             }
@@ -114,16 +113,17 @@ post '/search' => sub {
     };
 };
 
-=head2 POST /update
+=head2 POST /update_title
 
 Update an item.
 
 =cut
 
 post '/update' => sub {
-    my $account   = body_parameters->get('a');
-    my $new_title = body_parameters->get('t');
-    my $item      = body_parameters->get('i');
+    my $account = body_parameters->get('a');
+    my $new     = body_parameters->get('n');
+    my $item    = body_parameters->get('i');
+    my $update  = body_parameters->get('u');
 
     send_error( NOAUTH, 401 ) unless $account;
 
@@ -133,7 +133,7 @@ post '/update' => sub {
 
     send_error( 'No item id provided', 400 ) unless $item;
 
-    $new_title ||= 'Untitled';
+    $new ||= $update eq 'title' ? 'Untitled' : '';
 
     try {
         my @lines = _read_file($file);
@@ -141,7 +141,12 @@ post '/update' => sub {
         open my $fh, '>' . ENCODING, $file or die "Can't write to $file: $!";
         for my $line ( @lines ) {
             my ( $id, $title, $url, $tags ) = split /\s+:\s+/, $line;
-            $title = $new_title if $id eq $item;
+            if ( $update eq 'title' ) {
+                $title = $new if $id eq $item;
+            }
+            elsif ( $update eq 'tags' ) {
+                $tags = $new if $id eq $item;
+            }
             print $fh "$id : $title : $url : $tags\n";
         }
         close $fh or die "Can't close $file: $!";

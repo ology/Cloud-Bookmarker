@@ -14,15 +14,21 @@
     </td>
     <td valign="top">
     <form action="/update" method="post" style="display: inline; margin: 0;">
-        <input type="text" name="t" value="[% d.title %]" size="60"/>
+        <input type="text" name="n" value="[% d.title %]" size="60"/>
         <input type="hidden" name="i" value="[% d.id %]"/>
         <input type="hidden" name="a" value="[% account %]"/>
+        <input type="hidden" name="u" value="title"/>
     </form>
     <br>
     <a href="[% d.url %]" target="_blank">[% d.url %]</a>
     <br>
     [% FOREACH t IN d.tags %]
-    [% t %]
+    <form action="/update" method="post" style="display: inline; margin: 0;">
+        <input type="text" name="n" value="[% d.tags %]" size="60"/>
+        <input type="hidden" name="i" value="[% d.id %]"/>
+        <input type="hidden" name="a" value="[% account %]"/>
+        <input type="hidden" name="u" value="tags"/>
+    </form>
     [% END %]
     </td>
 </tr>
