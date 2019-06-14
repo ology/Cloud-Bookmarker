@@ -181,6 +181,7 @@ post '/add' => sub {
     send_as JSON => { error => 'No url provided', code => 400 } unless $data->{url};
 
     $data->{title} ||= 'Untitled';
+    $data->{tags}  ||= '';
 
     try {
         open my $fh, '>>' . ENCODING, $file or die "Can't write to $file: $!";
