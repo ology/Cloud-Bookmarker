@@ -90,10 +90,8 @@ post '/search' => sub {
 
             my ( $id, $title, $url, $tags ) = split /\s+:\s+/, $line;
 
-            if ( @query ) {
-                if ( any { $title =~ /$_/ || $url =~ /$_/ || $tags =~ /$_/ } @query ) {
-                    push @$data, { id => $id, title => $title, url => $url, tags => $tags };
-                }
+            if ( @query && any { $title =~ /$_/ || $url =~ /$_/ || $tags =~ /$_/ } @query ) {
+                push @$data, { id => $id, title => $title, url => $url, tags => $tags };
             }
         }
         close $fh or die "Can't close $file: $!";
