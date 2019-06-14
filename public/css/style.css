@@ -73,6 +73,9 @@ a.button {
 }
 .cell {
   display: table-cell;
+  border-radius: 5px;
+  background-color: lightblue;
+  padding: 10px;
 }
 .cell.empty
 {
