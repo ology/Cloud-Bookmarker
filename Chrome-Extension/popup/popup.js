@@ -13,7 +13,7 @@ var submit = document.querySelector("input[type=submit]");
 submit.addEventListener("click", function (e) {
     var bookmark = {};
 
-    bookmark.account = document.querySelector("input[name=account-name]").value;
+    bookmark.account = document.querySelector("input[name=account]").value;
     bookmark.tags = document.querySelector("input[name=tags]").value;
     bookmark.title = document.querySelector("input[name=title]").value;
     bookmark.url = document.querySelector("input[name=url]").value;
