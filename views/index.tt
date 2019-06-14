@@ -2,8 +2,9 @@
 <form action="/search" method="post" style="display: inline; margin: 0;">
     <input type="text" name="q" value="" size="50" placeholder="Search terms"/>
     <input type="hidden" name="a" value="[% account %]"/>
+    <input type="submit" name="submit" value=">"/>
 </form>
-<a href="/accounts/[% account %].txt" class="button">Raw</a>
+<!-- <a href="/accounts/[% account %].txt" class="button">Raw</a> -->
 <br>
 <table border="0" cellpadding="5">
 [% FOREACH d IN data %]
