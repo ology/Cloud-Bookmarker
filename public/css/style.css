@@ -61,3 +61,27 @@ a.button {
     text-decoration: none;
     color: initial;
 };
+
+.tablewrapper {
+  position: relative;
+}
+.table {
+  display: table;
+}
+.row {
+  display: table-row;
+}
+.cell {
+  display: table-cell;
+}
+.cell.empty
+{
+  border: none;
+  width: 100px;
+}
+.cell.rowspanned {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100px;
+}

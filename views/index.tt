@@ -6,13 +6,14 @@
 </form>
 <!-- <a href="/accounts/[% account %].txt" class="button">Raw</a> -->
 <br>
-<table border="0" cellpadding="5">
+<div class="tablewrapper">
+  <div class="table">
 [% FOREACH d IN data %]
-<tr>
-    <td align="middle" valign="top" width="15">
+  <div class="row">
+    <div class="cell">
     <a href="/delete?a=[% account %]&i=[% d.id %]" class="button" onclick="if(!confirm('Are you sure?')) return false;">x</a>
-    </td>
-    <td valign="top">
+    </div>
+    <div class="cell">
     <form action="/update" method="post" style="display: inline; margin: 0;">
         <input type="text" name="n" value="[% d.title %]" size="60" placeholder="Title"/>
         <input type="hidden" name="i" value="[% d.id %]"/>
@@ -30,7 +31,8 @@
         <input type="hidden" name="u" value="tags"/>
     </form>
     [% END %]
-    </td>
-</tr>
+    </div>
+</div>
 [% END %]
-</table>
+  </div>
+</div>
