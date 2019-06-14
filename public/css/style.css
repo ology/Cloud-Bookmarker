@@ -12,6 +12,11 @@ font-size: 13px;
 color: #333;
 }
 
+form {
+  display: inline;
+  margin: 0;
+}
+
 h1 {
 font-size: 28px;
 color: #000;
