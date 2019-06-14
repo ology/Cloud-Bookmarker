@@ -89,12 +89,10 @@ post '/search' => sub {
             chomp $line;
 
             my ( $id, $title, $url, $tags ) = split /\s+:\s+/, $line;
-            my @tags = split /\s+/, $tags;
-            
-            for my $t ( @tags ) {
-                if ( any { $t =~ /$_/ } @query ) {
+
+            if ( @query ) {
+                if ( any { $title =~ /$_/ || $url =~ /$_/ || $tags =~ /$_/ } @query ) {
                     push @$data, { id => $id, title => $title, url => $url, tags => $tags };
-                    last;
                 }
             }
         }
