@@ -82,7 +82,7 @@ post '/search' => sub {
 
             my ( $id, $title, $url, $tags ) = split /\s+:\s+/, $line, 4;
 
-            if ( @query && any { $title =~ /$_/ || $url =~ /$_/ || $tags =~ /$_/ } @query ) {
+            if ( @query && any { $title =~ /\Q$_/ || $url =~ /\Q$_/ || $tags =~ /\Q$_/ } @query ) {
                 push @$data, { id => $id, title => $title, url => $url, tags => $tags };
             }
         }
