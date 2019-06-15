@@ -6,11 +6,19 @@ chrome.tabs.query({'active': true, 'windowId': chrome.windows.WINDOW_ID_CURRENT}
    }
 );
 
+document.getElementById("tags").addEventListener("keydown", function(e) {
+    if (!e) { var e = window.event; }
+    // Enter is pressed
+    if (e.keyCode == 13) { submitFunction(); }
+}, false);
+
 // Submit button
 var submit = document.querySelector("input[type=submit]");
 
 // Submit event
-submit.addEventListener("click", function (e) {
+submit.addEventListener("click", submitFunction);
+
+function submitFunction (e) {
     var bookmark = {};
 
     bookmark.account = document.querySelector("input[name=account]").value;
@@ -26,7 +34,7 @@ submit.addEventListener("click", function (e) {
             }            
         })
         .catch(error => console.error(error));
-});
+}
 
 // Fetch helper method
 function postData(url = '', data = "") {
