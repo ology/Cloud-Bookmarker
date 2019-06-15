@@ -41,7 +41,7 @@ get '/' => sub {
         open my $fh, '<' . ENCODING, $file or die "Can't read $file: $!";
         while ( my $line = readline($fh) ) {
             chomp $line;
-            my ( $id, $title, $url, $tags ) = split /\s+:\s+/, $line, 4;
+            my ( $id, $title, $url, $tags ) = split /\t/, $line, 4;
             push @$data, { id => $id, title => $title, url => $url, tags => $tags };
         }
         close $fh or die "Can't close $file: $!";
@@ -80,7 +80,7 @@ post '/search' => sub {
         while ( my $line = readline($fh) ) {
             chomp $line;
 
-            my ( $id, $title, $url, $tags ) = split /\s+:\s+/, $line, 4;
+            my ( $id, $title, $url, $tags ) = split /\t/, $line, 4;
 
             if ( @query && any { $title =~ /\Q$_/ || $url =~ /\Q$_/ || $tags =~ /\Q$_/ } @query ) {
                 push @$data, { id => $id, title => $title, url => $url, tags => $tags };
@@ -124,7 +124,7 @@ post '/update' => sub {
 
         open my $fh, '>' . ENCODING, $file or die "Can't write to $file: $!";
         for my $line ( @lines ) {
-            my ( $id, $title, $url, $tags ) = split /\s+:\s+/, $line, 4;
+            my ( $id, $title, $url, $tags ) = split /\t/, $line, 4;
             if ( $update eq 'title' ) {
                 $title = $new if $id eq $item;
             }
@@ -134,7 +134,7 @@ post '/update' => sub {
             elsif ( $update eq 'tags' ) {
                 $tags = $new if $id eq $item;
             }
-            print $fh "$id : $title : $url : $tags\n";
+            print $fh "$id\t$title\t$url\t$tags\n";
         }
         close $fh or die "Can't close $file: $!";
 
@@ -177,7 +177,7 @@ post '/add' => sub {
 
     try {
         open my $fh, '>>' . ENCODING, $file or die "Can't write to $file: $!";
-        print $fh time, " : $data->{title} : $data->{url} : $data->{tags}\n";
+        print $fh time, "\t$data->{title}\t$data->{url}\t$data->{tags}\n";
         close $fh or die "Can't close $file: $!";
 
         info request->remote_address, " wrote to $file";
@@ -209,9 +209,9 @@ get '/delete' => sub {
 
         open my $fh, '>' . ENCODING, $file or die "Can't write to $file: $!";
         for my $line ( @lines ) {
-            my ( $id, $title, $url, $tags ) = split /\s+:\s+/, $line, 4;
+            my ( $id, $title, $url, $tags ) = split /\t/, $line, 4;
             next if $id eq $item;
-            print $fh "$id : $title : $url : $tags\n";
+            print $fh "$id\t$title\t$url\t$tags\n";
         }
         close $fh or die "Can't close $file: $!";
 
