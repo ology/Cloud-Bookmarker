@@ -33,11 +33,7 @@ List items.
 get '/' => sub {
     my $account = query_parameters->get('a');
 
-    send_error( NOAUTH, 401 ) unless $account;
-
-    my $file = PATH . $account . EXT;
-
-    send_error( UNKNOWN, 400 ) unless -e $file;
+    my $file = _auth($account);
 
     my $data = [];
 
@@ -73,11 +69,7 @@ post '/search' => sub {
     my $account = body_parameters->get('a');
     my $query   = body_parameters->get('q');
 
-    send_error( NOAUTH, 401 ) unless $account;
-
-    my $file = PATH . $account . EXT;
-
-    send_error( UNKNOWN, 400 ) unless -e $file;
+    my $file = _auth($account);
 
     my $data = [];
 
@@ -121,11 +113,7 @@ post '/update' => sub {
     my $item    = body_parameters->get('i');
     my $update  = body_parameters->get('u');
 
-    send_error( NOAUTH, 401 ) unless $account;
-
-    my $file = PATH . $account . EXT;
-
-    send_error( UNKNOWN, 400 ) unless -e $file;
+    my $file = _auth($account);
 
     send_error( 'No item id provided', 400 ) unless $item;
 
@@ -212,11 +200,7 @@ get '/delete' => sub {
     my $account = query_parameters->get('a');
     my $item    = query_parameters->get('i');
 
-    send_error( NOAUTH, 401 ) unless $account;
-
-    my $file = PATH . $account . EXT;
-
-    send_error( UNKNOWN, 400 ) unless -e $file;
+    my $file = _auth($account);
 
     send_error( 'No item id provided', 400 ) unless $item;
 
@@ -255,6 +239,18 @@ sub _read_file {
     close $fh or die "Can't close $file: $!";
 
     return @lines;
+}
+
+sub _auth {
+    my $account = shift;
+
+    send_error( NOAUTH, 401 ) unless $account;
+
+    my $file = PATH . $account . EXT;
+
+    send_error( UNKNOWN, 400 ) unless -e $file;
+
+    return $file;
 }
 
 true;
