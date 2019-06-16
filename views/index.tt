@@ -17,7 +17,7 @@
     [% ELSE %]
     <div class="cellblue">
     [% END %]
-        <form action="/delete" method="post">
+        <form action="/delete" method="post" title="Delete this bookmark">
             <input type="hidden" name="i" value="[% d.id %]"/>
             <input type="hidden" name="a" value="[% account %]"/>
             <input type="submit" name="submit" value="x" onclick="if(!confirm('Are you sure?')) return false;"/>
@@ -54,7 +54,7 @@
     [% ELSE %]
     <div class="cellblue">
     [% END %]
-        <form action="[% d.url %]" method="get" target="_blank">
+        <form action="[% d.url %]" method="get" target="_blank" title="Visit the link">
             <input type="submit" name="submit" value=">"/>
         </form>
         <p>
@@ -62,7 +62,7 @@
             <input type="hidden" name="i" value="[% d.id %]"/>
             <input type="hidden" name="u" value="[% d.url %]"/>
             <input type="hidden" name="a" value="[% account %]"/>
-            <input type="submit" name="submit" value="?"/>
+            <input type="submit" name="submit" value="?" title="Check the link"/>
         </form>
     </div>
 </div>
