@@ -12,7 +12,6 @@ use constant PATH     => 'public/accounts/';
 use constant EXT      => '.txt';
 use constant ENCODING => ':encoding(UTF-8)';
 use constant NOAUTH   => 'Not authorized';
-use constant UNKNOWN  => 'Unknown account';
 
 our $VERSION = '0.01';
 
@@ -60,7 +59,7 @@ any '/search' => sub {
     my $account = body_parameters->get('a') || query_parameters->get('a');
     my $query   = body_parameters->get('q') || query_parameters->get('q');
 
-    my $file = _auth($account);
+    send_error( NOAUTH, 401 ) unless $account;
 
     my $data = [];
 
@@ -100,7 +99,7 @@ post '/update' => sub {
     my $update  = body_parameters->get('u');
     my $query   = body_parameters->get('q');
 
-    my $file = _auth($account);
+    send_error( NOAUTH, 401 ) unless $account;
 
     send_error( 'No item id provided', 400 ) unless $item;
 
@@ -133,10 +132,6 @@ post '/add' => sub {
 
     send_as JSON => { error => NOAUTH, code => 401 } unless $data->{account};
 
-    my $file = PATH . $data->{account} . EXT;
-
-    send_as JSON => { error => UNKNOWN, code => 400 } unless -e $file;
-
     send_as JSON => { error => 'No url provided', code => 400 } unless $data->{url};
 
     $data->{title} ||= 'Untitled';
@@ -164,7 +159,7 @@ post '/delete' => sub {
     my $item    = body_parameters->get('i');
     my $query   = body_parameters->get('q');
 
-    my $file = _auth($account);
+    send_error( NOAUTH, 401 ) unless $account;
 
     send_error( 'No item id provided', 400 ) unless $item;
 
@@ -188,7 +183,7 @@ post '/check' => sub {
     my $item    = body_parameters->get('i');
     my $check   = '';
 
-    my $file = _auth($account);
+    send_error( NOAUTH, 401 ) unless $account;
 
     send_error( 'No item id provided', 400 ) unless $item;
 
@@ -211,18 +206,6 @@ post '/check' => sub {
         search  => '',
     };
 };
-
-sub _auth {
-    my $account = shift;
-
-    send_error( NOAUTH, 401 ) unless $account;
-
-    my $file = PATH . $account . EXT;
-
-    send_error( UNKNOWN, 400 ) unless -e $file;
-
-    return $file;
-}
 
 true;
 
