@@ -54,7 +54,7 @@
     [% ELSE %]
     <div class="cellblue">
     [% END %]
-        <form action="[% d.url %]" method="get">
+        <form action="[% d.url %]" method="get" target="_blank">
             <input type="submit" name="submit" value=">"/>
         </form>
         <p>
