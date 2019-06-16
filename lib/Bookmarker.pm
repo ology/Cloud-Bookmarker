@@ -1,6 +1,6 @@
 package Bookmarker;
 
-# ABSTRACT: Manage bookmarks
+# ABSTRACT: Manage bookmarks in the cloud
 
 use Dancer2;
 use Dancer2::Plugin::Database;
@@ -17,11 +17,11 @@ our $VERSION = '0.01';
 
 =head1 NAME
 
-Bookmarker - Manage bookmarks
+Bookmarker - Manage bookmarks in the cloud
 
 =head1 DESCRIPTION
 
-A C<Bookmarker> instance manages bookmarks.
+A C<Bookmarker> instance manages bookmarks in the cloud.
 
 =head1 ENDPOINTS
 
