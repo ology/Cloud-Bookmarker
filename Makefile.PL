@@ -19,7 +19,9 @@ WriteMakefile(
     PREREQ_PM => {
         'Test::More' => 0,
         'YAML'       => 0,
-        'Dancer2'     => 0.207000,
+        'Dancer2'    => 0.207000,
+        'List::Util' => 0,
+        'Try::Tiny'  => 0,
     },
     dist                => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
     clean               => { FILES => 'Bookmarker-*' },
