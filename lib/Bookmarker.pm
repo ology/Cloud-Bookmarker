@@ -266,7 +266,7 @@ post '/check' => sub {
         send_error( UNKNOWN, 400 );
     };
 
-    unless ( is_success( getprint $link ) ) {
+    unless ( is_success( eval { getprint $link } ) ) {
         $check = $item;
     };
     info request->remote_address, " checked $item";
