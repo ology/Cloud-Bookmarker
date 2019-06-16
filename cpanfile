@@ -1,5 +1,6 @@
 requires "Dancer2" => "0.207000";
 requires "Try::Tiny" => "0";
+requires "List::Util" => "0";
 
 recommends "YAML"             => "0";
 recommends "URL::Encode::XS"  => "0";
