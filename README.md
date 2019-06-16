@@ -3,12 +3,14 @@ Manage bookmarks in the cloud
 
 Example command line usage:
 
-> touch public/accounts/abc.txt
-
 > plackup bin/app.psgi
 
-> curl http://0:5000/add -X POST -d '{"account":"abc","title":"Example","url":"https://example.com"}'
+> curl http://0:5000/add -X POST -d '{"account":"123","title":"Example","url":"https://example.com"}'
 
-To delete, browse to http://0:5000/?a=abc and click the "x" button for an entry.
+Alternatively, use the Chrome external extension that comes in this repo.
 
-To update the title of an entry, type in the text input and press the enter key.
+Browse the bookmarks at http://0:5000/?a=123
+
+To delete click the "x" button on an entry.
+
+To update the title or tags of an entry, type in the text input and press the enter key.
