@@ -41,6 +41,9 @@
             <input type="hidden" name="u" value="tags"/>
         </form>
     </div>
+    <div class="cell">
+        <a href="[% d.url %]" class="button">&nbsp;Go&nbsp;</a>
+    </div>
 </div>
 <p>
 [% END %]
