@@ -20,6 +20,7 @@
         <form action="/delete" method="post" title="Delete this bookmark">
             <input type="hidden" name="i" value="[% d.id %]"/>
             <input type="hidden" name="a" value="[% account %]"/>
+            <input type="hidden" name="q" value="[% search %]"/>
             <input type="submit" name="submit" value="x" onclick="if(!confirm('Are you sure?')) return false;"/>
         </form>
         <p>
