@@ -2,10 +2,10 @@ package Bookmarker;
 
 # ABSTRACT: Manage bookmarks
 
-use Dancer2 qw/ !any /;
+use Dancer2;
 use Dancer2::Plugin::Database;
 use HTTP::Simple qw/ getprint is_success /;
-use List::Util qw/ any /;
+use List::Util;
 use Try::Tiny;
 
 use constant PATH     => 'public/accounts/';
@@ -56,7 +56,7 @@ Search items.
 
 =cut
 
-post '/search' => sub {
+any '/search' => sub {
     my $account = body_parameters->get('a') || query_parameters->get('a');
     my $query   = body_parameters->get('q') || query_parameters->get('q');
 
@@ -72,7 +72,7 @@ post '/search' => sub {
     my $res = $sth->fetchall_hashref('id');
 
     for my $r ( sort { $a->{id} <=> $b->{id} } values %$res ) {
-        if ( @query && any { $r->{title} =~ /\Q$_\E/i || $r->{url} =~ /\Q$_\E/i || $r->{tags} =~ /\Q$_\E/i } @query ) {
+        if ( @query && List::Util::any { $r->{title} =~ /\Q$_\E/i || $r->{url} =~ /\Q$_\E/i || $r->{tags} =~ /\Q$_\E/i } @query ) {
             push @$data, { id => $r->{id}, title => $r->{title}, url => $r->{url}, tags => $r->{tags} };
         }
     }
