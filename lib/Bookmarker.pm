@@ -34,6 +34,8 @@ List items.
 get '/' => sub {
     my $account = query_parameters->get('a');
 
+    send_error( NOAUTH, 401 ) unless $account;
+
     my $sql = 'SELECT * FROM bookmarks WHERE account = ?';
     my $sth = database->prepare($sql);
     $sth->execute($account);
