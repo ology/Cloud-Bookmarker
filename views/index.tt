@@ -13,33 +13,33 @@
 [% FOREACH d IN data %]
   <div class="row">
     <div class="cell">
-    <form action="/delete" method="post">
-        <input type="hidden" name="i" value="[% d.id %]"/>
-        <input type="hidden" name="a" value="[% account %]"/>
-        <input type="submit" name="submit" value="x" onclick="if(!confirm('Are you sure?')) return false;"/>
-    </form>
+        <form action="/delete" method="post">
+            <input type="hidden" name="i" value="[% d.id %]"/>
+            <input type="hidden" name="a" value="[% account %]"/>
+            <input type="submit" name="submit" value="x" onclick="if(!confirm('Are you sure?')) return false;"/>
+        </form>
     </div>
     <div class="cell">
-    <form action="/update" method="post">
-        <input type="text" name="n" value="[% d.title %]" size="60" placeholder="Title"/>
-        <input type="hidden" name="i" value="[% d.id %]"/>
-        <input type="hidden" name="a" value="[% account %]"/>
-        <input type="hidden" name="u" value="title"/>
-    </form>
-    <br>
-    <form action="/update" method="post">
-        <input type="text" name="n" value="[% d.url %]" size="60" placeholder="Title"/>
-        <input type="hidden" name="i" value="[% d.id %]"/>
-        <input type="hidden" name="a" value="[% account %]"/>
-        <input type="hidden" name="u" value="url"/>
-    </form>
-    <br>
-    <form action="/update" method="post">
-        <input type="text" name="n" value="[% d.tags %]" size="60" placeholder="Space separated tags"/>
-        <input type="hidden" name="i" value="[% d.id %]"/>
-        <input type="hidden" name="a" value="[% account %]"/>
-        <input type="hidden" name="u" value="tags"/>
-    </form>
+        <form action="/update" method="post">
+            <input type="text" name="n" value="[% d.title %]" size="60" placeholder="Title"/>
+            <input type="hidden" name="i" value="[% d.id %]"/>
+            <input type="hidden" name="a" value="[% account %]"/>
+            <input type="hidden" name="u" value="title"/>
+        </form>
+        <br>
+        <form action="/update" method="post">
+            <input type="text" name="n" value="[% d.url %]" size="60" placeholder="Title"/>
+            <input type="hidden" name="i" value="[% d.id %]"/>
+            <input type="hidden" name="a" value="[% account %]"/>
+            <input type="hidden" name="u" value="url"/>
+        </form>
+        <br>
+        <form action="/update" method="post">
+            <input type="text" name="n" value="[% d.tags %]" size="60" placeholder="Space separated tags"/>
+            <input type="hidden" name="i" value="[% d.id %]"/>
+            <input type="hidden" name="a" value="[% account %]"/>
+            <input type="hidden" name="u" value="tags"/>
+        </form>
     </div>
 </div>
 <p>
