@@ -35,6 +35,7 @@
             <input type="text" name="n" value="[% d.title %]" size="60" placeholder="Title"/>
             <input type="hidden" name="i" value="[% d.id %]"/>
             <input type="hidden" name="a" value="[% account %]"/>
+            <input type="hidden" name="q" value="[% search %]"/>
             <input type="hidden" name="u" value="title"/>
         </form>
         <br>
