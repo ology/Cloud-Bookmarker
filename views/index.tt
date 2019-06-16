@@ -10,7 +10,9 @@
 <p>
 <div class="tablewrapper">
   <div class="table">
+[% i = 0 %]
 [% FOREACH d IN data %]
+    [% i = i + 1 %]
   <div class="row">
     [% IF check == d.id %]
     <div class="cellred">
@@ -22,6 +24,8 @@
             <input type="hidden" name="a" value="[% account %]"/>
             <input type="submit" name="submit" value="x" onclick="if(!confirm('Are you sure?')) return false;"/>
         </form>
+        <p>
+        <span style="font-size: xx-small;">[% i %]</span>
     </div>
     [% IF check == d.id %]
     <div class="cellred">
