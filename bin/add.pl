@@ -9,9 +9,10 @@ my $host   = 'http://dev.ology.net:8870';
 my $action = 'add';
 
 my $account = prompt('Account:');
+my $tags    = prompt('Tags:');
 my $title   = prompt('Title:');
 my $url     = prompt('URL:');
 
-my $response = postjson( "$host/$action", { account => $account, url => $url, title => $title } );
+my $response = postjson( "$host/$action", { account => $account, url => $url, title => $title, tags => $tags } );
 
 print "\n", $response, "\n";
