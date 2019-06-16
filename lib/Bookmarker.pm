@@ -3,6 +3,7 @@ package Bookmarker;
 # ABSTRACT: Manage bookmarks
 
 use Dancer2 qw/ !any /;
+use HTTP::Simple qw( getprint is_success );
 use List::Util qw/ any /;
 use Try::Tiny;
 
@@ -56,6 +57,7 @@ get '/' => sub {
     template index => {
         account => $account,
         data    => $data,
+        check   => '',
     };
 };
 
@@ -98,6 +100,7 @@ post '/search' => sub {
     template index => {
         account => $account,
         data    => $data,
+        check   => '',
     };
 };
 
@@ -223,6 +226,53 @@ post '/delete' => sub {
     };
 
     redirect "/?a=$account";
+};
+
+=head2 /check
+
+Check item.
+
+=cut
+
+post '/check' => sub {
+    my $account = body_parameters->get('a');
+    my $item    = body_parameters->get('i');
+    my $link    = body_parameters->get('u');
+    my $check   = '';
+
+    my $file = _auth($account);
+
+    send_error( 'No item id provided', 400 ) unless $item;
+    send_error( 'No url provided', 400 ) unless $link;
+
+    my $data = [];
+
+    try {
+        open my $fh, '<' . ENCODING, $file or die "Can't read $file: $!";
+        while ( my $line = readline($fh) ) {
+            chomp $line;
+            my ( $id, $title, $url, $tags ) = split /\t/, $line, 4;
+            push @$data, { id => $id, title => $title, url => $url, tags => $tags };
+        }
+        close $fh or die "Can't close $file: $!";
+
+        info request->remote_address, " read $file";
+    }
+    catch {
+        error "ERROR: $_";
+        send_error( UNKNOWN, 400 );
+    };
+
+    unless ( is_success( getprint $link ) ) {
+        $check = $item;
+    };
+    info request->remote_address, " checked $item";
+
+    template index => {
+        account => $account,
+        data    => $data,
+        check   => $check,
+    };
 };
 
 sub _read_file {
