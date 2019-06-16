@@ -3,6 +3,7 @@ package Bookmarker;
 # ABSTRACT: Manage bookmarks
 
 use Dancer2 qw/ !any /;
+use Dancer2::Plugin::Database;
 use HTTP::Simple qw/ getprint is_success /;
 use List::Util qw/ any /;
 use Try::Tiny;
@@ -34,29 +35,16 @@ List items.
 get '/' => sub {
     my $account = query_parameters->get('a');
 
-    my $file = _auth($account);
+    my $sql = 'SELECT * FROM bookmarks WHERE account = ?';
+    my $sth = database->prepare($sql);
+    $sth->execute($account);
+    my $res = $sth->fetchall_hashref('id');
 
-    my $data = [];
-
-    try {
-        open my $fh, '<' . ENCODING, $file or die "Can't read $file: $!";
-        while ( my $line = readline($fh) ) {
-            chomp $line;
-            my ( $id, $title, $url, $tags ) = split /\t/, $line, 4;
-            push @$data, { id => $id, title => $title, url => $url, tags => $tags };
-        }
-        close $fh or die "Can't close $file: $!";
-
-        info request->remote_address, " read $file";
-    }
-    catch {
-        error "ERROR: $_";
-        send_error( UNKNOWN, 400 );
-    };
+    info request->remote_address, " read $account";
 
     template index => {
         account => $account,
-        data    => $data,
+        data    => [ sort { $a->{id} <=> $b->{id} } values %$res ],
         check   => '',
     };
 };
@@ -77,25 +65,18 @@ post '/search' => sub {
 
     my @query = split /\s+/, $query;
 
-    try {
-        open my $fh, '<' . ENCODING, $file or die "Can't read $file: $!";
-        while ( my $line = readline($fh) ) {
-            chomp $line;
+    my $sql = 'SELECT * FROM bookmarks WHERE account = ?';
+    my $sth = database->prepare($sql);
+    $sth->execute($account);
+    my $res = $sth->fetchall_hashref('id');
 
-            my ( $id, $title, $url, $tags ) = split /\t/, $line, 4;
-
-            if ( @query && any { $title =~ /\Q$_\E/i || $url =~ /\Q$_\E/i || $tags =~ /\Q$_\E/i } @query ) {
-                push @$data, { id => $id, title => $title, url => $url, tags => $tags };
-            }
+    for my $r ( sort { $a->{id} <=> $b->{id} } values %$res ) {
+        if ( @query && any { $r->{title} =~ /\Q$_\E/i || $r->{url} =~ /\Q$_\E/i || $r->{tags} =~ /\Q$_\E/i } @query ) {
+            push @$data, { id => $r->{id}, title => $r->{title}, url => $r->{url}, tags => $r->{tags} };
         }
-        close $fh or die "Can't close $file: $!";
-
-        info request->remote_address, " searched $file for '$query'";
     }
-    catch {
-        error "ERROR: $_";
-        send_error( UNKNOWN, 400 );
-    };
+
+    info request->remote_address, " searched $account for '$query'";
 
     template index => {
         account => $account,
@@ -122,31 +103,11 @@ post '/update' => sub {
 
     $new ||= $update eq 'title' ? 'Untitled' : '';
 
-    try {
-        my @lines = _read_file($file);
+    my $sql = "UPDATE bookmarks SET $update = ? WHERE account = ? AND id = ?";
+    my $sth = database->prepare($sql);
+    $sth->execute( $new, $account, $item );
 
-        open my $fh, '>' . ENCODING, $file or die "Can't write to $file: $!";
-        for my $line ( @lines ) {
-            my ( $id, $title, $url, $tags ) = split /\t/, $line, 4;
-            if ( $update eq 'title' ) {
-                $title = $new if $id eq $item;
-            }
-            elsif ( $update eq 'url' ) {
-                $url = $new if $id eq $item;
-            }
-            elsif ( $update eq 'tags' ) {
-                $tags = $new if $id eq $item;
-            }
-            print $fh "$id\t$title\t$url\t$tags\n";
-        }
-        close $fh or die "Can't close $file: $!";
-
-        info request->remote_address, " updated $item";
-    }
-    catch {
-        error "ERROR: $_";
-        send_error( "Can't update item", 500 );
-    };
+    info request->remote_address, " updated $account $item";
 
     redirect "/?a=$account";
 };
@@ -178,17 +139,13 @@ post '/add' => sub {
     $data->{title} ||= 'Untitled';
     $data->{tags}  ||= '';
 
-    try {
-        open my $fh, '>>' . ENCODING, $file or die "Can't write to $file: $!";
-        print $fh time, "\t$data->{title}\t$data->{url}\t$data->{tags}\n";
-        close $fh or die "Can't close $file: $!";
+    my $id = time();
 
-        info request->remote_address, " wrote to $file";
-    }
-    catch {
-        error "ERROR: $_";
-        send_as JSON => { error => "Can't add item", code => 500 };
-    };
+    my $sql = 'INSERT INTO bookmarks (id, account, title, url, tags) VALUES (?, ?, ?, ?, ?)';
+    my $sth = database->prepare($sql);
+    $sth->execute( $id, $data->{account}, $data->{title}, $data->{url}, $data->{tags} );
+
+    info request->remote_address, " added $data->{account} $id";
 
     send_as JSON => { success => 1, code => 201 };
 };
@@ -207,23 +164,11 @@ post '/delete' => sub {
 
     send_error( 'No item id provided', 400 ) unless $item;
 
-    try {
-        my @lines = _read_file($file);
+    my $sql = "DELETE FROM bookmarks WHERE account = ? AND id = ?";
+    my $sth = database->prepare($sql);
+    $sth->execute( $account, $item );
 
-        open my $fh, '>' . ENCODING, $file or die "Can't write to $file: $!";
-        for my $line ( @lines ) {
-            my ( $id, $title, $url, $tags ) = split /\t/, $line, 4;
-            next if $id eq $item;
-            print $fh "$id\t$title\t$url\t$tags\n";
-        }
-        close $fh or die "Can't close $file: $!";
-
-        info request->remote_address, " deleted $item";
-    }
-    catch {
-        error "ERROR: $_";
-        send_error( "Can't delete item", 500 );
-    };
+    info request->remote_address, " deleted $account $item";
 
     redirect "/?a=$account";
 };
@@ -237,39 +182,23 @@ Check item.
 post '/check' => sub {
     my $account = body_parameters->get('a');
     my $item    = body_parameters->get('i');
-    my $link    = body_parameters->get('u');
     my $check   = '';
 
     my $file = _auth($account);
 
     send_error( 'No item id provided', 400 ) unless $item;
-    send_error( 'No url provided', 400 ) unless $link;
 
-    my $data = [];
+    my $sql = 'SELECT * FROM bookmarks WHERE account = ? AND id = ?';
+    my $sth = database->prepare($sql);
+    $sth->execute( $account, $item );
+    my $res = $sth->fetchall_hashref('id');
 
-    try {
-        open my $fh, '<' . ENCODING, $file or die "Can't read $file: $!";
-        while ( my $line = readline($fh) ) {
-            chomp $line;
-            my ( $id, $title, $url, $tags ) = split /\t/, $line, 4;
-            if ( $id == $item ) {
-                push @$data, { id => $id, title => $title, url => $url, tags => $tags };
-                last;
-            }
-        }
-        close $fh or die "Can't close $file: $!";
+    my $data = [ values %$res ];
 
-        info request->remote_address, " read $file";
-    }
-    catch {
-        error "ERROR: $_";
-        send_error( UNKNOWN, 400 );
-    };
-
-    unless ( is_success( eval { getprint $link } ) ) {
+    unless ( is_success( eval { getprint $data->[0]{url} } ) ) {
         $check = $item;
     };
-    info request->remote_address, " checked $item";
+    info request->remote_address, " checked $account $item";
 
     template index => {
         account => $account,
@@ -277,22 +206,6 @@ post '/check' => sub {
         check   => $check,
     };
 };
-
-sub _read_file {
-    my ($file) = @_;
-
-    open my $fh, '<' . ENCODING, $file or die "Can't read $file: $!";
-
-    my @lines;
-    while ( my $line = readline($fh) ) {
-        chomp $line;
-        push @lines, $line;
-    }
-
-    close $fh or die "Can't close $file: $!";
-
-    return @lines;
-}
 
 sub _auth {
     my $account = shift;

@@ -50,3 +50,8 @@ template: "template_toolkit"
 #      cookie_name: eshop.session
 #      is_secure: 1
 #      is_http_only: 1
+
+plugins:
+    Database:
+        driver: SQLite
+        database: 'cloudbookmarker.db'
