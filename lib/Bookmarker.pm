@@ -314,6 +314,8 @@ __END__
 
 L<Dancer2>
 
+L<HTTP::Simple>
+
 L<List::Util>
 
 L<Try::Tiny>
