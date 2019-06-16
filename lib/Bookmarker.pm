@@ -63,6 +63,12 @@ any '/search' => sub {
 
     send_error( NOAUTH, 401 ) unless $account;
 
+    my $is_regex = 0;
+    if ( $query =~ m|^/.*?/$| ) {
+        $query    =~ s|/||g;
+        $is_regex = 1;
+    }
+
     my $data = [];
 
     my @query = split /\s+/, $query;
@@ -73,10 +79,19 @@ any '/search' => sub {
     my $res = $sth->fetchall_hashref('id');
 
     for my $r ( sort { $a->{id} <=> $b->{id} } values %$res ) {
-        if ( @query && List::Util::any { $r->{title} =~ /\Q$_\E/i || $r->{url} =~ /\Q$_\E/i || $r->{tags} =~ /\Q$_\E/i } @query ) {
+        if (
+            @query && (
+                ( $is_regex && List::Util::any { $r->{title} =~ /$_/i || $r->{url} =~ /$_/i || $r->{tags} =~ /$_/i } @query )
+                ||
+                ( !$is_regex && List::Util::any { $r->{title} =~ /\Q$_\E/i || $r->{url} =~ /\Q$_\E/i || $r->{tags} =~ /\Q$_\E/i } @query )
+            )
+        )
+        {
             push @$data, { id => $r->{id}, title => $r->{title}, url => $r->{url}, tags => $r->{tags} };
         }
     }
+
+    $query = $is_regex ? "/$query/" : $query;
 
     info request->remote_address, " searched $account for '$query'";
 
