@@ -261,6 +261,8 @@ __END__
 
 L<Dancer2>
 
+L<List::Util>
+
 L<Try::Tiny>
 
 =cut
