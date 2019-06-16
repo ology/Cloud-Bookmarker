@@ -3,7 +3,7 @@ package Bookmarker;
 # ABSTRACT: Manage bookmarks
 
 use Dancer2 qw/ !any /;
-use HTTP::Simple qw( getprint is_success );
+use HTTP::Simple qw/ getprint is_success /;
 use List::Util qw/ any /;
 use Try::Tiny;
 
