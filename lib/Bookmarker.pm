@@ -51,7 +51,7 @@ get '/' => sub {
     };
 };
 
-=head2 POST /search
+=head2 ANY /search
 
 Search items.
 
@@ -150,7 +150,7 @@ post '/add' => sub {
     send_as JSON => { success => 1, code => 201 };
 };
 
-=head2 GET /delete
+=head2 POST /delete
 
 Delete an item.
 
@@ -174,7 +174,7 @@ post '/delete' => sub {
     redirect $query ? "/search?a=$account&q=$query" : "/?a=$account";
 };
 
-=head2 /check
+=head2 POST /check
 
 Check item.
 
