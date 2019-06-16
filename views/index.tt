@@ -54,7 +54,9 @@
     [% ELSE %]
     <div class="cellblue">
     [% END %]
-        <a href="[% d.url %]" class="button" target="_blank">&nbsp;»&nbsp;</a>
+        <form action="[% d.url %]" method="get">
+            <input type="submit" name="submit" value=">"/>
+        </form>
         <p>
         <form action="/check" method="post">
             <input type="hidden" name="i" value="[% d.id %]"/>
