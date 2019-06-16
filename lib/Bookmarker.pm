@@ -252,6 +252,7 @@ post '/check' => sub {
         while ( my $line = readline($fh) ) {
             chomp $line;
             my ( $id, $title, $url, $tags ) = split /\t/, $line, 4;
+            next unless $id == $item;
             push @$data, { id => $id, title => $title, url => $url, tags => $tags };
         }
         close $fh or die "Can't close $file: $!";
