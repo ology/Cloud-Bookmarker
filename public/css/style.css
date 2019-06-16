@@ -77,14 +77,3 @@ a.button {
   background-color: lightblue;
   padding: 10px;
 }
-.cell.empty
-{
-  border: none;
-  width: 100px;
-}
-.cell.rowspanned {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 100px;
-}
