@@ -46,6 +46,7 @@ get '/' => sub {
         account => $account,
         data    => [ sort { $a->{id} <=> $b->{id} } values %$res ],
         check   => '',
+        search  => '',
     };
 };
 
@@ -82,6 +83,7 @@ post '/search' => sub {
         account => $account,
         data    => $data,
         check   => '',
+        search  => $query,
     };
 };
 
@@ -204,6 +206,7 @@ post '/check' => sub {
         account => $account,
         data    => $data,
         check   => $check,
+        search  => '',
     };
 };
 
