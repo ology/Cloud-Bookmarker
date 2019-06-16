@@ -57,8 +57,8 @@ Search items.
 =cut
 
 post '/search' => sub {
-    my $account = body_parameters->get('a');
-    my $query   = body_parameters->get('q');
+    my $account = body_parameters->get('a') || query_parameters->get('a');
+    my $query   = body_parameters->get('q') || query_parameters->get('q');
 
     my $file = _auth($account);
 
@@ -161,6 +161,7 @@ Delete an item.
 post '/delete' => sub {
     my $account = body_parameters->get('a');
     my $item    = body_parameters->get('i');
+    my $query   = body_parameters->get('q');
 
     my $file = _auth($account);
 
@@ -172,7 +173,7 @@ post '/delete' => sub {
 
     info request->remote_address, " deleted $account $item";
 
-    redirect "/?a=$account";
+    redirect $query ? "/search?a=$account&q=$query" : "/?a=$account";
 };
 
 =head2 /check
