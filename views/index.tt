@@ -12,14 +12,22 @@
   <div class="table">
 [% FOREACH d IN data %]
   <div class="row">
-    <div class="cell">
+    [% IF check == d.id %]
+    <div class="cellred">
+    [% ELSE %]
+    <div class="cellblue">
+    [% END %]
         <form action="/delete" method="post">
             <input type="hidden" name="i" value="[% d.id %]"/>
             <input type="hidden" name="a" value="[% account %]"/>
             <input type="submit" name="submit" value="x" onclick="if(!confirm('Are you sure?')) return false;"/>
         </form>
     </div>
-    <div class="cell">
+    [% IF check == d.id %]
+    <div class="cellred">
+    [% ELSE %]
+    <div class="cellblue">
+    [% END %]
         <form action="/update" method="post">
             <input type="text" name="n" value="[% d.title %]" size="60" placeholder="Title"/>
             <input type="hidden" name="i" value="[% d.id %]"/>
@@ -41,8 +49,19 @@
             <input type="hidden" name="u" value="tags"/>
         </form>
     </div>
-    <div class="cell">
-        <a href="[% d.url %]" class="button" target="_blank">»</a>
+    [% IF check == d.id %]
+    <div class="cellred">
+    [% ELSE %]
+    <div class="cellblue">
+    [% END %]
+        <a href="[% d.url %]" class="button" target="_blank">&nbsp;»&nbsp;</a>
+        <p>
+        <form action="/check" method="post">
+            <input type="hidden" name="i" value="[% d.id %]"/>
+            <input type="hidden" name="u" value="[% d.url %]"/>
+            <input type="hidden" name="a" value="[% account %]"/>
+            <input type="submit" name="submit" value="?"/>
+        </form>
     </div>
 </div>
 <p>
