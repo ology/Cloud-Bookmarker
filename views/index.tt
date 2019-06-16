@@ -1,7 +1,7 @@
 <a href="/?a=[% account %]" class="button">&nbsp;Home&nbsp;</a>
 &nbsp;
 <form action="/search" method="post" style="display: inline; margin: 0;">
-    <input type="text" name="q" value="[% search %]" size="50" placeholder="Search terms"/>
+    <input type="text" name="q" value="[% search %]" size="50" placeholder="Search terms" autofocus/>
     <input type="hidden" name="a" value="[% account %]"/>
     <input type="submit" name="submit" value=">"/>
 </form>
