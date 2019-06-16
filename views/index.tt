@@ -15,9 +15,9 @@
     [% i = i + 1 %]
   <div class="row">
     [% IF check == d.id %]
-    <div class="cellred">
+    <div class="leftcellred">
     [% ELSE %]
-    <div class="cellblue">
+    <div class="leftcellblue">
     [% END %]
         <form action="/delete" method="post" title="Delete this bookmark">
             <input type="hidden" name="i" value="[% d.id %]"/>
