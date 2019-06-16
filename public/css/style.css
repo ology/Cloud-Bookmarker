@@ -71,9 +71,15 @@ a.button {
 .row {
   display: table-row;
 }
-.cell {
+.cellblue {
   display: table-cell;
   border-radius: 5px;
   background-color: lightblue;
+  padding: 10px;
+}
+.cellred {
+  display: table-cell;
+  border-radius: 5px;
+  background-color: red;
   padding: 10px;
 }
