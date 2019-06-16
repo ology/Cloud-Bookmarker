@@ -98,6 +98,7 @@ post '/update' => sub {
     my $new     = body_parameters->get('n');
     my $item    = body_parameters->get('i');
     my $update  = body_parameters->get('u');
+    my $query   = body_parameters->get('q');
 
     my $file = _auth($account);
 
@@ -111,7 +112,7 @@ post '/update' => sub {
 
     info request->remote_address, " updated $account $item";
 
-    redirect "/?a=$account";
+    redirect $query ? "/search?a=$account&q=$query" : "/?a=$account";
 };
 
 =head2 POST /add
