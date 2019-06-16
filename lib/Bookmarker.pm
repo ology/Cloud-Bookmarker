@@ -196,9 +196,9 @@ Delete an item.
 
 =cut
 
-get '/delete' => sub {
-    my $account = query_parameters->get('a');
-    my $item    = query_parameters->get('i');
+post '/delete' => sub {
+    my $account = body_parameters->get('a');
+    my $item    = body_parameters->get('i');
 
     my $file = _auth($account);
 

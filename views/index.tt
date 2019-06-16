@@ -13,7 +13,11 @@
 [% FOREACH d IN data %]
   <div class="row">
     <div class="cell">
-    <a href="/delete?a=[% account %]&i=[% d.id %]" class="button" onclick="if(!confirm('Are you sure?')) return false;">&nbsp;x&nbsp;</a>
+    <form action="/delete" method="post">
+        <input type="hidden" name="i" value="[% d.id %]"/>
+        <input type="hidden" name="a" value="[% account %]"/>
+        <input type="submit" name="submit" value="x" onclick="if(!confirm('Are you sure?')) return false;"/>
+    </form>
     </div>
     <div class="cell">
     <form action="/update" method="post">
