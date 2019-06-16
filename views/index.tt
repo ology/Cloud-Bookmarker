@@ -42,7 +42,7 @@
         </form>
     </div>
     <div class="cell">
-        <a href="[% d.url %]" class="button" target="_blank">></a>
+        <a href="[% d.url %]" class="button" target="_blank">»</a>
     </div>
 </div>
 <p>
