@@ -4,10 +4,6 @@ use warnings;
 
 use DBI;
 
-use constant PATH     => 'public/accounts/';
-use constant EXT      => '.txt';
-use constant ENCODING => ':encoding(UTF-8)';
-
 my $account = shift or die "Usage: perl $0 123\n";
 
 my $driver   = 'SQLite';
