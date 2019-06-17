@@ -17,7 +17,7 @@ my $data = decode_json( encode( 'utf-8', $content ) );
 
 my $host    = 'http://dev.ology.net:8870';
 my $action  = 'add';
-my $account = 'gene';
+my $account = '123';
 
 my $i = 0;
 
