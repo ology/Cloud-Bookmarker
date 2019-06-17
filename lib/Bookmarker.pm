@@ -100,7 +100,7 @@ any '/search' => sub {
     }
 
     $query = "/$query/" if $is_regex;
-    $query = qq/"$query"/ if $is_quoted;
+    $query = '&#34;' . $query . '&#34;' if $is_quoted;
 
     info request->remote_address, " searched $account for '$query'";
 
