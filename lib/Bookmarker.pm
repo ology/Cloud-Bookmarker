@@ -87,7 +87,7 @@ any '/search' => sub {
     for my $r ( sort { $a->{id} <=> $b->{id} } values %$res ) {
         if ( !@query ||
             ( @query && (
-                ( $is_quoted && List::Util::any { $r->{title} eq $query || $r->{url} eq $query || $r->{tags} eq $query } @query )
+                ( $is_quoted && ( $r->{title} =~ /\Q$query\E/ || $r->{url} =~ /\Q$query\E/ || $r->{tags} =~ /\Q$query\E/ ) )
                 ||
                 ( $is_regex && List::Util::any { $r->{title} =~ /$_/i || $r->{url} =~ /$_/i || $r->{tags} =~ /$_/i } @query )
                 ||
