@@ -24,7 +24,7 @@ $sth->execute($account) or die $dbh->errstr;
 my %seen;
 
 while( my @row = $sth->fetchrow_array ) {
-#    print join( ',', @row ), "\n";
+    print join( ',', @row ), "\n";
     $seen{ $row[3] }++;
 }
 
