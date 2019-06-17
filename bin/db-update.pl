@@ -23,6 +23,6 @@ $pass = $csh->generate;
 
 $sql = 'UPDATE users SET password = ? WHERE account = ?';
 $sth = $dbh->prepare($sql) or die $dbh->errstr;
-$sth->execute( $account, $pass ) or die $dbh->errstr;
+$sth->execute( $pass, $account ) or die $dbh->errstr;
 
 $dbh->disconnect();
