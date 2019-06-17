@@ -11,10 +11,7 @@ use HTTP::Simple qw/ getprint is_success /;
 use List::Util;
 use Try::Tiny;
 
-use constant PATH     => 'public/accounts/';
-use constant EXT      => '.txt';
-use constant ENCODING => ':encoding(UTF-8)';
-use constant NOAUTH   => 'Not authorized';
+use constant NOAUTH => 'Not authorized';
 
 our $VERSION = '0.01';
 
