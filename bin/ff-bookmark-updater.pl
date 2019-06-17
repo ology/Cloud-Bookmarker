@@ -13,7 +13,7 @@ my $bookmarks = shift or die "Usage: perl $0 /some/bookmarks.json\n";
 my $content = read_text($bookmarks);
 
 my $data = decode_json( encode( 'utf-8', $content ) );
-#use Data::Dumper;warn(__PACKAGE__,' ',__LINE__," MARK: ",Dumper$data);
+#use Data::Dumper;warn(__PACKAGE__,' ',__LINE__," MARK: ",Dumper$data);exit;
 
 my $host    = 'http://dev.ology.net:8870';
 my $action  = 'add';
