@@ -11,6 +11,7 @@ my $app = Bookmarker->to_app;
 ok( is_coderef($app), 'Got app' );
 
 my $test = Plack::Test->create($app);
-my $res  = $test->request( GET '/' );
+my $res  = $test->request( GET '/?a=123' );
 
 ok( $res->is_success, '[GET /] successful' );
+warn $res->message, "\n" unless $res->is_success;
