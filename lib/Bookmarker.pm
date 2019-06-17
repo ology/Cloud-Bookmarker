@@ -241,6 +241,8 @@ __END__
 
 L<Dancer2>
 
+L<Dancer2::Plugin::Database>
+
 L<HTTP::Simple>
 
 L<List::Util>
