@@ -5,7 +5,6 @@ use warnings;
 use Encode;
 use File::Slurper 'read_text';
 use JSON::MaybeXS;
-use IO::Prompt::Tiny 'prompt';
 use HTTP::Simple;
 
 my $bookmarks = shift or die "Usage: perl $0 /some/bookmarks.json\n";
