@@ -32,7 +32,7 @@ sub traverse {
         my $url   = $struct->{uri};
 
         my $response = postjson( "$host/$action", { account => $account, url => $url, title => $title, tags => '' } );
-        print "\n", $response, "\n";
+        print $response, "\n\n";
 
         sleep 2;
     }
