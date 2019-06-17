@@ -4,7 +4,7 @@ use warnings;
 
 use DBI;
 
-my $account = shift or die "Usage: perl $0 123\n";
+my $account = shift or die "Usage: perl $0 account\n";
 
 my $driver   = 'SQLite';
 my $database = 'cloudbookmarker.db';
