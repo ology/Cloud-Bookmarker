@@ -7,7 +7,7 @@ use Dancer2;
 use Dancer2::Plugin::Auth::Extensible;
 use Dancer2::Plugin::Auth::Extensible::Provider::Database;
 use Dancer2::Plugin::Database;
-use HTTP::Simple qw/ getprint is_success /;
+use HTTP::Simple qw/ getprint is_error /;
 use List::Util;
 use Try::Tiny;
 
@@ -220,7 +220,7 @@ post '/check' => require_login sub {
 
     my $data = [ values %$res ];
 
-    unless ( is_success( eval { getprint $data->[0]{url} } ) ) {
+    if ( is_error( eval { getprint $data->[0]{url} } ) ) {
         $check = $item;
     };
     info request->remote_address, " checked $account $item";
