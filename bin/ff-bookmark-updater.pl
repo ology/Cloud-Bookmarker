@@ -34,7 +34,7 @@ sub traverse {
         my $response = postjson( "$host/$action", { account => $account, url => $url, title => $title, tags => '' } );
         print "\n", $response, "\n";
 
-        sleep 3;
+        sleep 2;
     }
     else {
         print "\n*** $struct->{title}:\n" unless $struct->{title} eq 'x';
