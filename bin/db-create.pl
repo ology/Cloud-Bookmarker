@@ -12,13 +12,19 @@ my $password = '';
 my $dbh      = DBI->connect( $dsn, $userid, $password, { RaiseError => 1 } ) or die $DBI::errstr;
 
 my $sql = <<'SQL';
-CREATE TABLE bookmarks
+CREATE TABLE users
    (id INT PRIMARY KEY NOT NULL,
     account TEXT NOT NULL,
-    title TEXT NOT NULL,
-    url TEXT NOT NULL,
-    tags TEXT)
+    password TEXT NOT NULL)
 SQL
+
+#CREATE TABLE bookmarks
+#   (id INT PRIMARY KEY NOT NULL,
+#    account TEXT NOT NULL,
+#    title TEXT NOT NULL,
+#    url TEXT NOT NULL,
+#    tags TEXT)
+#SQL
 
 my $r = $dbh->do($sql);
 
