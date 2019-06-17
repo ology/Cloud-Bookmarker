@@ -20,7 +20,9 @@
 [% content %]
 
 <div id="footer">
-    Built by <a href="http://gene.ology.net/">Gene Boggs</a> | <a href="/Chrome-Extension.zip">Chrome Extension</a>
+    Built by <a href="http://gene.ology.net/">Gene Boggs</a>
+    | <a href="/Chrome-Extension.zip">Chrome Extension</a>
+    | <a href="/Firefox-Extension.zip">Firefox Extension</a>
 </div>
 
 </body>
