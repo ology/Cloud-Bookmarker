@@ -7,7 +7,7 @@ use File::Slurper 'read_text';
 use JSON::MaybeXS;
 use HTTP::Simple;
 
-my $bookmarks = shift or die "Usage: perl $0 /some/bookmarks.json\n";
+my $bookmarks = shift or die "Usage: perl $0 /some/bookmarks.json [account]\n";
 my $account   = shift || 123;
 
 my $content = read_text($bookmarks);
