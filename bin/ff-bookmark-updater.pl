@@ -9,6 +9,7 @@ use IO::Prompt::Tiny 'prompt';
 use HTTP::Simple;
 
 my $bookmarks = shift or die "Usage: perl $0 /some/bookmarks.json\n";
+my $account   = shift || 123;
 
 my $content = read_text($bookmarks);
 
@@ -17,7 +18,6 @@ my $data = decode_json( encode( 'utf-8', $content ) );
 
 my $host    = 'http://dev.ology.net:8870';
 my $action  = 'add';
-my $account = '123';
 
 my $i = 0;
 
