@@ -18,16 +18,19 @@ CREATE TABLE users
     password TEXT NOT NULL)
 SQL
 
-#CREATE TABLE bookmarks
-#   (id INT PRIMARY KEY NOT NULL,
-#    account TEXT NOT NULL,
-#    title TEXT NOT NULL,
-#    url TEXT NOT NULL,
-#    tags TEXT)
-#SQL
-
 my $r = $dbh->do($sql);
+print $r < 0 ? $DBI::errstr : "Users table created successfully\n";
 
-print $r < 0 ? $DBI::errstr : "Table created successfully\n";
+$sql = <<'SQL';
+CREATE TABLE bookmarks
+   (id INT PRIMARY KEY NOT NULL,
+    account TEXT NOT NULL,
+    title TEXT NOT NULL,
+    url TEXT NOT NULL,
+    tags TEXT)
+SQL
+
+$r = $dbh->do($sql);
+print $r < 0 ? $DBI::errstr : "Bookmarks table created successfully\n";
 
 $dbh->disconnect();
