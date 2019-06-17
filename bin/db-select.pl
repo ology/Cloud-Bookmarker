@@ -21,8 +21,16 @@ my $sql = 'SELECT * FROM bookmarks WHERE account = ? ORDER BY id';
 my $sth = $dbh->prepare($sql) or die $dbh->errstr;
 $sth->execute($account) or die $dbh->errstr;
 
+my %seen;
+
 while( my @row = $sth->fetchrow_array ) {
-    print join( ',', @row ), "\n";
+#    print join( ',', @row ), "\n";
+    $seen{ $row[3] }++;
 }
 
 $dbh->disconnect();
+
+for my $k ( keys %seen ) {
+    next if $seen{$k} <= 1;
+    print "$k\n";
+}
