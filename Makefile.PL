@@ -18,6 +18,8 @@ WriteMakefile(
         'Test::More'   => 0,
         'YAML'         => 0,
         'Dancer2'      => 0.207000,
+        'Dancer2::Plugin::Auth::Extensible' => 0,
+        'Dancer2::Plugin::Auth::Extensible::Provider::Database' => 0,
         'Dancer2::Plugin::Database' => 0,
         'List::Util'   => 0,
         'Try::Tiny'    => 0,

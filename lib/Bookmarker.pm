@@ -2,7 +2,10 @@ package Bookmarker;
 
 # ABSTRACT: Manage bookmarks in the cloud
 
+use Crypt::SaltedHash;
 use Dancer2;
+use Dancer2::Plugin::Auth::Extensible;
+use Dancer2::Plugin::Auth::Extensible::Provider::Database;
 use Dancer2::Plugin::Database;
 use HTTP::Simple qw/ getprint is_success /;
 use List::Util;
@@ -31,7 +34,7 @@ List items.
 
 =cut
 
-get '/' => sub {
+get '/' => require_login sub {
     my $account = query_parameters->get('a');
 
     send_error( NOAUTH, 401 ) unless $account;
@@ -57,7 +60,7 @@ Search items.
 
 =cut
 
-any '/search' => sub {
+any '/search' => require_login sub {
     my $account = body_parameters->get('a') || query_parameters->get('a');
     my $query   = body_parameters->get('q') || query_parameters->get('q');
 
@@ -118,7 +121,7 @@ Update an item.
 
 =cut
 
-post '/update' => sub {
+post '/update' => require_login sub {
     my $account = body_parameters->get('a');
     my $new     = body_parameters->get('n');
     my $item    = body_parameters->get('i');
@@ -180,7 +183,7 @@ Delete an item.
 
 =cut
 
-post '/delete' => sub {
+post '/delete' => require_login sub {
     my $account = body_parameters->get('a');
     my $item    = body_parameters->get('i');
     my $query   = body_parameters->get('q');
@@ -204,7 +207,7 @@ Check item.
 
 =cut
 
-post '/check' => sub {
+post '/check' => require_login sub {
     my $account = body_parameters->get('a');
     my $item    = body_parameters->get('i');
     my $check   = '';
@@ -240,6 +243,10 @@ __END__
 =head1 SEE ALSO
 
 L<Dancer2>
+
+L<Dancer2::Plugin::Auth::Extensible>
+
+L<Dancer2::Plugin::Auth::Extensible::Provider::Database>
 
 L<Dancer2::Plugin::Database>
 

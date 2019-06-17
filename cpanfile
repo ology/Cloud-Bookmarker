@@ -1,4 +1,6 @@
 requires "Dancer2" => "0.207000";
+requires "Dancer2::Plugin::Auth::Extensible" => "0";
+requires "Dancer2::Plugin::Auth::Extensible::Provider::Database" => "0";
 requires "Dancer2::Plugin::Database" => "0";
 requires "Try::Tiny" => "0";
 requires "List::Util" => "0";

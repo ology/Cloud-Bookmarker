@@ -55,3 +55,14 @@ plugins:
     Database:
         driver: SQLite
         database: 'cloudbookmarker.db'
+    Auth::Extensible:
+        exit_page: '/'
+#        login_page_handler: 'Bookmarker::login_page_handler'
+        realms:
+            users:
+                provider: 'Database'
+                disable_roles: 1
+                users_table: 'users'
+                users_id_column: 'id'
+                users_username_column: 'account'
+                users_password_column: 'password'
