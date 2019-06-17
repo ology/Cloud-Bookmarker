@@ -15,13 +15,17 @@ Example command line usage:
 
 Better yet, use the Chrome external extension that comes with this repo.
 
-Browse the bookmarks at http://0:5000/?a=account_name
+Browse the bookmarks at http://0:5000/?a=account_name by clicking the "Bookmarks" button in the extension.
 
-* You will need to login first.
+* You will need to login.
 
 To delete a bookmark, click the "x" button.
 
 To update the url, title or tags of an entry, type in the text input and press the enter key.
+
+Visit the bookmark by clicking the ">" button in the entry.
+
+Check the return status by clicking the "?" button in the entry.  Blue = ok. Red = error.
 
 *Web user interface:*
 
