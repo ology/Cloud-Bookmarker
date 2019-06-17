@@ -13,7 +13,7 @@ Example command line usage:
 
 > curl http://0:5000/add -X POST -d '{"account":"account_name","title":"Example","url":"https://example.com"}'
 
-Alternatively, use the Chrome external extension that comes in this repo.
+Better yet, use the Chrome external extension that comes with this repo.
 
 Browse the bookmarks at http://0:5000/?a=account_name
 
