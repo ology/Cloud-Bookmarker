@@ -95,7 +95,7 @@ any '/search' => sub {
             ) )
         )
         {
-            push @$data, { id => $r->{id}, title => $r->{title}, url => $r->{url}, tags => $r->{tags} };
+            push @$data, $r;
         }
     }
 
