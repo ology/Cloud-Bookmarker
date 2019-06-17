@@ -171,7 +171,7 @@ post '/add' => sub {
 
     info request->remote_address, " added $data->{account} $id";
 
-    send_as JSON => { success => 1, code => 201 };
+    send_as JSON => { id => $id, success => 1, code => 201 };
 };
 
 =head2 POST /delete
