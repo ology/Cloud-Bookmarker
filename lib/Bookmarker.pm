@@ -243,6 +243,8 @@ L<Dancer2>
 
 L<Dancer2::Plugin::Database>
 
+L<DBD::SQLite>
+
 L<HTTP::Simple>
 
 L<List::Util>
