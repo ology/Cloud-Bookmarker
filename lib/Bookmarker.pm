@@ -218,7 +218,7 @@ post '/check' => sub {
     $sth->execute( $account, $item );
     my $res = $sth->fetchall_hashref('id');
 
-    my $data = [ sort { $a->{id} <=> $b->{id} } values %$res ];
+    my $data = [ values %$res ];
 
     unless ( is_success( eval { getprint $data->[0]{url} } ) ) {
         $check = $item;
