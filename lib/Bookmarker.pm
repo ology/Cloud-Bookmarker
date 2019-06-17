@@ -223,6 +223,7 @@ post '/check' => require_login sub {
     if ( is_error( eval { getprint $data->[0]{url} } ) ) {
         $check = $item;
     };
+
     info request->remote_address, " checked $account $item";
 
     template index => {
