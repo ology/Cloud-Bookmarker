@@ -21,7 +21,7 @@ Browse the bookmarks at http://0:5000/?a=account_name
 
 To delete a bookmark, click the "x" button.
 
-To update the title or tags of an entry, type in the text input and press the enter key.
+To update the url, title or tags of an entry, type in the text input and press the enter key.
 
 *Web user interface:*
 
