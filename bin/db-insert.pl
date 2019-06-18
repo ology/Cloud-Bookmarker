@@ -5,11 +5,11 @@ use warnings;
 use Crypt::SaltedHash;
 use DBI;
 
-use constant PATH     => 'public/accounts/';
-use constant EXT      => '.txt';
-use constant ENCODING => ':encoding(UTF-8)';
-use constant NOAUTH   => 'Not authorized';
-use constant UNKNOWN  => 'Unknown account';
+#use constant PATH     => 'public/accounts/';
+#use constant EXT      => '.txt';
+#use constant ENCODING => ':encoding(UTF-8)';
+#use constant NOAUTH   => 'Not authorized';
+#use constant UNKNOWN  => 'Unknown account';
 
 my $account = shift or die "Usage: perl $0 account [passphrase]\n";
 my $pass    = shift;
