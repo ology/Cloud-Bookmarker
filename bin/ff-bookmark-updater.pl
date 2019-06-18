@@ -15,7 +15,7 @@ my $content = read_text($bookmarks);
 my $data = decode_json( encode( 'utf-8', $content ) );
 #use Data::Dumper;warn(__PACKAGE__,' ',__LINE__," MARK: ",Dumper$data);exit;
 
-my $host   = 'http://dev.ology.net:8870';
+my $host   = 'http://localhost:5000';
 my $action = 'add';
 
 my $i = 0;
