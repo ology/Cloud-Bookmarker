@@ -26,6 +26,6 @@ while( my @row = $sth->fetchrow_array ) {
     my $status;
     eval { $status = getstore( $row[3], '/tmp/junk.html' ); };
     if ( is_error($status) ) {
-        print 'ERROR: ', $row[3], "\n";
+        print $row[3], "\n";
     };
 }
