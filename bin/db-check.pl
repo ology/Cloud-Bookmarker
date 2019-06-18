@@ -25,7 +25,5 @@ while( my @row = $sth->fetchrow_array ) {
 #    print "$i. Trying $row[3] ...\n";
     my $status;
     eval { $status = getstore( $row[3], '/tmp/junk.html' ); };
-    if ( is_error($status) ) {
-        print $row[3], "\n";
-    };
+    print $row[3], "\n" if is_error($status);
 }
