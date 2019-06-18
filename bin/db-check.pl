@@ -18,9 +18,14 @@ my $sql = 'SELECT * FROM bookmarks WHERE account = ? ORDER BY id';
 my $sth = $dbh->prepare($sql) or die $dbh->errstr;
 $sth->execute($account) or die $dbh->errstr;
 
+my $i = 0;
+
 while( my @row = $sth->fetchrow_array ) {
-    my $status = getstore( $row[3], '/tmp/junk.html' );
+    $i++;
+#    print "$i. Trying $row[3] ...\n";
+    my $status;
+    eval { $status = getstore( $row[3], '/tmp/junk.html' ); };
     if ( is_error($status) ) {
-        print $row[3], "\n";
+        print 'ERROR: ', $row[3], "\n";
     };
 }
