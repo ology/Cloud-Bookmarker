@@ -17,12 +17,12 @@ my $sql = 'SELECT * FROM bookmarks WHERE account = ? ORDER BY id';
 my $sth = $dbh->prepare($sql) or die $dbh->errstr;
 $sth->execute($account) or die $dbh->errstr;
 
-#my %seen;
+#my %seen; # For duplicate hunting
 
 print "Bookmarks:\n";
 while( my @row = $sth->fetchrow_array ) {
     print join( ',', @row ), "\n";
-#    $seen{ $row[3] }++;
+#    $seen{ $row[3] }++; # For duplicate hunting
 }
 
 $sql = 'SELECT * FROM users WHERE account = ? ORDER BY id';
@@ -37,6 +37,7 @@ while( my @row = $sth->fetchrow_array ) {
 $dbh->disconnect();
 
 __END__
+# Duplicate hunting:
 for my $k ( keys %seen ) {
     next if $seen{$k} <= 1;
     print "$k\n";
