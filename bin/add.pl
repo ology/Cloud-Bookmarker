@@ -5,7 +5,7 @@ use warnings;
 use IO::Prompt::Tiny 'prompt';
 use HTTP::Simple;
 
-my $host   = 'http://dev.ology.net:8870';
+my $host   = 'http://localhost:5000';
 my $action = 'add';
 
 my $account = prompt('Account:');
