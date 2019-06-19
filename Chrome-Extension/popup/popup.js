@@ -1,4 +1,5 @@
 // Set the current title and url
+// For a Firefox extension, just change "chrome" to "browser" below
 chrome.tabs.query({'active': true, 'windowId': chrome.windows.WINDOW_ID_CURRENT},
    function(tabs){
       document.getElementById('title').value = tabs[0].title;
