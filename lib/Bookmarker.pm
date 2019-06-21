@@ -63,6 +63,21 @@ any '/search' => require_login sub {
 
     send_error( NOAUTH, 401 ) unless $account;
 
+    my $data = _search_data( $account, $query );
+
+    info request->remote_address, " searched $account for '$query'";
+
+    template index => {
+        account => $account,
+        data    => $data,
+        check   => '',
+        search  => $query,
+    };
+};
+
+sub _search_data {
+    my ( $account, $query ) = @_;
+
     my $is_regex = 0;
     if ( $query =~ m|^/.*?/$| ) {
         $query =~ s|/||g;
@@ -75,14 +90,14 @@ any '/search' => require_login sub {
         $is_quoted = 1;
     }
 
-    my $data = [];
-
     my @query = split /\s+/, $query;
 
     my $sql = 'SELECT * FROM bookmarks WHERE account = ?';
     my $sth = database->prepare($sql);
     $sth->execute($account);
     my $res = $sth->fetchall_hashref('id');
+
+    my $data = [];
 
     for my $r ( sort { $a->{id} <=> $b->{id} } values %$res ) {
         if ( !@query ||
@@ -99,18 +114,8 @@ any '/search' => require_login sub {
         }
     }
 
-    $query = "/$query/" if $is_regex;
-    $query = '&#34;' . $query . '&#34;' if $is_quoted;
-
-    info request->remote_address, " searched $account for '$query'";
-
-    template index => {
-        account => $account,
-        data    => $data,
-        check   => '',
-        search  => $query,
-    };
-};
+    return $data;
+}
 
 =head2 POST /update
 
