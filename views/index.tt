@@ -1,4 +1,4 @@
-<a href="/?a=[% account %]" class="button">&nbsp;Home&nbsp;</a>
+<a href="/?a=[% account %]"><img src="/favicon.ico" height="32" width="32" align="middle"></a>
 &nbsp;
 <form action="/search" method="post" style="display: inline; margin: 0;">
     <input type="text" name="q" value="[% search %]" size="50" placeholder="Search terms, &#34;quoted literal&#34; or /regular expression/" autofocus/>
