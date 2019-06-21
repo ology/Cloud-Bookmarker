@@ -9,6 +9,7 @@ use Dancer2::Plugin::Auth::Extensible::Provider::Database;
 use Dancer2::Plugin::Database;
 use HTTP::Simple qw/ getprint is_error /;
 use List::Util;
+use Netscape::Bookmarks;
 use Try::Tiny;
 
 use constant NOAUTH => 'Not authorized';
@@ -237,6 +238,34 @@ post '/check' => require_login sub {
         check   => $check,
         search  => '',
     };
+};
+
+post '/export' => require_login sub {
+    my $account = body_parameters->get('a');
+    my $query   = body_parameters->get('q');
+
+    send_error( NOAUTH, 401 ) unless $account;
+
+    my $data = _search_data( $account, $query );
+
+    my $bookmarks = Netscape::Bookmarks::Category->new({
+        add_date    => time(),
+        description => 'Imported from Cloudbookmarker',
+        folded      => 0,
+        title       => 'Root',
+    });
+
+    for my $bookmark ( @$data ) {
+        my $link = Netscape::Bookmarks::Link->new({
+            ADD_DATE => $bookmark->{id},
+            TITLE    => $bookmark->{title},
+            HREF     => $bookmark->{url},
+        });
+
+        $bookmarks->add($link);
+    }
+
+    return $bookmarks->as_string;
 };
 
 true;
