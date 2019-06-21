@@ -37,7 +37,7 @@ get '/' => require_login sub {
 
     my $user = logged_in_user;
 
-    send_error( NOAUTH, 401 ) unless $account && $account eq $user->{username};
+    send_error( NOAUTH, 401 ) unless $account && $account eq $user->{account};
 
     my $sql = 'SELECT * FROM bookmarks WHERE account = ?';
     my $sth = database->prepare($sql);
@@ -66,7 +66,7 @@ any '/search' => require_login sub {
 
     my $user = logged_in_user;
 
-    send_error( NOAUTH, 401 ) unless $account && $account eq $user->{username};
+    send_error( NOAUTH, 401 ) unless $account && $account eq $user->{account};
 
     my $data = _search_data( $account, $query );
 
@@ -137,7 +137,7 @@ post '/update' => require_login sub {
 
     my $user = logged_in_user;
 
-    send_error( NOAUTH, 401 ) unless $account && $account eq $user->{username};
+    send_error( NOAUTH, 401 ) unless $account && $account eq $user->{account};
 
     send_error( 'No item id provided', 400 ) unless $item;
 
@@ -199,7 +199,7 @@ post '/delete' => require_login sub {
 
     my $user = logged_in_user;
 
-    send_error( NOAUTH, 401 ) unless $account && $account eq $user->{username};
+    send_error( NOAUTH, 401 ) unless $account && $account eq $user->{account};
 
     send_error( 'No item id provided', 400 ) unless $item;
 
@@ -225,7 +225,7 @@ post '/check' => require_login sub {
 
     my $user = logged_in_user;
 
-    send_error( NOAUTH, 401 ) unless $account && $account eq $user->{username};
+    send_error( NOAUTH, 401 ) unless $account && $account eq $user->{account};
 
     send_error( 'No item id provided', 400 ) unless $item;
 
@@ -256,7 +256,7 @@ post '/export' => require_login sub {
 
     my $user = logged_in_user;
 
-    send_error( NOAUTH, 401 ) unless $account && $account eq $user->{username};
+    send_error( NOAUTH, 401 ) unless $account && $account eq $user->{account};
 
     my $data = _search_data( $account, $query );
 
