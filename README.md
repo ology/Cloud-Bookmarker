@@ -5,11 +5,11 @@ Example command line usage:
 
 > plackup bin/app.psgi
 
-> curl http://0:5000/add -X POST -d '{"account":"account_name","title":"Example","url":"https://example.com"}'
+> curl http://0:5000/add -X POST -d '{"account":"123","title":"Example","url":"https://example.com"}'
 
 Better yet, use the Chrome external extension that comes with this repo.
 
-Browse the bookmarks at http://0:5000/?a=account_name by clicking the "Bookmarks" button in the extension.
+Browse the bookmarks at http://0:5000/?a=123 by clicking the "Bookmarks" button in the extension.
 
 * You will need to login.
 
