@@ -35,7 +35,9 @@ List items.
 get '/' => require_login sub {
     my $account = query_parameters->get('a');
 
-    send_error( NOAUTH, 401 ) unless $account;
+    my $user = logged_in_user;
+
+    send_error( NOAUTH, 401 ) unless $account && $account eq $user->{username};
 
     my $sql = 'SELECT * FROM bookmarks WHERE account = ?';
     my $sth = database->prepare($sql);
@@ -62,7 +64,9 @@ any '/search' => require_login sub {
     my $account = body_parameters->get('a') || query_parameters->get('a');
     my $query   = body_parameters->get('q') || query_parameters->get('q');
 
-    send_error( NOAUTH, 401 ) unless $account;
+    my $user = logged_in_user;
+
+    send_error( NOAUTH, 401 ) unless $account && $account eq $user->{username};
 
     my $data = _search_data( $account, $query );
 
@@ -131,7 +135,9 @@ post '/update' => require_login sub {
     my $update  = body_parameters->get('u');
     my $query   = body_parameters->get('q');
 
-    send_error( NOAUTH, 401 ) unless $account;
+    my $user = logged_in_user;
+
+    send_error( NOAUTH, 401 ) unless $account && $account eq $user->{username};
 
     send_error( 'No item id provided', 400 ) unless $item;
 
@@ -191,7 +197,9 @@ post '/delete' => require_login sub {
     my $item    = body_parameters->get('i');
     my $query   = body_parameters->get('q');
 
-    send_error( NOAUTH, 401 ) unless $account;
+    my $user = logged_in_user;
+
+    send_error( NOAUTH, 401 ) unless $account && $account eq $user->{username};
 
     send_error( 'No item id provided', 400 ) unless $item;
 
@@ -215,7 +223,9 @@ post '/check' => require_login sub {
     my $item    = body_parameters->get('i');
     my $check   = '';
 
-    send_error( NOAUTH, 401 ) unless $account;
+    my $user = logged_in_user;
+
+    send_error( NOAUTH, 401 ) unless $account && $account eq $user->{username};
 
     send_error( 'No item id provided', 400 ) unless $item;
 
@@ -244,7 +254,9 @@ post '/export' => require_login sub {
     my $account = body_parameters->get('a');
     my $query   = body_parameters->get('q');
 
-    send_error( NOAUTH, 401 ) unless $account;
+    my $user = logged_in_user;
+
+    send_error( NOAUTH, 401 ) unless $account && $account eq $user->{username};
 
     my $data = _search_data( $account, $query );
 
