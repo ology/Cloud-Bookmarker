@@ -1,11 +1,11 @@
 <a href="/?a=[% account %]"><img src="/favicon.ico" height="32" width="32" align="middle"></a>
 &nbsp;
-<form action="/search" method="post" style="display: inline; margin: 0;">
+<form action="/search" method="post">
     <input type="text" name="q" value="[% search %]" size="50" placeholder="Search terms, &#34;quoted literal&#34; or /regular expression/" autofocus/>
     <input type="hidden" name="a" value="[% account %]"/>
     <input type="submit" name="submit" value=">"/>
 </form>
-<form action="/export" method="post" style="display: inline; margin: 0;" target="_blank">
+<form action="/export" method="post" target="_blank">
     <input type="hidden" name="a" value="[% account %]"/>
     <input type="hidden" name="q" value="[% search %]"/>
     <input type="submit" name="submit" value="Export"/>
