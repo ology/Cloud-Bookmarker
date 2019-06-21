@@ -5,7 +5,7 @@
     <input type="hidden" name="a" value="[% account %]"/>
     <input type="submit" name="submit" value=">"/>
 </form>
-<form action="/export" method="post" style="display: inline; margin: 0;">
+<form action="/export" method="post" style="display: inline; margin: 0;" target="_blank">
     <input type="hidden" name="a" value="[% account %]"/>
     <input type="hidden" name="q" value="[% search %]"/>
     <input type="submit" name="submit" value="Export"/>
