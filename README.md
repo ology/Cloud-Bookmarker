@@ -1,12 +1,6 @@
 # Cloud-Bookmarker
 Manage bookmarks in the cloud
 
-First create the database:
-
-> perl bin/db-create.pl
-
-> perl bin/db-insert.pl account_name password
-
 Example command line usage:
 
 > plackup bin/app.psgi
