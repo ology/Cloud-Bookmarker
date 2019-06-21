@@ -5,7 +5,7 @@ Example command line usage:
 
 > plackup bin/app.psgi
 
-> curl http://0:5000/add -X POST -d '{"account":"123","title":"Example","url":"https://example.com"}'
+> curl http://0:5000/add -X POST -d '{"account":"123","title":"Blah","url":"https://blah.com"}'
 
 Better yet, use the Chrome external extension that comes with this repo.
 
