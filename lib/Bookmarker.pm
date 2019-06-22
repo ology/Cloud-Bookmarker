@@ -287,6 +287,8 @@ post '/export' => require_login sub {
 
     my ( $fh, $filename ) = tempfile( DIR => 'public' );
     write_text( $filename, $bookmarks->as_string );
+    my $mode = 0644;
+    chmod $mode, $filename;
 
     send_file( $filename, content_type => 'text/html', filename => 'exported-bookmarks.html' );
 };
