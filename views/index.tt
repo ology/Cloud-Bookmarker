@@ -43,11 +43,7 @@
 [% FOREACH d IN data %]
     [% i = i + 1 %]
         <div class="row">
-    [% IF check == d.id %]
-            <div class="leftcellred">
-    [% ELSE %]
             <div class="leftcellblue">
-    [% END %]
                 <form action="/delete" method="post" title="Delete this bookmark">
                     <input type="hidden" name="i" value="[% d.id %]">
                     <input type="hidden" name="q" value="[% search %]">
@@ -56,11 +52,7 @@
                 <p>
                 <span class="xxsmall_font">[% i %]</span>
             </div>
-    [% IF check == d.id %]
-            <div class="cellred">
-    [% ELSE %]
             <div class="cellblue">
-    [% END %]
                 <form action="/update" method="post">
                     <input type="text" name="n" value="[% d.title %]" size="60" placeholder="Title">
                     <input type="hidden" name="i" value="[% d.id %]">
@@ -80,11 +72,7 @@
                     <input type="hidden" name="u" value="tags">
                 </form>
             </div>
-    [% IF check == d.id %]
-            <div class="cellred">
-    [% ELSE %]
-            <div class="cellblue">
-    [% END %]
+            <div class="rightcellblue">
                 <a href="[% d.url %]" class="button" target="_blank" title="Visit the link">&nbsp;>&nbsp;</a>
             </div>
         </div>

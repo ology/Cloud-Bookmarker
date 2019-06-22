@@ -69,18 +69,7 @@ a.button {
 .row {
   display: table-row;
 }
-.cellblue {
-  display: table-cell;
-  border-radius: 5px;
-  background-color: lightblue;
-  padding: 10px;
-}
-.cellred {
-  display: table-cell;
-  border-radius: 5px;
-  background-color: red;
-  padding: 10px;
-}
+
 .leftcellblue {
   display: table-cell;
   border-radius: 5px;
@@ -88,12 +77,18 @@ a.button {
   padding: 10px;
   text-align: center;
 }
-.leftcellred {
+.cellblue {
   display: table-cell;
   border-radius: 5px;
-  background-color: red;
+  background-color: lightblue;
   padding: 10px;
-  text-align: center;
+}
+.rightcellblue {
+  display: table-cell;
+  border-radius: 5px;
+  background-color: lightblue;
+  padding: 10px;
+  width: 30px;
 }
 
 .xxsmall_font {
