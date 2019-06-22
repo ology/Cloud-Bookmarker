@@ -1,7 +1,7 @@
 <a href="/"><img src="/favicon.ico" height="32" width="32" align="middle"></a>
 &nbsp;
 <form action="/search" method="post">
-    <input type="text" name="q" value="[% search %]" size="50" placeholder="Search terms, &#34;quoted literal&#34; or /regular expression/" [% IF ! request.uri == '/check' %]autofocus[% END %]/>
+    <input type="text" name="q" value="[% search %]" size="50" placeholder="Search terms, &#34;quoted literal&#34; or /regular expression/" [% IF request.uri != '/check' %]autofocus[% END %]/>
     <input type="submit" name="submit" value="Search"/>
 </form>
 <br>
