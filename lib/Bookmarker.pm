@@ -33,21 +33,18 @@ List items.
 =cut
 
 get '/' => require_login sub {
-    my $account = query_parameters->get('a');
-
     my $user = logged_in_user;
-
-    send_error( NOAUTH, 401 ) unless $account && $account eq $user->{account};
+    send_error( NOAUTH, 401 ) unless $user;
 
     my $sql = 'SELECT * FROM bookmarks WHERE account = ?';
     my $sth = database->prepare($sql);
-    $sth->execute($account);
+    $sth->execute( $user->{account} );
     my $res = $sth->fetchall_hashref('id');
 
-    info request->remote_address, " read $account";
+    info request->remote_address, " read $user->{account}";
 
     template index => {
-        account => $account,
+        account => $user->{account},
         data    => [ sort { $a->{id} <=> $b->{id} } values %$res ],
         check   => '',
         search  => '',
@@ -61,19 +58,17 @@ Search items.
 =cut
 
 any '/search' => require_login sub {
-    my $account = body_parameters->get('a') || query_parameters->get('a');
-    my $query   = body_parameters->get('q') || query_parameters->get('q');
+    my $query = body_parameters->get('q') || query_parameters->get('q');
 
     my $user = logged_in_user;
+    send_error( NOAUTH, 401 ) unless $user;
 
-    send_error( NOAUTH, 401 ) unless $account && $account eq $user->{account};
+    my $data = _search_data( $user->{account}, $query );
 
-    my $data = _search_data( $account, $query );
-
-    info request->remote_address, " searched $account for '$query'";
+    info request->remote_address, " searched $user->{account} for '$query'";
 
     template index => {
-        account => $account,
+        account => $user->{account},
         data    => $data,
         check   => '',
         search  => $query,
@@ -129,15 +124,13 @@ Update an item.
 =cut
 
 post '/update' => require_login sub {
-    my $account = body_parameters->get('a');
     my $new     = body_parameters->get('n');
     my $item    = body_parameters->get('i');
     my $update  = body_parameters->get('u');
     my $query   = body_parameters->get('q');
 
     my $user = logged_in_user;
-
-    send_error( NOAUTH, 401 ) unless $account && $account eq $user->{account};
+    send_error( NOAUTH, 401 ) unless $user;
 
     send_error( 'No item id provided', 400 ) unless $item;
 
@@ -145,11 +138,11 @@ post '/update' => require_login sub {
 
     my $sql = "UPDATE bookmarks SET $update = ? WHERE account = ? AND id = ?";
     my $sth = database->prepare($sql);
-    $sth->execute( $new, $account, $item );
+    $sth->execute( $new, $user->{account}, $item );
 
-    info request->remote_address, " updated $account $item";
+    info request->remote_address, " updated $user->{account} $item";
 
-    redirect $query ? "/search?a=$account&q=$query" : "/?a=$account";
+    redirect $query ? "/search?q=$query" : '/';
 };
 
 =head2 POST /add
@@ -193,23 +186,21 @@ Delete an item.
 =cut
 
 post '/delete' => require_login sub {
-    my $account = body_parameters->get('a');
-    my $item    = body_parameters->get('i');
-    my $query   = body_parameters->get('q');
+    my $item  = body_parameters->get('i');
+    my $query = body_parameters->get('q');
 
     my $user = logged_in_user;
-
-    send_error( NOAUTH, 401 ) unless $account && $account eq $user->{account};
+    send_error( NOAUTH, 401 ) unless $user;
 
     send_error( 'No item id provided', 400 ) unless $item;
 
     my $sql = "DELETE FROM bookmarks WHERE account = ? AND id = ?";
     my $sth = database->prepare($sql);
-    $sth->execute( $account, $item );
+    $sth->execute( $user->{account}, $item );
 
-    info request->remote_address, " deleted $account $item";
+    info request->remote_address, " deleted $user->{account} $item";
 
-    redirect $query ? "/search?a=$account&q=$query" : "/?a=$account";
+    redirect $query ? "/search?q=$query" : '/';
 };
 
 =head2 POST /check
@@ -219,19 +210,17 @@ Check item.
 =cut
 
 post '/check' => require_login sub {
-    my $account = body_parameters->get('a');
-    my $item    = body_parameters->get('i');
-    my $check   = '';
+    my $item  = body_parameters->get('i');
+    my $check = '';
 
     my $user = logged_in_user;
-
-    send_error( NOAUTH, 401 ) unless $account && $account eq $user->{account};
+    send_error( NOAUTH, 401 ) unless $user;
 
     send_error( 'No item id provided', 400 ) unless $item;
 
     my $sql = 'SELECT * FROM bookmarks WHERE account = ? AND id = ?';
     my $sth = database->prepare($sql);
-    $sth->execute( $account, $item );
+    $sth->execute( $user->{account}, $item );
     my $res = $sth->fetchall_hashref('id');
 
     my $data = [ values %$res ];
@@ -240,10 +229,10 @@ post '/check' => require_login sub {
         $check = $item;
     };
 
-    info request->remote_address, " checked $account $item";
+    info request->remote_address, " checked $user->{account} $item";
 
     template index => {
-        account => $account,
+        account => $user->{account},
         data    => $data,
         check   => $check,
         search  => '',
@@ -251,14 +240,12 @@ post '/check' => require_login sub {
 };
 
 post '/export' => require_login sub {
-    my $account = body_parameters->get('a');
-    my $query   = body_parameters->get('q');
+    my $query = body_parameters->get('q');
 
     my $user = logged_in_user;
+    send_error( NOAUTH, 401 ) unless $user;
 
-    send_error( NOAUTH, 401 ) unless $account && $account eq $user->{account};
-
-    my $data = _search_data( $account, $query );
+    my $data = _search_data( $user->{account}, $query );
 
     my $bookmarks = Netscape::Bookmarks::Category->new({
         add_date    => time(),

@@ -1,12 +1,10 @@
-<a href="/?a=[% account %]"><img src="/favicon.ico" height="32" width="32" align="middle"></a>
+<a href="/"><img src="/favicon.ico" height="32" width="32" align="middle"></a>
 &nbsp;
 <form action="/search" method="post">
     <input type="text" name="q" value="[% search %]" size="50" placeholder="Search terms, &#34;quoted literal&#34; or /regular expression/" autofocus/>
-    <input type="hidden" name="a" value="[% account %]"/>
     <input type="submit" name="submit" value="Search"/>
 </form>
 <form action="/export" method="post" target="_blank">
-    <input type="hidden" name="a" value="[% account %]"/>
     <input type="hidden" name="q" value="[% search %]"/>
     <input type="submit" name="submit" value="Export"/>
 </form>
@@ -24,7 +22,6 @@
     [% END %]
         <form action="/delete" method="post" title="Delete this bookmark">
             <input type="hidden" name="i" value="[% d.id %]"/>
-            <input type="hidden" name="a" value="[% account %]"/>
             <input type="hidden" name="q" value="[% search %]"/>
             <input type="submit" name="submit" value="x" onclick="if(!confirm('Are you sure?')) return false;"/>
         </form>
@@ -39,7 +36,6 @@
         <form action="/update" method="post">
             <input type="text" name="n" value="[% d.title %]" size="60" placeholder="Title"/>
             <input type="hidden" name="i" value="[% d.id %]"/>
-            <input type="hidden" name="a" value="[% account %]"/>
             <input type="hidden" name="q" value="[% search %]"/>
             <input type="hidden" name="u" value="title"/>
         </form>
@@ -47,14 +43,12 @@
         <form action="/update" method="post">
             <input type="text" name="n" value="[% d.url %]" size="60" placeholder="URL"/>
             <input type="hidden" name="i" value="[% d.id %]"/>
-            <input type="hidden" name="a" value="[% account %]"/>
             <input type="hidden" name="u" value="url"/>
         </form>
         <br>
         <form action="/update" method="post">
             <input type="text" name="n" value="[% d.tags %]" size="60" placeholder="Space separated tags"/>
             <input type="hidden" name="i" value="[% d.id %]"/>
-            <input type="hidden" name="a" value="[% account %]"/>
             <input type="hidden" name="u" value="tags"/>
         </form>
     </div>
@@ -68,7 +62,6 @@
         <form action="/check" method="post">
             <input type="hidden" name="i" value="[% d.id %]"/>
             <input type="hidden" name="u" value="[% d.url %]"/>
-            <input type="hidden" name="a" value="[% account %]"/>
             <input type="submit" name="submit" value="?" title="Check the link"/>
         </form>
     </div>
