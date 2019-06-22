@@ -341,7 +341,7 @@ post '/import' => require_login sub {
 
         my $bookmarks = Netscape::Bookmarks->new($tempname);
 
-        $bookmarks->recurse( $add_link );
+        $bookmarks->recurse($add_link);
 
         info request->remote_address, " imported to $user->{account}";
     }
