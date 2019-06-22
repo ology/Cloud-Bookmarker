@@ -339,6 +339,13 @@ post '/import' => require_login sub {
     redirect '/';
 };
 
+=head2 GET /help
+
+Show help.
+
+=cut
+
+
 get '/help' => sub {
     template 'help';
 };
