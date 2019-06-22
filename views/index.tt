@@ -21,7 +21,7 @@
         <br>
         <input type="text" name="url" size="60" placeholder="URL"/>
         <br>
-        <input type="text" name="tags" size="60" placeholder="Tags"/>
+        <input type="text" name="tags" size="60" placeholder="Space separated tags"/>
         <br>
         <div style="text-align: right;">
             <input type="submit" name="submit" value="+"/>
