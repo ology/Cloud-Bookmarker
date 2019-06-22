@@ -1,0 +1,15 @@
+<h1>Help</h1>
+
+<h2>Export</h2>
+Export uses your current search and creates a Mozilla HTML bookmark file from the displayed links.
+<p>
+In order to save the exported file, you must view the exported page source and save <i>that</i>.
+<p>
+The Mozilla HTML bookmark format does not support tags, unfortunately.
+
+<h2>Browser Extensions</h2>
+The Chrome and Firefox extensions are provided as ZIP files.
+<p>
+In order to install and use them you must first unzip them on your local machine.
+Next open the popup.html and popup.js files in a text editor, 1. change "123" to your account id,
+and 2. change the instances of "localhost:5000" to your internet server host name.
