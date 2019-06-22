@@ -105,7 +105,6 @@ $(document).ready(
             function(){
                 if ($(this).val()) {
                     $('#import').attr('disabled', false);
-//                      $('#import').removeAttr('disabled'); 
                 } 
             }
         );
