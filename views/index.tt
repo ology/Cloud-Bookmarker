@@ -15,19 +15,16 @@
                     <input type="hidden" name="q" value="[% search %]">
                     <input type="submit" name="submit" id="import" value="Import" disabled>
                 </form>
-                |
                 <form action="/export" method="post">
                     <input type="hidden" name="q" value="[% search %]">
                     <input type="submit" name="submit" value="Export">
                 </form>
-                |
-                <button id="toggle">New</button>
             </div>
             <div class="cellclear">
             </div>
         </div>
 [% IF ! search %]
-        <div id="new_bookmark" class="row" style="display: none">
+        <div class="row">
             <div>
             </div>
             <div class="cellblue">
@@ -93,12 +90,6 @@
 <script>
 $(document).ready(
     function() {
-        $('#toggle').click(
-            function() {
-                $('#new_bookmark').toggle();
-            }
-        );
-
         $('#url').change(
             function() {
                 if ($(this).val()) {
