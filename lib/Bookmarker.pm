@@ -291,7 +291,9 @@ post '/export' => require_login sub {
         $bookmarks->add($link);
     }
 
-    return $bookmarks->as_string;
+    my $html = $bookmarks->as_string;
+
+    send_file( \$html, content_type => 'text/plain', filename => 'exported-bookmarks.html' );
 };
 
 post '/import' => require_login sub {
