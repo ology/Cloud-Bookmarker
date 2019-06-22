@@ -14,6 +14,8 @@ use List::Util;
 use Netscape::Bookmarks;
 use Try::Tiny;
 
+use constant PATH => 'public/export';
+use constant EXT  => '.tmp';
 use constant SQL1 => 'SELECT * FROM bookmarks WHERE account = ?';
 use constant SQL2 => 'INSERT INTO bookmarks (id, account, title, url, tags) VALUES (?, ?, ?, ?, ?)';
 
@@ -56,7 +58,7 @@ get '/' => require_login sub {
 sub _purge_tempfiles {
     my $now   = time();
     my $age   = 300;
-    my @files = File::Find::Rule->file()->name('*.tmp')->in('public/export');
+    my @files = File::Find::Rule->file()->name( '*' . EXT )->in(PATH);
 
     for my $file ( @files ) {
         my @stats = stat($file);
@@ -301,7 +303,7 @@ post '/export' => require_login sub {
         $bookmarks->add($link);
     }
 
-    my ( $fh, $filename ) = tempfile( DIR => 'public/export', SUFFIX => '.tmp' );
+    my ( $fh, $filename ) = tempfile( DIR => PATH, SUFFIX => EXT );
     write_text( $filename, $bookmarks->as_string );
     my $mode = 0644;
     chmod $mode, $filename;
