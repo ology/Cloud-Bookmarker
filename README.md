@@ -19,8 +19,6 @@ To update the url, title or tags of an entry, type in the text input and press t
 
 Visit the bookmark by clicking the ">" button in the entry.
 
-Check the return status by clicking the "?" button in the entry.  Blue = ok. Red = error.
-
 *Web user interface:*
 
 ![Web user interface](https://raw.githubusercontent.com/ology/Cloud-Bookmarker/master/public/images/CB-Web_UI.png)
