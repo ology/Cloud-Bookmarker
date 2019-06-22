@@ -6,6 +6,8 @@ use Dancer2;
 use Dancer2::Plugin::Auth::Extensible;
 use Dancer2::Plugin::Auth::Extensible::Provider::Database;
 use Dancer2::Plugin::Database;
+use File::Temp qw/ tempfile /;
+use File::Slurper qw/ write_text /;
 use HTTP::Simple qw/ getprint is_error /;
 use List::Util;
 use Netscape::Bookmarks;
@@ -283,9 +285,10 @@ post '/export' => require_login sub {
         $bookmarks->add($link);
     }
 
-    my $html = $bookmarks->as_string;
+    my ( $fh, $filename ) = tempfile( DIR => 'public' );
+    write_text( $filename, $bookmarks->as_string );
 
-    send_file( \$html, content_type => 'text/html', filename => 'exported-bookmarks.html' );
+    send_file( $filename, content_type => 'text/html', filename => 'exported-bookmarks.html' );
 };
 
 =head2 POST /import
