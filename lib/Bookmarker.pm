@@ -309,6 +309,8 @@ Import items.
 =cut
 
 post '/import' => require_login sub {
+    my $query = body_parameters->get('q');
+
     my $user = logged_in_user;
     send_error( NOAUTH, 401 ) unless $user;
 
@@ -336,7 +338,7 @@ post '/import' => require_login sub {
         info request->remote_address, " imported to $user->{account}";
     }
 
-    redirect '/';
+    redirect $query ? "/search?q=$query" : '/';
 };
 
 =head2 GET /help
