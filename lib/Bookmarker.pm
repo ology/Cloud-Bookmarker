@@ -12,6 +12,8 @@ use Netscape::Bookmarks;
 use Try::Tiny;
 
 use constant NOAUTH => 'Not authorized';
+use constant SQL1   => 'SELECT * FROM bookmarks WHERE account = ?';
+use constant SQL2   => 'INSERT INTO bookmarks (id, account, title, url, tags) VALUES (?, ?, ?, ?, ?)';
 
 our $VERSION = '0.01';
 
@@ -35,8 +37,7 @@ get '/' => require_login sub {
     my $user = logged_in_user;
     send_error( NOAUTH, 401 ) unless $user;
 
-    my $sql = 'SELECT * FROM bookmarks WHERE account = ?';
-    my $sth = database->prepare($sql);
+    my $sth = database->prepare(SQL1);
     $sth->execute( $user->{account} );
     my $res = $sth->fetchall_hashref('id');
 
@@ -89,8 +90,7 @@ sub _search_data {
 
     my @query = split /\s+/, $query;
 
-    my $sql = 'SELECT * FROM bookmarks WHERE account = ?';
-    my $sth = database->prepare($sql);
+    my $sth = database->prepare(SQL1);
     $sth->execute($account);
     my $res = $sth->fetchall_hashref('id');
 
@@ -167,8 +167,7 @@ post '/add' => sub {
 
     my $id = time();
 
-    my $sql = 'INSERT INTO bookmarks (id, account, title, url, tags) VALUES (?, ?, ?, ?, ?)';
-    my $sth = database->prepare($sql);
+    my $sth = database->prepare(SQL2);
     $sth->execute( $id, $data->{account}, $data->{title}, $data->{url}, $data->{tags} );
 
     info request->remote_address, " added $data->{account} $id";
@@ -194,8 +193,7 @@ post '/new' => require_login sub {
 
     my $id = time();
 
-    my $sql = 'INSERT INTO bookmarks (id, account, title, url, tags) VALUES (?, ?, ?, ?, ?)';
-    my $sth = database->prepare($sql);
+    my $sth = database->prepare(SQL2);
     $sth->execute( $id, $user->{account}, $title, $url, $tags );
 
     info request->remote_address, " added $user->{account} $id";
@@ -242,7 +240,7 @@ post '/check' => require_login sub {
 
     send_error( 'No item id provided', 400 ) unless $item;
 
-    my $sql = 'SELECT * FROM bookmarks WHERE account = ? AND id = ?';
+    my $sql = SQL1 . ' AND id = ?';
     my $sth = database->prepare($sql);
     $sth->execute( $user->{account}, $item );
     my $res = $sth->fetchall_hashref('id');
@@ -315,8 +313,7 @@ post '/import' => require_login sub {
     if ( $upload ) {
         my $tempname = $upload->tempname;
 
-        my $sql = 'INSERT INTO bookmarks (id, account, title, url, tags) VALUES (?, ?, ?, ?, ?)';
-        my $sth = database->prepare($sql);
+        my $sth = database->prepare(SQL2);
 
         my $id = time();
 
