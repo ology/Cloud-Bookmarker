@@ -285,7 +285,7 @@ post '/export' => require_login sub {
         $bookmarks->add($link);
     }
 
-    my ( $fh, $filename ) = tempfile( DIR => 'public', UNLINK => 1 );
+    my ( $fh, $filename ) = tempfile( DIR => 'public/export' );
     write_text( $filename, $bookmarks->as_string );
     my $mode = 0644;
     chmod $mode, $filename;
