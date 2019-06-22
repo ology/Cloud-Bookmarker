@@ -289,6 +289,7 @@ post '/export' => require_login sub {
     write_text( $filename, $bookmarks->as_string );
     my $mode = 0644;
     chmod $mode, $filename;
+    $filename =~ s/public\///;
 
     send_file( $filename, content_type => 'text/html', filename => 'exported-bookmarks.html' );
 };
