@@ -4,11 +4,16 @@
     <input type="text" name="q" value="[% search %]" size="50" placeholder="Search terms, &#34;quoted literal&#34; or /regular expression/" autofocus/>
     <input type="submit" name="submit" value="Search"/>
 </form>
+<br>
+<form action="/import" method="post" enctype="multipart/form-data" style="padding-left: 50px;">
+    <input type="file" name="bookmarks" id="bookmarks">
+    <input type="submit" name="submit" value="Import"/>
+</form>
 <form action="/export" method="post" target="_blank">
     <input type="hidden" name="q" value="[% search %]"/>
     <input type="submit" name="submit" value="Export"/>
 </form>
-<br>
+<p>
 <div class="tablewrapper">
   <div class="table">
 [% IF ! search %]

@@ -294,6 +294,37 @@ post '/export' => require_login sub {
     return $bookmarks->as_string;
 };
 
+post '/import' => require_login sub {
+    my $user = logged_in_user;
+    send_error( NOAUTH, 401 ) unless $user;
+
+    my $upload = request->upload('bookmarks');
+
+    if ( $upload ) {
+        my $tempname = $upload->tempname;
+
+        my $sql = 'INSERT INTO bookmarks (id, account, title, url, tags) VALUES (?, ?, ?, ?, ?)';
+        my $sth = database->prepare($sql);
+
+        my $id = time();
+
+        my $add_link = sub {
+            my $obj = shift;
+            if ( ref $obj eq 'Netscape::Bookmarks::Link' ) {
+                $sth->execute( $id++, $user->{account}, $obj->title, $obj->href, '' );
+            }
+        };
+
+        my $bookmarks = Netscape::Bookmarks->new($tempname);
+
+        $bookmarks->recurse( $add_link );
+
+        info request->remote_address, " imported to $user->{account}";
+    }
+
+    redirect '/';
+};
+
 get '/help' => sub {
     template 'help';
 };
