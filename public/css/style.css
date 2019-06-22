@@ -58,6 +58,8 @@ a.button {
     appearance: button;
     text-decoration: none;
     color: initial;
+    display: block;
+    margin: 0 auto;
 };
 
 .tablewrapper {
@@ -93,7 +95,7 @@ a.button {
   border-radius: 5px;
   background-color: lightblue;
   padding: 10px;
-  width: 30px;
+//  width: 30px;
 }
 
 .xxsmall_font {
