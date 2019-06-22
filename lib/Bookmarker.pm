@@ -147,7 +147,7 @@ post '/update' => require_login sub {
 
 =head2 POST /add
 
-Add an item.
+Add an item from JSON.
 
 =cut
 
@@ -177,6 +177,33 @@ post '/add' => sub {
     info request->remote_address, " added $data->{account} $id";
 
     send_as JSON => { success => 1, code => 201, id => $id };
+};
+
+=head2 POST /new
+
+Create a new item from the UI.
+
+=cut
+
+post '/new' => require_login sub {
+    my $title = body_parameters->get('title') || 'Untitled';
+    my $url   = body_parameters->get('url');
+    my $tags  = body_parameters->get('tags') || '';
+
+    my $user = logged_in_user;
+    send_error( NOAUTH, 401 ) unless $user;
+
+    send_error( 'No URL provided', 400 ) unless $url;
+
+    my $id = time();
+
+    my $sql = 'INSERT INTO bookmarks (id, account, title, url, tags) VALUES (?, ?, ?, ?, ?)';
+    my $sth = database->prepare($sql);
+    $sth->execute( $id, $user->{account}, $title, $url, $tags );
+
+    info request->remote_address, " added $user->{account} $id";
+
+    redirect '/';
 };
 
 =head2 POST /delete
