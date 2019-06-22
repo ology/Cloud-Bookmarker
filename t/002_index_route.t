@@ -14,3 +14,5 @@ my $test = Plack::Test->create($app);
 my $res  = $test->request( GET '/' );
 
 ok( $res->is_redirect, '[GET /] successful' );
+
+like( $res->header('location'), qr/login/, 'location login' );
