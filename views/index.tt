@@ -1,22 +1,28 @@
-<a href="/"><img src="/favicon.ico" height="32" width="32" align="middle"></a>
-&nbsp;
-<form action="/search" method="post">
-    <input type="text" name="q" value="[% search %]" size="50" placeholder="Search terms, &#34;quoted literal&#34; or /regular expression/" autofocus>
-    <input type="submit" name="submit" value="Search">
-</form>
-<br>
-<form action="/import" method="post" enctype="multipart/form-data" style="padding-left: 50px;">
-    <input type="file" name="bookmarks" id="bookmarks">
-    <input type="hidden" name="q" value="[% search %]">
-    <input type="submit" name="submit" id="import" value="Import" disabled>
-</form>
-<form action="/export" method="post">
-    <input type="hidden" name="q" value="[% search %]">
-    <input type="submit" name="submit" value="Export">
-</form>
-<p>
 <div class="tablewrapper">
     <div class="table">
+        <div class="row">
+            <div class="cellclear">
+                <a href="/"><img src="/favicon.ico" height="32" width="32" align="middle"></a>
+            </div>
+            <div class="cellclear">
+                <form action="/search" method="post">
+                    <input type="text" name="q" value="[% search %]" size="50" placeholder="Search terms, &#34;quoted literal&#34; or /regular expression/" autofocus>
+                    <input type="submit" name="submit" value="Search">
+                </form>
+                <p>
+                <form action="/import" method="post" enctype="multipart/form-data">
+                    <input type="file" name="bookmarks" id="bookmarks">
+                    <input type="hidden" name="q" value="[% search %]">
+                    <input type="submit" name="submit" id="import" value="Import" disabled>
+                </form>
+                <form action="/export" method="post">
+                    <input type="hidden" name="q" value="[% search %]">
+                    <input type="submit" name="submit" value="Export">
+                </form>
+            </div>
+            <div class="cellclear">
+            </div>
+        </div>
 [% IF ! search %]
         <div class="row">
             <div>

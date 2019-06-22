@@ -70,6 +70,11 @@ a.button {
   display: table-row;
 }
 
+.cellclear {
+  display: table-cell;
+  border-radius: 5px;
+  padding: 10px;
+}
 .leftcellblue {
   display: table-cell;
   border-radius: 5px;
