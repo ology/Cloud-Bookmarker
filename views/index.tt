@@ -16,87 +16,87 @@
 </form>
 <p>
 <div class="tablewrapper">
-  <div class="table">
+    <div class="table">
 [% IF ! search %]
-  <div class="row">
-    <div class="leftcellblue">
-    </div>
-    <div class="cellblue">
-        <form action="/new" method="post" title="Create a new bookmark">
-        <input type="text" name="title" size="60" placeholder="Title"/>
-        <br>
-        <input type="text" name="url" id="url" size="60" placeholder="URL"/>
-        <br>
-        <input type="text" name="tags" size="60" placeholder="Space separated tags"/>
-        <br>
-        <div style="text-align: right;">
-            <input type="submit" name="submit" id="new" value="+" disabled//>
+        <div class="row">
+            <div class="leftcellblue">
+            </div>
+            <div class="cellblue">
+                <form action="/new" method="post" title="Create a new bookmark">
+                    <input type="text" name="title" size="60" placeholder="Title"/>
+                    <br>
+                    <input type="text" name="url" id="url" size="60" placeholder="URL"/>
+                    <br>
+                    <input type="text" name="tags" size="60" placeholder="Space separated tags"/>
+                    <br>
+                    <div style="text-align: right;">
+                        <input type="submit" name="submit" id="new" value="+" disabled//>
+                    </div>
+                </form>
+            </div>
+            <div class="cellblue">
+            </div>
         </div>
-    </form>
-    </div>
-    <div class="cellblue">
-    </div>
-  </div>
-  <p>
+        <p>
 [% END %]
 [% i = 0 %]
 [% FOREACH d IN data %]
     [% i = i + 1 %]
-  <div class="row">
+        <div class="row">
     [% IF check == d.id %]
-    <div class="leftcellred">
+            <div class="leftcellred">
     [% ELSE %]
-    <div class="leftcellblue">
+            <div class="leftcellblue">
     [% END %]
-        <form action="/delete" method="post" title="Delete this bookmark">
-            <input type="hidden" name="i" value="[% d.id %]"/>
-            <input type="hidden" name="q" value="[% search %]"/>
-            <input type="submit" name="submit" value="x" onclick="if(!confirm('Are you sure?')) return false;"/>
-        </form>
+                <form action="/delete" method="post" title="Delete this bookmark">
+                    <input type="hidden" name="i" value="[% d.id %]"/>
+                    <input type="hidden" name="q" value="[% search %]"/>
+                    <input type="submit" name="submit" value="x" onclick="if(!confirm('Are you sure?')) return false;"/>
+                </form>
+                <p>
+                <span class="xxsmall_font">[% i %]</span>
+            </div>
+    [% IF check == d.id %]
+            <div class="cellred">
+    [% ELSE %]
+            <div class="cellblue">
+    [% END %]
+                <form action="/update" method="post">
+                    <input type="text" name="n" value="[% d.title %]" size="60" placeholder="Title"/>
+                    <input type="hidden" name="i" value="[% d.id %]"/>
+                    <input type="hidden" name="q" value="[% search %]"/>
+                    <input type="hidden" name="u" value="title"/>
+                </form>
+                <br>
+                <form action="/update" method="post">
+                    <input type="text" name="n" value="[% d.url %]" size="60" placeholder="URL"/>
+                    <input type="hidden" name="i" value="[% d.id %]"/>
+                    <input type="hidden" name="u" value="url"/>
+                </form>
+                <br>
+                <form action="/update" method="post">
+                    <input type="text" name="n" value="[% d.tags %]" size="60" placeholder="Space separated tags"/>
+                    <input type="hidden" name="i" value="[% d.id %]"/>
+                    <input type="hidden" name="u" value="tags"/>
+                </form>
+            </div>
+    [% IF check == d.id %]
+            <div class="cellred">
+    [% ELSE %]
+            <div class="cellblue">
+    [% END %]
+                <a href="[% d.url %]" class="button" target="_blank" title="Visit the link">&nbsp;>&nbsp;</a>
+                <p>
+                <form action="/check" method="post">
+                    <input type="hidden" name="i" value="[% d.id %]"/>
+                    <input type="hidden" name="u" value="[% d.url %]"/>
+                    <input type="submit" name="submit" value="?" title="Check the link"/>
+                </form>
+            </div>
+        </div>
         <p>
-        <span class="xxsmall_font">[% i %]</span>
-    </div>
-    [% IF check == d.id %]
-    <div class="cellred">
-    [% ELSE %]
-    <div class="cellblue">
-    [% END %]
-        <form action="/update" method="post">
-            <input type="text" name="n" value="[% d.title %]" size="60" placeholder="Title"/>
-            <input type="hidden" name="i" value="[% d.id %]"/>
-            <input type="hidden" name="q" value="[% search %]"/>
-            <input type="hidden" name="u" value="title"/>
-        </form>
-        <br>
-        <form action="/update" method="post">
-            <input type="text" name="n" value="[% d.url %]" size="60" placeholder="URL"/>
-            <input type="hidden" name="i" value="[% d.id %]"/>
-            <input type="hidden" name="u" value="url"/>
-        </form>
-        <br>
-        <form action="/update" method="post">
-            <input type="text" name="n" value="[% d.tags %]" size="60" placeholder="Space separated tags"/>
-            <input type="hidden" name="i" value="[% d.id %]"/>
-            <input type="hidden" name="u" value="tags"/>
-        </form>
-    </div>
-    [% IF check == d.id %]
-    <div class="cellred">
-    [% ELSE %]
-    <div class="cellblue">
-    [% END %]
-        <a href="[% d.url %]" class="button" target="_blank" title="Visit the link">&nbsp;>&nbsp;</a>
-        <p>
-        <form action="/check" method="post">
-            <input type="hidden" name="i" value="[% d.id %]"/>
-            <input type="hidden" name="u" value="[% d.url %]"/>
-            <input type="submit" name="submit" value="?" title="Check the link"/>
-        </form>
-    </div>
-</div>
-<p>
 [% END %]
-  </div>
+    </div>
 </div>
 
 <script>
