@@ -11,9 +11,8 @@ use List::Util;
 use Netscape::Bookmarks;
 use Try::Tiny;
 
-use constant NOAUTH => 'Not authorized';
-use constant SQL1   => 'SELECT * FROM bookmarks WHERE account = ?';
-use constant SQL2   => 'INSERT INTO bookmarks (id, account, title, url, tags) VALUES (?, ?, ?, ?, ?)';
+use constant SQL1 => 'SELECT * FROM bookmarks WHERE account = ?';
+use constant SQL2 => 'INSERT INTO bookmarks (id, account, title, url, tags) VALUES (?, ?, ?, ?, ?)';
 
 our $VERSION = '0.01';
 
@@ -35,7 +34,6 @@ List items.
 
 get '/' => require_login sub {
     my $user = logged_in_user;
-    send_error( NOAUTH, 401 ) unless $user;
 
     my $sth = database->prepare(SQL1);
     $sth->execute( $user->{account} );
@@ -60,7 +58,6 @@ any '/search' => require_login sub {
     my $query = body_parameters->get('q') || query_parameters->get('q');
 
     my $user = logged_in_user;
-    send_error( NOAUTH, 401 ) unless $user;
 
     my $data = _search_data( $user->{account}, $query );
 
@@ -127,7 +124,6 @@ post '/update' => require_login sub {
     my $query   = body_parameters->get('q');
 
     my $user = logged_in_user;
-    send_error( NOAUTH, 401 ) unless $user;
 
     send_error( 'No item id provided', 400 ) unless $item;
 
@@ -158,7 +154,7 @@ post '/add' => sub {
         send_as JSON => { error => "Can't decode JSON", code => 400 };
     };
 
-    send_as JSON => { error => NOAUTH, code => 401 } unless $data->{account};
+    send_as JSON => { error => 'Not authorized', code => 401 } unless $data->{account};
 
     send_as JSON => { error => 'No url provided', code => 400 } unless $data->{url};
 
@@ -187,7 +183,6 @@ post '/new' => require_login sub {
     my $tags  = body_parameters->get('tags') || '';
 
     my $user = logged_in_user;
-    send_error( NOAUTH, 401 ) unless $user;
 
     send_error( 'No URL provided', 400 ) unless $url;
 
@@ -212,7 +207,6 @@ post '/delete' => require_login sub {
     my $query = body_parameters->get('q');
 
     my $user = logged_in_user;
-    send_error( NOAUTH, 401 ) unless $user;
 
     send_error( 'No item id provided', 400 ) unless $item;
 
@@ -236,7 +230,6 @@ post '/check' => require_login sub {
     my $check = '';
 
     my $user = logged_in_user;
-    send_error( NOAUTH, 401 ) unless $user;
 
     send_error( 'No item id provided', 400 ) unless $item;
 
@@ -270,7 +263,6 @@ post '/export' => require_login sub {
     my $query = body_parameters->get('q');
 
     my $user = logged_in_user;
-    send_error( NOAUTH, 401 ) unless $user;
 
     my $data = _search_data( $user->{account}, $query );
 
@@ -306,7 +298,6 @@ post '/import' => require_login sub {
     my $query = body_parameters->get('q');
 
     my $user = logged_in_user;
-    send_error( NOAUTH, 401 ) unless $user;
 
     my $upload = request->upload('bookmarks');
 
