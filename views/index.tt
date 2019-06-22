@@ -101,16 +101,16 @@
 
 <script>
 $(document).ready(
-    function(){
+    function() {
         $('#url').change(
-            function(){
+            function() {
                 if ($(this).val()) {
                     $('#new').attr('disabled', false);
                 } 
             }
         );
         $('#bookmarks').change(
-            function(){
+            function() {
                 if ($(this).val()) {
                     $('#import').attr('disabled', false);
                 } 
