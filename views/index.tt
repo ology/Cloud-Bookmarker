@@ -1,18 +1,18 @@
 <a href="/"><img src="/favicon.ico" height="32" width="32" align="middle"></a>
 &nbsp;
 <form action="/search" method="post">
-    <input type="text" name="q" value="[% search %]" size="50" placeholder="Search terms, &#34;quoted literal&#34; or /regular expression/" [% IF request.uri != '/check' %]autofocus[% END %]/>
-    <input type="submit" name="submit" value="Search"/>
+    <input type="text" name="q" value="[% search %]" size="50" placeholder="Search terms, &#34;quoted literal&#34; or /regular expression/" [% IF request.uri != '/check' %]autofocus[% END %]>
+    <input type="submit" name="submit" value="Search">
 </form>
 <br>
 <form action="/import" method="post" enctype="multipart/form-data" style="padding-left: 50px;">
     <input type="file" name="bookmarks" id="bookmarks">
-    <input type="hidden" name="q" value="[% search %]"/>
-    <input type="submit" name="submit" id="import" value="Import" disabled/>
+    <input type="hidden" name="q" value="[% search %]">
+    <input type="submit" name="submit" id="import" value="Import" disabled>
 </form>
 <form action="/export" method="post">
-    <input type="hidden" name="q" value="[% search %]"/>
-    <input type="submit" name="submit" value="Export"/>
+    <input type="hidden" name="q" value="[% search %]">
+    <input type="submit" name="submit" value="Export">
 </form>
 <p>
 <div class="tablewrapper">
@@ -23,14 +23,14 @@
             </div>
             <div class="cellblue">
                 <form action="/new" method="post" title="Create a new bookmark">
-                    <input type="text" name="title" size="60" placeholder="Title"/>
+                    <input type="text" name="title" size="60" placeholder="Title">
                     <br>
-                    <input type="text" name="url" id="url" size="60" placeholder="URL"/>
+                    <input type="text" name="url" id="url" size="60" placeholder="URL">
                     <br>
-                    <input type="text" name="tags" size="60" placeholder="Space separated tags"/>
+                    <input type="text" name="tags" size="60" placeholder="Space separated tags">
                     <br>
                     <div style="text-align: right;">
-                        <input type="submit" name="submit" id="new" value="+" disabled//>
+                        <input type="submit" name="submit" id="new" value="+" disabled>
                     </div>
                 </form>
             </div>
@@ -49,9 +49,9 @@
             <div class="leftcellblue">
     [% END %]
                 <form action="/delete" method="post" title="Delete this bookmark">
-                    <input type="hidden" name="i" value="[% d.id %]"/>
-                    <input type="hidden" name="q" value="[% search %]"/>
-                    <input type="submit" name="submit" value="x" onclick="if(!confirm('Are you sure?')) return false;"/>
+                    <input type="hidden" name="i" value="[% d.id %]">
+                    <input type="hidden" name="q" value="[% search %]">
+                    <input type="submit" name="submit" value="x" onclick="if(!confirm('Are you sure?')) return false;">
                 </form>
                 <p>
                 <span class="xxsmall_font">[% i %]</span>
@@ -62,22 +62,22 @@
             <div class="cellblue">
     [% END %]
                 <form action="/update" method="post">
-                    <input type="text" name="n" value="[% d.title %]" size="60" placeholder="Title"/>
-                    <input type="hidden" name="i" value="[% d.id %]"/>
-                    <input type="hidden" name="q" value="[% search %]"/>
-                    <input type="hidden" name="u" value="title"/>
+                    <input type="text" name="n" value="[% d.title %]" size="60" placeholder="Title">
+                    <input type="hidden" name="i" value="[% d.id %]">
+                    <input type="hidden" name="q" value="[% search %]">
+                    <input type="hidden" name="u" value="title">
                 </form>
                 <br>
                 <form action="/update" method="post">
-                    <input type="text" name="n" value="[% d.url %]" size="60" placeholder="URL"/>
-                    <input type="hidden" name="i" value="[% d.id %]"/>
-                    <input type="hidden" name="u" value="url"/>
+                    <input type="text" name="n" value="[% d.url %]" size="60" placeholder="URL">
+                    <input type="hidden" name="i" value="[% d.id %]">
+                    <input type="hidden" name="u" value="url">
                 </form>
                 <br>
                 <form action="/update" method="post">
-                    <input type="text" name="n" value="[% d.tags %]" size="60" placeholder="Space separated tags"/>
-                    <input type="hidden" name="i" value="[% d.id %]"/>
-                    <input type="hidden" name="u" value="tags"/>
+                    <input type="text" name="n" value="[% d.tags %]" size="60" placeholder="Space separated tags">
+                    <input type="hidden" name="i" value="[% d.id %]">
+                    <input type="hidden" name="u" value="tags">
                 </form>
             </div>
     [% IF check == d.id %]
@@ -88,9 +88,9 @@
                 <a href="[% d.url %]" class="button" target="_blank" title="Visit the link">&nbsp;>&nbsp;</a>
                 <p>
                 <form action="/check" method="post">
-                    <input type="hidden" name="i" value="[% d.id %]"/>
-                    <input type="hidden" name="u" value="[% d.url %]"/>
-                    <input type="submit" name="submit" value="?" title="Check the link"/>
+                    <input type="hidden" name="i" value="[% d.id %]">
+                    <input type="hidden" name="u" value="[% d.url %]">
+                    <input type="submit" name="submit" value="?" title="Check the link">
                 </form>
             </div>
         </div>
