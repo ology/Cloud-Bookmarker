@@ -29,7 +29,7 @@
                     <br>
                     <input type="text" name="tags" size="60" placeholder="Space separated tags">
                     <br>
-                    <div style="text-align: right;">
+                    <div style="text-align: center;">
                         <input type="submit" name="submit" id="new" value="+" disabled>
                     </div>
                 </form>
