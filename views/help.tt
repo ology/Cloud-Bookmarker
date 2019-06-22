@@ -13,3 +13,13 @@ The Chrome and Firefox extensions are provided as ZIP files.
 In order to install and use them you must first unzip them on your local machine.
 Next open the popup.html and popup.js files in a text editor, 1. change "123" to your account id,
 and 2. change the instances of "localhost:5000" to your internet server host name.
+<p>
+Then open <a href="chrome://extensions/">chrome://extensions/</a> (for Chrome), or
+<a href="about:debugging">about:debugging</a> (for Firefox).  In Chrome, switch to "Developer Mode."
+<p>
+Now load the extension.  In Chrome click the "Load unpacked" button and select the extension directory.
+In Firefox click the "Load temporary Add-on..." button and select the manifest.json file in the
+extension directory.
+<p>
+Note that Firefox will actually unload the extension if you close the browser.  This is not a problem
+for Chrome.
