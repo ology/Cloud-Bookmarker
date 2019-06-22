@@ -8,6 +8,7 @@ use Dancer2::Plugin::Auth::Extensible::Provider::Database;
 use Dancer2::Plugin::Database;
 use File::Temp qw/ tempfile /;
 use File::Slurper qw/ write_text /;
+use File::Find::Rule;
 use HTTP::Simple qw/ getprint is_error /;
 use List::Util;
 use Netscape::Bookmarks;
@@ -37,6 +38,8 @@ List items.
 get '/' => require_login sub {
     my $user = logged_in_user;
 
+    _purge_tempfiles();
+
     my $sth = database->prepare(SQL1);
     $sth->execute( $user->{account} );
     my $res = $sth->fetchall_hashref('id');
@@ -49,6 +52,19 @@ get '/' => require_login sub {
         search => '',
     };
 };
+
+sub _purge_tempfiles {
+    my $now   = time();
+    my $age   = 300;
+    my @files = File::Find::Rule->file()->name('*.tmp')->in('public/export');
+
+    for my $file ( @files ) {
+        my @stats = stat($file);
+        if ( $now - $stats[9] > $age ) {
+            unlink $file;
+        }
+    }
+}
 
 =head2 ANY /search
 
@@ -285,7 +301,7 @@ post '/export' => require_login sub {
         $bookmarks->add($link);
     }
 
-    my ( $fh, $filename ) = tempfile( DIR => 'public/export' );
+    my ( $fh, $filename ) = tempfile( DIR => 'public/export', SUFFIX => '.tmp' );
     write_text( $filename, $bookmarks->as_string );
     my $mode = 0644;
     chmod $mode, $filename;
