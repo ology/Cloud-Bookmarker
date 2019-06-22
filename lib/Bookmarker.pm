@@ -266,6 +266,12 @@ post '/check' => require_login sub {
     };
 };
 
+=head2 POST /export
+
+Export items.
+
+=cut
+
 post '/export' => require_login sub {
     my $query = body_parameters->get('q');
 
@@ -295,6 +301,12 @@ post '/export' => require_login sub {
 
     send_file( \$html, content_type => 'text/plain', filename => 'exported-bookmarks.html' );
 };
+
+=head2 POST /import
+
+Import items.
+
+=cut
 
 post '/import' => require_login sub {
     my $user = logged_in_user;
