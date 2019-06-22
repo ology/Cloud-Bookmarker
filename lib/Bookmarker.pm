@@ -349,6 +349,8 @@ __END__
 
 =head1 SEE ALSO
 
+L<Crypt::SaltedHash>
+
 L<Dancer2>
 
 L<Dancer2::Plugin::Auth::Extensible>
@@ -362,6 +364,8 @@ L<DBD::SQLite>
 L<HTTP::Simple>
 
 L<List::Util>
+
+L<Netscape::Bookmarks>
 
 L<Try::Tiny>
 
