@@ -25,12 +25,12 @@
         <form action="/new" method="post" title="Create a new bookmark">
         <input type="text" name="title" size="60" placeholder="Title"/>
         <br>
-        <input type="text" name="url" size="60" placeholder="URL"/>
+        <input type="text" name="url" id="url" size="60" placeholder="URL"/>
         <br>
         <input type="text" name="tags" size="60" placeholder="Space separated tags"/>
         <br>
         <div style="text-align: right;">
-            <input type="submit" name="submit" value="+"/>
+            <input type="submit" name="submit" id="new" value="+" disabled//>
         </div>
     </form>
     </div>
@@ -102,6 +102,13 @@
 <script>
 $(document).ready(
     function(){
+        $('#url').change(
+            function(){
+                if ($(this).val()) {
+                    $('#new').attr('disabled', false);
+                } 
+            }
+        );
         $('#bookmarks').change(
             function(){
                 if ($(this).val()) {
