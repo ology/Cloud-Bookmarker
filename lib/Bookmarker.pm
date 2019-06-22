@@ -299,7 +299,7 @@ post '/export' => require_login sub {
 
     my $html = $bookmarks->as_string;
 
-    send_file( \$html, content_type => 'text/plain', filename => 'exported-bookmarks.html' );
+    return send_file( \$html, content_type => 'text/html', filename => 'exported-bookmarks.html' );
 };
 
 =head2 POST /import
