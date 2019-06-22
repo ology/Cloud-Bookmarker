@@ -2,7 +2,6 @@ package Bookmarker;
 
 # ABSTRACT: Manage bookmarks in the cloud
 
-use Crypt::SaltedHash;
 use Dancer2;
 use Dancer2::Plugin::Auth::Extensible;
 use Dancer2::Plugin::Auth::Extensible::Provider::Database;
@@ -357,8 +356,6 @@ true;
 __END__
 
 =head1 SEE ALSO
-
-L<Crypt::SaltedHash>
 
 L<Dancer2>
 
