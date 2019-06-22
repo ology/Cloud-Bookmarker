@@ -43,10 +43,9 @@ get '/' => require_login sub {
     info request->remote_address, " read $user->{account}";
 
     template index => {
-        account => $user->{account},
-        data    => [ sort { $a->{id} <=> $b->{id} } values %$res ],
-        check   => '',
-        search  => '',
+        data   => [ sort { $a->{id} <=> $b->{id} } values %$res ],
+        check  => '',
+        search => '',
     };
 };
 
@@ -67,10 +66,9 @@ any '/search' => require_login sub {
     info request->remote_address, " searched $user->{account} for '$query'";
 
     template index => {
-        account => $user->{account},
-        data    => $data,
-        check   => '',
-        search  => $query,
+        data   => $data,
+        check  => '',
+        search => $query,
     };
 };
 
@@ -258,10 +256,9 @@ post '/check' => require_login sub {
     info request->remote_address, " checked $user->{account} $item";
 
     template index => {
-        account => $user->{account},
-        data    => $data,
-        check   => $check,
-        search  => '',
+        data   => $data,
+        check  => $check,
+        search => '',
     };
 };
 
@@ -345,7 +342,6 @@ post '/import' => require_login sub {
 Show help.
 
 =cut
-
 
 get '/help' => sub {
     template 'help';
