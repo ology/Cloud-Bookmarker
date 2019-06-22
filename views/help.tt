@@ -1,5 +1,8 @@
 <h1>Help</h1>
 
+<h2>Import</h2>
+The import method parses a Mozilla HTML bookmark file.
+
 <h2>Export</h2>
 Export uses your current search and creates a Mozilla HTML bookmark file from the displayed links.
 <p>
