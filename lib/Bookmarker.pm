@@ -267,6 +267,10 @@ post '/export' => require_login sub {
     return $bookmarks->as_string;
 };
 
+get '/help' => sub {
+    template 'help';
+};
+
 true;
 
 __END__
