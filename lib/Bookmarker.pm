@@ -276,7 +276,7 @@ post '/export' => require_login sub {
 
     my $bookmarks = Netscape::Bookmarks::Category->new({
         add_date    => time(),
-        description => 'Imported from Cloudbookmarker',
+        description => 'Exported from Cloudbookmarker',
         folded      => 0,
         title       => 'Root',
     });
