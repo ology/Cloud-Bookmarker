@@ -9,7 +9,6 @@ use Dancer2::Plugin::Database;
 use File::Find::Rule;
 use File::Temp qw/ tempfile /;
 use File::Slurper qw/ write_text /;
-use HTTP::Simple qw/ getstore is_error /;
 use List::Util;
 use Netscape::Bookmarks;
 use Try::Tiny;
@@ -239,42 +238,6 @@ post '/delete' => require_login sub {
     redirect $query ? "/search?q=$query" : '/';
 };
 
-=head2 POST /check
-
-Check item.
-
-=cut
-
-post '/check' => require_login sub {
-    my $item  = body_parameters->get('i');
-    my $check = '';
-
-    my $user = logged_in_user;
-
-    send_error( 'No item id provided', 400 ) unless $item;
-
-    my $sql = SQL1 . ' AND id = ?';
-    my $sth = database->prepare($sql);
-    $sth->execute( $user->{account}, $item );
-    my $res = $sth->fetchall_hashref('id');
-
-    my $data = [ values %$res ];
-
-    my ( $fh, $filename ) = tempfile( DIR => PATH, SUFFIX => EXT );
-
-    if ( is_error( eval { getstore( $data->[0]{url}, $filename ) } ) ) {
-        $check = $item;
-    };
-
-    info request->remote_address, " checked $user->{account} $item";
-
-    template index => {
-        data   => $data,
-        check  => $check,
-        search => '',
-    };
-};
-
 =head2 POST /export
 
 Export items.
@@ -376,8 +339,6 @@ L<Dancer2::Plugin::Auth::Extensible::Provider::Database>
 L<Dancer2::Plugin::Database>
 
 L<DBD::SQLite>
-
-L<HTTP::Simple>
 
 L<List::Util>
 

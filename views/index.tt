@@ -86,12 +86,6 @@
             <div class="cellblue">
     [% END %]
                 <a href="[% d.url %]" class="button" target="_blank" title="Visit the link">&nbsp;>&nbsp;</a>
-                <p>
-                <form action="/check" method="post">
-                    <input type="hidden" name="i" value="[% d.id %]">
-                    <input type="hidden" name="u" value="[% d.url %]">
-                    <input type="submit" name="submit" value="?" title="Check the link">
-                </form>
             </div>
         </div>
         <p>

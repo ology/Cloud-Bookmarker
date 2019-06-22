@@ -4,7 +4,6 @@ requires "Dancer2::Plugin::Auth::Extensible::Provider::Database" => "0";
 requires "Dancer2::Plugin::Database" => "0";
 requires "Try::Tiny" => "0";
 requires "List::Util" => "0";
-requires "HTTP::Simple" => "0";
 requires "DBD::SQLite" => "0";
 requires "DBI" => "0";
 requires "Netscape::Bookmarks" => "0";
