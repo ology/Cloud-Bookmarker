@@ -9,7 +9,7 @@ use Dancer2::Plugin::Database;
 use File::Find::Rule;
 use File::Temp qw/ tempfile /;
 use File::Slurper qw/ write_text /;
-use HTTP::Simple qw/ getprint is_error /;
+use HTTP::Simple qw/ getstore is_error /;
 use List::Util;
 use Netscape::Bookmarks;
 use Try::Tiny;
@@ -260,7 +260,9 @@ post '/check' => require_login sub {
 
     my $data = [ values %$res ];
 
-    if ( is_error( eval { getprint $data->[0]{url} } ) ) {
+    my ( $fh, $filename ) = tempfile( DIR => PATH, SUFFIX => EXT );
+
+    if ( is_error( eval { getstore( $data->[0]{url}, $filename ) } ) ) {
         $check = $item;
     };
 
