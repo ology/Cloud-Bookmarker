@@ -19,7 +19,7 @@
     <div class="table">
 [% IF ! search && request.uri != '/check' %]
         <div class="row">
-            <div class="leftcellblue">
+            <div>
             </div>
             <div class="cellblue">
                 <form action="/new" method="post" title="Create a new bookmark">
@@ -34,7 +34,7 @@
                     </div>
                 </form>
             </div>
-            <div class="cellblue">
+            <div>
             </div>
         </div>
         <p>
