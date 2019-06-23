@@ -90,13 +90,13 @@
 <script>
 $(document).ready(
     function() {
-        $('#url').change(
-            function() {
-                if ($(this).val()) {
-                    $('#new').attr('disabled', false);
-                } 
-            }
-        );
+//        $('#url').change(
+//            function() {
+//                if ($(this).val()) {
+//                    $('#new').attr('disabled', false);
+//                } 
+//            }
+//        );
         $('#bookmarks').change(
             function() {
                 if ($(this).val()) {
