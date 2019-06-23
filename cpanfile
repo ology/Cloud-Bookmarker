@@ -10,6 +10,8 @@ requires "Netscape::Bookmarks" => "0";
 requires "File::Temp" => "0";
 requires "File::Slurper" => "0";
 requires "File::Find::Rule" => "0";
+requires "HTML::HeadParser" => "0";
+requires "LWP::UserAgent" => "0";
 
 recommends "YAML"             => "0";
 recommends "URL::Encode::XS"  => "0";
