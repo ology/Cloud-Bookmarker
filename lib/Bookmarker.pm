@@ -9,7 +9,9 @@ use Dancer2::Plugin::Database;
 use File::Find::Rule;
 use File::Temp qw/ tempfile /;
 use File::Slurper qw/ write_text /;
+use HTML::HeadParser;
 use List::Util;
+use LWP::UserAgent ();
 use Netscape::Bookmarks;
 use Try::Tiny;
 
@@ -48,7 +50,7 @@ get '/' => require_login sub {
     info request->remote_address, " read $user->{account}";
 
     template index => {
-        data   => [ sort { $a->{id} <=> $b->{id} } values %$res ],
+        data   => [ sort { $b->{id} <=> $a->{id} } values %$res ],
         check  => '',
         search => '',
     };
@@ -112,7 +114,7 @@ sub _search_data {
 
     my $data = [];
 
-    for my $r ( sort { $a->{id} <=> $b->{id} } values %$res ) {
+    for my $r ( sort { $b->{id} <=> $a->{id} } values %$res ) {
         if ( !@query ||
             ( @query && (
                 ( $is_quoted && ( $r->{title} =~ /\Q$query\E/ || $r->{url} =~ /\Q$query\E/ || $r->{tags} =~ /\Q$query\E/ ) )
@@ -197,13 +199,26 @@ Create a new item from the UI.
 =cut
 
 post '/new' => require_login sub {
-    my $title = body_parameters->get('title') || 'Untitled';
+    my $title = body_parameters->get('title');
     my $url   = body_parameters->get('url');
     my $tags  = body_parameters->get('tags') || '';
 
     my $user = logged_in_user;
 
     send_error( 'No URL provided', 400 ) unless $url;
+
+    my $ua = LWP::UserAgent->new( timeout => 10 );
+
+    my $response = $ua->get($url);
+
+    $title = $response->code . ' - ' . $response->message
+        if $response->is_error;
+
+    if ( !$title ) {
+        my $p = HTML::HeadParser->new;
+        $p->parse( $response->content );
+        $title = $p->header('Title');
+    }
 
     my $id = time();
 
@@ -340,7 +355,17 @@ L<Dancer2::Plugin::Database>
 
 L<DBD::SQLite>
 
+L<File::Find::Rule>
+
+L<File::Temp>
+
+L<File::Slurper>
+
+L<HTML::HeadParser>
+
 L<List::Util>
+
+L<LWP::UserAgent>
 
 L<Netscape::Bookmarks>
 
