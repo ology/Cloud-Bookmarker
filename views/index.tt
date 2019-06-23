@@ -29,7 +29,7 @@
             </div>
             <div class="cellblue">
                 <form action="/new" method="post" title="Create a new bookmark">
-                    <input type="text" name="title" size="60" placeholder="Title">
+                    <input type="text" name="title" size="60" placeholder="Title (Auto-populated if left blank)">
                     <br>
                     <input type="text" name="url" id="url" size="60" placeholder="URL">
                     <br>
@@ -45,9 +45,8 @@
         </div>
         <p>
 [% END %]
-[% i = 0 %]
+[% i = data.size %]
 [% FOREACH d IN data %]
-    [% i = i + 1 %]
         <div class="row">
             <div class="leftcellblue">
                 <form action="/delete" method="post" title="Delete this bookmark">
@@ -83,6 +82,7 @@
             </div>
         </div>
         <p>
+    [% i = i - 1 %]
 [% END %]
     </div>
 </div>
