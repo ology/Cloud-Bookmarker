@@ -105,6 +105,12 @@ $(document).ready(
             function() {
                 $('#new_bookmark1').toggle();
                 $('#new_bookmark2').toggle();
+                if ( $("#toggle").html() == '+' ) {
+                    $("#toggle").html('-');
+                }
+                else {
+                    $("#toggle").html('+');
+                }
             }
         );
         $('#bookmarks').change(
