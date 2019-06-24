@@ -1,15 +1,18 @@
+<div class="logo">
+<a href="/"><img src="/favicon.ico" height="32" width="32" align="middle"></a>
+</div>
+<form action="/search" method="post">
+    <input type="text" name="q" value="[% search %]" size="50" placeholder="Search terms, &#34;quoted literal&#34; or /regular expression/" autofocus>
+    <input type="submit" name="submit" value="Search">
+</form>
+
 <div class="tablewrapper">
     <div class="table">
+
         <div class="row">
             <div class="cellclear">
-                <a href="/"><img src="/favicon.ico" height="32" width="32" align="middle"></a>
             </div>
             <div class="cellclear">
-                <form action="/search" method="post">
-                    <input type="text" name="q" value="[% search %]" size="50" placeholder="Search terms, &#34;quoted literal&#34; or /regular expression/" autofocus>
-                    <input type="submit" name="submit" value="Search">
-                </form>
-                <p>
                 <form action="/import" method="post" enctype="multipart/form-data">
                     <input type="file" name="bookmarks" id="bookmarks">
                     <input type="hidden" name="q" value="[% search %]">
@@ -23,6 +26,7 @@
             <div class="cellclear">
             </div>
         </div>
+
 [% IF ! search %]
         <div class="row">
             <div>
@@ -43,6 +47,7 @@
             <div>
             </div>
         </div>
+
         <p>
 [% END %]
 [% i = data.size %]
