@@ -5,12 +5,7 @@
     <input type="text" name="q" value="[% search %]" size="50" placeholder="Search terms, &#34;quoted literal&#34; or /regular expression/" autofocus>
     <input type="submit" name="submit" value="Search">
 </form>
-[% IF search %]
-<p>
-[% ELSE %]
-&nbsp;
 <button id="toggle">+</button>
-[% END %]
 
 <div class="tablewrapper">
     <div class="table">
@@ -33,7 +28,6 @@
             </div>
         </div>
 
-[% IF ! search %]
         <div id="new_bookmark2" class="row" style="display: none">
             <div>
             </div>
@@ -54,7 +48,6 @@
             </div>
         </div>
         <p>
-[% END %]
 
 [% i = data.size %]
 [% FOREACH d IN data %]
