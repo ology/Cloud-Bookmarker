@@ -26,3 +26,13 @@ extension directory.
 <p>
 Note that Firefox will actually unload the extension if you close the browser.  This is not a problem
 for Chrome.
+<p>
+To "smoothly" use the Firefox extension in Windows perform the following setup gymanstics:
+<ul>
+    <li>Copy and unzip the Firefox extension and set it up as described above.</li>
+    <li>Copy the <a href="https://github.com/ology/Cloud-Bookmarker/blob/master/start-firefox.bat">start-firefox.bat</a> file to your Documents directory.
+    <li>Install <a href="https://nodejs.org/en/download/">Node.js</a></li>
+    <li>Install web-ext with this command in a cmd.exe window: `npm install --global web-ext`</li>
+    <li>Create a shortcut in your documents directory and give it this command: `cmd /c %userprofile%\documents\start-firefox.bat`</li>
+    <li>Lastly, drag this shortcut to your desktop or taskbar.</li>
+</ul>
