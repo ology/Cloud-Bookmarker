@@ -8,6 +8,7 @@
 [% IF search %]
 <p>
 [% ELSE %]
+&nbsp;
 <button id="toggle">+</button>
 [% END %]
 
