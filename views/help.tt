@@ -12,7 +12,7 @@ Export uses your current search and creates a Mozilla HTML bookmark file from th
 The Mozilla HTML bookmark format does not support tags, unfortunately.
 
 <h2>Browser Extensions</h2>
-The Chrome and Firefox extensions are provided as ZIP files.
+The Chrome and Firefox extensions are provided as ZIP files in the links at the bottom.
 <p>
 In order to install and use them you must first unzip them on your local machine.
 Next open the popup.html and popup.js files in a text editor, 1. change "123" to your account id,
