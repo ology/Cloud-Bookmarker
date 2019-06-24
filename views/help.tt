@@ -2,6 +2,8 @@
 
 <h2>Import</h2>
 The import method parses a Mozilla HTML bookmark file.
+<p>
+The Mozilla HTML bookmark format does not support tags, unfortunately.
 
 <h2>Export</h2>
 Export uses your current search and creates a Mozilla HTML bookmark file from the displayed links.
