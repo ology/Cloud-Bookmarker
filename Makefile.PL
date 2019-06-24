@@ -23,6 +23,7 @@ WriteMakefile(
         'Dancer2::Plugin::Database' => 0,
         'HTML::HeadParser' => 0;
         'HTTP::Simple' => 0,
+        'LWP::Protocol::https' => 0,
         'LWP::UserAgent' => 0,
         'List::Util' => 0,
         'Test::More' => 0,
