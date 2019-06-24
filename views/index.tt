@@ -5,11 +5,16 @@
     <input type="text" name="q" value="[% search %]" size="50" placeholder="Search terms, &#34;quoted literal&#34; or /regular expression/" autofocus>
     <input type="submit" name="submit" value="Search">
 </form>
+[% IF search %]
+<p>
+[% ELSE %]
+<button id="toggle">+</button>
+[% END %]
 
 <div class="tablewrapper">
     <div class="table">
 
-        <div class="row">
+        <div id="new_bookmark1" class="row" style="display: none">
             <div class="cellclear2">
             </div>
             <div class="cellclear2">
@@ -28,7 +33,7 @@
         </div>
 
 [% IF ! search %]
-        <div class="row">
+        <div id="new_bookmark2" class="row" style="display: none">
             <div>
             </div>
             <div class="cellblue">
@@ -48,8 +53,8 @@
             </div>
         </div>
         <p>
-
 [% END %]
+
 [% i = data.size %]
 [% FOREACH d IN data %]
         <div class="row">
@@ -95,6 +100,12 @@
 <script>
 $(document).ready(
     function() {
+        $('#toggle').click(
+            function() {
+                $('#new_bookmark1').toggle();
+                $('#new_bookmark2').toggle();
+            }
+        );
         $('#bookmarks').change(
             function() {
                 if ($(this).val()) {
