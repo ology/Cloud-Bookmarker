@@ -76,6 +76,12 @@ a.button {
   display: table-cell;
   padding: 10px;
 }
+.cellclear2 {
+  display: table-cell;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px;
+}
 .leftcellblue {
   display: table-cell;
   border-radius: 5px;

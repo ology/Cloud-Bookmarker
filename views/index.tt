@@ -10,9 +10,9 @@
     <div class="table">
 
         <div class="row">
-            <div class="cellclear">
+            <div class="cellclear2">
             </div>
-            <div class="cellclear">
+            <div class="cellclear2">
                 <form action="/import" method="post" enctype="multipart/form-data">
                     <input type="file" name="bookmarks" id="bookmarks">
                     <input type="hidden" name="q" value="[% search %]">
@@ -23,7 +23,7 @@
                     <input type="submit" name="submit" value="Export">
                 </form>
             </div>
-            <div class="cellclear">
+            <div class="cellclear2">
             </div>
         </div>
 
