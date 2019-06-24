@@ -33,6 +33,7 @@
             </div>
             <div class="cellblue">
                 <form action="/new" method="post" title="Create a new bookmark">
+                    <input type="hidden" name="q" value="[% search %]">
                     <input type="text" name="title" size="60" placeholder="Title (Auto-populated if left blank)">
                     <br>
                     <input type="text" name="url" id="url" size="60" placeholder="URL">

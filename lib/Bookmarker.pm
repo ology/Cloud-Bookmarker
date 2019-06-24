@@ -199,6 +199,7 @@ Create a new item from the UI.
 =cut
 
 post '/new' => require_login sub {
+    my $query = body_parameters->get('q');
     my $title = body_parameters->get('title');
     my $url   = body_parameters->get('url');
     my $tags  = body_parameters->get('tags') || '';
@@ -227,7 +228,7 @@ post '/new' => require_login sub {
 
     info request->remote_address, " added $user->{account} $id";
 
-    redirect '/';
+    redirect $query ? "/search?q=$query" : '/';
 };
 
 =head2 POST /delete
