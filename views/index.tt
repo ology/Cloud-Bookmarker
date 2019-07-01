@@ -2,7 +2,7 @@
 <a href="/"><img src="/favicon.ico" height="32" width="32" align="middle"></a>
 </div>
 <form action="/search" method="post">
-    <input type="text" name="q" value="[% search %]" size="50" placeholder="Search terms, &#34;quoted literal&#34; or /regular expression/" autofocus>
+    <input type="text" name="q" id="query" value="[% search %]" size="50" placeholder="Search terms, &#34;quoted literal&#34; or /regular expression/" autofocus>
     <input type="submit" name="submit" value="Search">
 </form>
 <button id="toggle">+</button>
@@ -105,6 +105,7 @@ $(document).ready(
                 }
                 else {
                     $("#toggle").html('+');
+                    $("#query").focus();
                 }
             }
         );
