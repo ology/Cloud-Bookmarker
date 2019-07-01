@@ -101,6 +101,7 @@ $(document).ready(
                 $('#new_bookmark2').toggle();
                 if ( $("#toggle").html() == '+' ) {
                     $("#toggle").html('-');
+                    $("#url").focus();
                 }
                 else {
                     $("#toggle").html('+');
