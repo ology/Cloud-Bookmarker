@@ -64,7 +64,7 @@
             </div>
             <div class="cellblue">
                 <form action="/update" method="post">
-                    <input type="text" name="n" value="[% d.title %]" size="60" placeholder="Title" pattern=".*">
+                    <input type="text" name="n" value="[% d.title %]" size="60" placeholder="Title">
                     <input type="hidden" name="i" value="[% d.id %]">
                     <input type="hidden" name="q" value="[% search %]">
                     <input type="hidden" name="u" value="title">
