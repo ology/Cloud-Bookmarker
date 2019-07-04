@@ -9,9 +9,9 @@ Example command line usage:
 
 Better yet, use the Chrome external extension that comes with this repo.
 
-Browse the bookmarks at http://0:5000/?a=123 by clicking the "Bookmarks" button in the extension.
+Browse the bookmarks at http://0:5000/ by clicking the "Bookmarks" button in the extension.
 
-* You will need to login.  The password for 123 is abc123.
+* You will need to login.  The password for account 123 is abc123.
 
 To delete a bookmark, click the "x" button.
 
