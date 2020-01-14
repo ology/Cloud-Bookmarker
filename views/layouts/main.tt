@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <title>[% settings.appname %]</title>
 
+  <link rel="stylesheet" href="[% request.uri_base %]/css/normalize.css">
+  <link rel="stylesheet" href="[% request.uri_base %]/css/skeleton.css">
   <link rel="stylesheet" href="[% request.uri_base %]/css/style.css">
 
 <!-- Grab jQuery from a CDN, fall back to local if necessary -->
