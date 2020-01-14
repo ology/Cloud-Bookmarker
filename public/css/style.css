@@ -74,32 +74,32 @@ a.button {
 
 .cellclear {
   display: table-cell;
-  padding: 10px;
+  padding: 3px;
 }
 .cellclear2 {
   display: table-cell;
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-bottom: 10px;
+  padding-left: 3px;
+  padding-right: 3px;
+  padding-bottom: 3px;
 }
 .leftcellblue {
   display: table-cell;
   border-radius: 5px;
   background-color: lightblue;
-  padding: 10px;
+  padding: 3px;
   text-align: center;
 }
 .cellblue {
   display: table-cell;
   border-radius: 5px;
   background-color: lightblue;
-  padding: 10px;
+  padding: 3px;
 }
 .rightcellblue {
   display: table-cell;
   border-radius: 5px;
   background-color: lightblue;
-  padding: 10px;
+  padding: 3px;
 //  width: 30px;
 }
 
