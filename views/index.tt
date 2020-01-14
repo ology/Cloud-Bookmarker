@@ -5,7 +5,7 @@
     <input type="text" name="q" id="query" value="[% search %]" size="50" placeholder="Search terms, &#34;quoted literal&#34; or /regular expression/" autofocus>
     <input type="submit" name="submit" value="Search">
 </form>
-<button id="toggle">+</button>
+| <button id="toggle">+</button>
 
 <div class="tablewrapper">
     <div class="table">
