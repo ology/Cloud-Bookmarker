@@ -41,7 +41,7 @@
                     <input type="text" name="tags" size="60" placeholder="Space separated tags">
                     <br>
                     <div style="text-align: center;">
-                        <input type="submit" name="submit" id="new" value="+">
+                        <input type="submit" name="submit" id="new" value="Add Bookmark">
                     </div>
                 </form>
             </div>
