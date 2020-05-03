@@ -90,7 +90,7 @@ a.button {
 }
 .cellblue {
   display: table-cell;
-//  border-radius: 5px;
+  border-radius: 5px;
   background-color: lightblue;
   padding: 3px;
 }
