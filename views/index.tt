@@ -37,8 +37,10 @@
                     <input type="text" name="title" size="60" placeholder="Title (Auto-populated if left blank)">
                     <br>
                     <input type="text" name="url" id="url" size="60" placeholder="URL">
+<!--
                     <br>
                     <input type="text" name="tags" size="60" placeholder="Space separated tags">
+-->
                     <br>
                     <div style="text-align: center;">
                         <input type="submit" name="submit" id="new" value="Add Bookmark">
@@ -75,12 +77,14 @@
                     <input type="hidden" name="i" value="[% d.id %]">
                     <input type="hidden" name="u" value="url">
                 </form>
+<!--
                 <br>
                 <form action="/update" method="post">
                     <input type="text" name="n" value="[% d.tags %]" size="60" placeholder="Space separated tags">
                     <input type="hidden" name="i" value="[% d.id %]">
                     <input type="hidden" name="u" value="tags">
                 </form>
+-->
             </div>
             <div class="rightcellblue">
                 <a href="[% d.url %]" class="button" target="_blank" title="Visit the link">&nbsp;>&nbsp;</a>
