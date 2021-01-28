@@ -73,26 +73,41 @@ a.button {
 
 .cellclear {
   display: table-cell;
+  padding-top: 3px;
+  padding-left: 3px;
+  padding-right: 3px;
 }
 .cellclear2 {
   display: table-cell;
+  padding-top: 3px;
+  padding-left: 3px;
+  padding-right: 3px;
 }
 .leftcellblue {
   display: table-cell;
   border-radius: 5px;
   background-color: lightblue;
   text-align: center;
+  padding-top: 3px;
+  padding-left: 3px;
+  padding-right: 3px;
 }
 .cellblue {
   display: table-cell;
   border-radius: 5px;
   background-color: lightblue;
+  padding-top: 3px;
+  padding-left: 3px;
+  padding-right: 3px;
 }
 .rightcellblue {
   display: table-cell;
   border-radius: 5px;
   background-color: lightblue;
 //  width: 30px;
+  padding-top: 3px;
+  padding-left: 3px;
+  padding-right: 3px;
 }
 
 .xxsmall_font {
