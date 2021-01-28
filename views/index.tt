@@ -61,7 +61,7 @@
                     <input type="hidden" name="q" value="[% search %]">
                     <input type="submit" name="submit" value="x" onclick="if(!confirm('Are you sure?')) return false;">
                 </form>
-                <p>
+                <br>
                 <span class="xxsmall_font">[% i %]</span>
             </div>
             <div class="cellblue">
