@@ -90,7 +90,6 @@
                 <a href="[% d.url %]" class="button" target="_blank" title="Visit the link">&nbsp;>&nbsp;</a>
             </div>
         </div>
-        <p>
     [% i = i - 1 %]
 [% END %]
     </div>
